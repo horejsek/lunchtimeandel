@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+    each restaurant in restaurants
+        h2= restaurant.name 
+            small
+                a(href=restaurant.url, target='_blank') Stránky restaurace
+        table.table.table-bordered
+            each item in restaurant.items
+                tr
+                    th= item.name
+                    td= item.price
