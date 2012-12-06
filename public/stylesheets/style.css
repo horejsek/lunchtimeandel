@@ -2,3 +2,7 @@
   margin: 0px auto;
   width: 800px;
 }
+.price {
+  width: 50px;
+  text-align: center !important;
+}

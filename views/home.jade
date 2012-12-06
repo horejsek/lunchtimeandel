@@ -3,11 +3,12 @@ extends layout
 block content
     h1= title
     each restaurant in restaurants
-        h2= restaurant.name 
+        h2= restaurant.name
+            &nbsp;
             small
                 a(href=restaurant.url, target='_blank') Stránky restaurace
         table.table.table-bordered
-            each item in restaurant.items
+            each meal in restaurant.meals
                 tr
-                    th= item.name
-                    td= item.price
+                    td= meal.name
+                    th.price= meal.price

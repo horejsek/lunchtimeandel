@@ -1,16 +1,17 @@
+(function() {
+  var app, express, http, path, routes;
 
-/**
- * Module dependencies.
- */
+  express = require('express');
 
-var express = require('express'),
-    routes = require('./routes'),
-    http = require('http'),
-    path = require('path');
+  routes = require('./routes');
 
-var app = express();
+  http = require('http');
 
-app.configure(function(){
+  path = require('path');
+
+  app = express();
+
+  app.configure(function() {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
@@ -22,15 +23,19 @@ app.configure(function(){
     app.use(express.session());
     app.use(app.router);
     app.use(require('stylus').middleware(__dirname + '/public'));
-    app.use(express.static(path.join(__dirname, 'public')));
-});
+    return app.use(express.static(path.join(__dirname, 'public')));
+  });
 
-app.configure('development', function(){
-    app.use(express.errorHandler());
-});
+  app.configure('development', function() {
+    return app.use(express.errorHandler());
+  });
 
-app.get('/', routes.home);
+  app.get('/', routes.home);
 
-http.createServer(app).listen(app.get('port'), function(){
-    console.log("Express server listening on port " + app.get('port'));
-});
+  app.get('/load', routes.load);
+
+  http.createServer(app).listen(app.get('port'), function() {
+    return console.log("Express server listening on port " + app.get('port'));
+  });
+
+}).call(this);

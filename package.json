@@ -9,8 +9,7 @@
             "express": "3.0.3",
             "jade": "*",
             "stylus": "*",
-            "htmlparser": "*",
-            "yql": "*",
-            "cheerio": "*"
+            "cheerio": "*",
+            "mongojs": "*"
         }
 }
