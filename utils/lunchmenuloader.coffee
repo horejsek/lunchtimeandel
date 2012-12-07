@@ -27,8 +27,6 @@ class TGILoader extends LunchmenuLoader
 class HusaLoader extends LunchmenuLoader
     parse: (restaurant, $) ->
         n = (new Date()).getDay()
-        console.log '......', n
-
         $('article table').each (i, elem) ->
             if i+1 is n
                 $(this).find('tr').each (i, elem) ->
@@ -36,9 +34,20 @@ class HusaLoader extends LunchmenuLoader
                     price = $(this).find('td').last().text().trim()
                     restaurant.addMeal new Meal name, price
 
+class IlNostroLoader extends LunchmenuLoader
+    parse: (restaurant, $) ->
+        n = (new Date()).getDay()
+        $('.obsah table').each (i, elem) ->
+            if i+1 is n
+                $(this).find('tr').each (i, elem) ->
+                    name = $(this).find('td').eq(1).text().trim()
+                    price = $(this).find('td').last().text().trim()
+                    restaurant.addMeal new Meal name, price
+
 
 exports.load = () ->
     r = new Restaurants db
     r.clear()
-    (new TGILoader).load 'TGI Friday', 'http://www.tgifridays.cz/cs/na-andelu/obedove-menu-andel/'
-    (new HusaLoader).load 'Husa', 'http://www.phnaverandach.cz/cz/menu/daily-menu'
+    (new TGILoader).load 'T.G.I. Friday', 'http://www.tgifridays.cz/cs/na-andelu/obedove-menu-andel/'
+    (new HusaLoader).load 'Potrefená Husa', 'http://www.phnaverandach.cz/cz/menu/daily-menu'
+    (new IlNostroLoader).load 'Il Nostro', 'http://www.ilnostro.cz/cz/tydenni-menu'

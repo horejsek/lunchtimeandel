@@ -2,10 +2,11 @@
 Meal = require('./meal').Meal
 
 class Restaurant
-    constructor: (db, name, url) ->
+    constructor: (db, name, url, lastUpdate) ->
         @db_ = db
         @name = name
         @url = url
+        @lastUpdate = lastUpdate
         @meals = []
 
     addMeal: (meal) ->
@@ -31,5 +32,6 @@ class Restaurant
         name: @name
         url: @url
         meals: meals
+        lastUpdate: new Date()
 
 exports.Restaurant = Restaurant
