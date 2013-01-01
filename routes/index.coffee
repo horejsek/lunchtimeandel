@@ -12,5 +12,6 @@ exports.home = (req, res) ->
             restaurants: restaurants
 
 exports.reloaddata = (req, res) ->
+    res.send 'Reloading...'
     loader()
-    res.send 'Reloaded.'
+

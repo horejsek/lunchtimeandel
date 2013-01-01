@@ -4,5 +4,6 @@
 }
 .price {
   width: 50px;
+  font-weight: bold;
   text-align: center !important;
 }

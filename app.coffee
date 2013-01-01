@@ -24,7 +24,7 @@ app.configure 'development', ->
     app.use express.errorHandler()
 
 app.get '/', routes.home
-app.get '/reloaddata', routes.reloaddata
+app.get '/reloaddata.', routes.reloaddata
 
 http.createServer(app).listen app.get('port'), ->
     console.log "Express server listening on port " + app.get('port')

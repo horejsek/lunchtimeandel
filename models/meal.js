@@ -5,7 +5,13 @@
 
     function Meal(name, price) {
       this.name = name;
-      this.price = price;
+      price = parseInt(price);
+      if (price) {
+        this.price = price;
+        this.printablePrice = this.price + ' Kč';
+      } else {
+        this.price = this.printablePrice = '-';
+      }
     }
 
     Meal.prototype.todb_ = function() {
