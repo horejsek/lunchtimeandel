@@ -3,6 +3,8 @@ PORT=3000
 
 all:
 	@echo "make run"
+	@echo "make watch"
+	@echo "make localdev"
 
 run: compile
 	# Make sure that nothing is running at port $(PORT).
@@ -16,3 +18,6 @@ compile:
 
 watch:
 	coffee --watch -c ./
+
+localdev:
+	npm install
