@@ -7,8 +7,7 @@ block content
             &nbsp;
             small
                 a(href=restaurant.url, target='_blank') Stránky restaurace
-        p Poslední update: #{restaurant.lastUpdate.getDate()}. #{restaurant.lastUpdate.getMonth()+1}. v 
-            strong #{restaurant.lastUpdate.getHours()}:#{restaurant.lastUpdate.getMinutes()}
+        p Poslední update: #{restaurant.getPrintalbeLastUpdate()}
         if restaurant.meals.length
             table.table.table-bordered.table-hover
                 each meal in restaurant.meals

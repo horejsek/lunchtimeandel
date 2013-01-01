@@ -9,6 +9,11 @@ class Restaurant
         @lastUpdate = lastUpdate
         @meals = []
 
+    getPrintalbeLastUpdate: () ->
+        day = @lastUpdate.getDate() + ". " + (@lastUpdate.getMonth() + 1) + "."
+        hour = @lastUpdate.toTimeString().substring(0, 5)
+        day + " v " + hour
+
     addMeal: (meal) ->
         for m in @meals
             if meal.name is m.name
