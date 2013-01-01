@@ -28,3 +28,7 @@ app.get '/reloaddata.', routes.reloaddata
 
 http.createServer(app).listen app.get('port'), ->
     console.log "Express server listening on port " + app.get('port')
+
+# Error 404 redirect to homepage.
+app.use (req, res, next) ->
+    res.redirect '/'
