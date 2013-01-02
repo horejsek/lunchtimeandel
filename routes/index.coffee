@@ -1,17 +1,23 @@
 
-db = require('../db').connection
-Restaurants = require('../models').Restaurants
+module.exports = (app, mongoose) ->
 
-loader = require('../utils/lunchmenuloader').load
+    Meal = mongoose.model 'Meal'
+    Restaurant = mongoose.model 'Restaurant'
 
+    lunchmenuloader = require('../utils/lunchmenuloader')(Meal, Restaurant)
 
-exports.home = (req, res) ->
-    restaurants = new Restaurants(db).get (err, restaurants) ->
-        res.render 'home',
-            title: 'LunchtimeAnděl'
-            restaurants: restaurants
+    # Error 404 redirect to homepage.
+    app.use (req, res, next) ->
+        res.redirect '/'
 
-exports.reloaddata = (req, res) ->
-    res.send 'Reloading...'
-    loader()
+    app.get '/', (req, res) ->
+        Restaurant.find {}, (err, restaurants) ->
+            res.render 'home.jade',
+                title: 'LunchtimeAnděl'
+                restaurants: restaurants
 
+    app.get '/reloaddata', (req, res) ->
+        lunchmenuloader()
+        res.send 'Reloading...'
+
+    @

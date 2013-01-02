@@ -13,7 +13,7 @@ block content
                 each meal in restaurant.meals
                     tr(class="#{meal.price<100 ? 'success' : ''}")
                         td= meal.name
-                        td.price= meal.printablePrice
+                        td.price= meal.getPrintablePrice()
         else
             p.well 
                 em Denní menu není k dispozici.
