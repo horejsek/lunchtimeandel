@@ -21,3 +21,6 @@ watch:
 
 localdev:
 	npm install
+	npm install supervisor -g
+	apt-get install mongodb
+

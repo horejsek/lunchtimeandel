@@ -6,11 +6,13 @@
             "start": "node app"
         },
         "dependencies": {
+            "cron": "*",
             "express": "3.0.3",
-            "jade": "*",
-            "stylus": "*",
             "cheerio": "*",
+            "jade": "*",
+            "moment": "*",
             "mongoose": "*",
-            "moment": "*"
+            "request": "*",
+            "stylus": "*"
         }
 }
