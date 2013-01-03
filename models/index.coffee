@@ -20,7 +20,5 @@ module.exports = (mongoose) ->
     Restaurant.methods.getPrintalbeLastUpdate = () ->
         moment(@lastUpdate).format 'D. MMMM v H:mm'
 
-    mongoose.model 'Meal', Meal
-    mongoose.model 'Restaurant', Restaurant
-
-    @
+    Meal: mongoose.model 'Meal', Meal
+    Restaurant: mongoose.model 'Restaurant', Restaurant
