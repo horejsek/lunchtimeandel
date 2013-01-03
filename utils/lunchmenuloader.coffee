@@ -66,6 +66,7 @@ module.exports = (Meal, Restaurant) ->
 
 
     load = () ->
+        console.log 'Reloading data...'
         (new TGILoader).loadData()
         (new HusaLoader).loadData()
         (new IlNostroLoader).loadData()

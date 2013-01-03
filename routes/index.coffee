@@ -1,4 +1,6 @@
 
+cronJob = require('cron').CronJob
+
 module.exports = (app, mongoose) ->
 
     Meal = mongoose.model 'Meal'
@@ -6,7 +8,7 @@ module.exports = (app, mongoose) ->
 
     lunchmenuloader = require('../utils/lunchmenuloader')(Meal, Restaurant)
 
-    # Error 404 redirect to homepage.
+    # Non exists page redirect to homepage.
     app.use (req, res, next) ->
         res.redirect '/'
 
@@ -16,8 +18,6 @@ module.exports = (app, mongoose) ->
                 title: 'LunchtimeAnděl'
                 restaurants: restaurants
 
-    app.get '/reloaddata', (req, res) ->
-        lunchmenuloader()
-        res.send 'Reloading...'
+    job = new cronJob '0 0 8-12 * * *', lunchmenuloader, null, true, 'Europe/Prague'
 
     @
