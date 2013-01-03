@@ -19,6 +19,8 @@ module.exports = (models) ->
                 that.parse restaurant.meals, $
                 restaurant.save()
 
+        parse: (meals, $) -> 
+
     class TGILoader extends LunchmenuLoader
         constructor: () ->
             @name = 'T.G.I. Friday'
@@ -60,10 +62,32 @@ module.exports = (models) ->
                             name: $(this).find('td').eq(1).text().trim()
                             price: $(this).find('td').last().text().trim()
 
+    class UBilehoLvaLoader extends LunchmenuLoader
+        constructor: () ->
+            @name = 'U Bílého lva'
+            @url = 'http://www.ubileholva.com/index.cfm/co-bude-dnes-k-obedu/'
+
+    class AndelkaLoader extends LunchmenuLoader
+        constructor: () ->
+            @name = 'Andělka'
+            @url = 'http://www.andelka.cz/denni-menu.php'
+
+        parse: (meals, $) ->
+            $('#container tbody tr').each (i, elem) ->
+                name = $(this).find('td').eq(1).text().trim()
+                price = $(this).find('td').last().text().trim()
+                if name
+                    meals.push new models.Meal
+                        name: name
+                        price: price
+
 
     load = () ->
         console.log 'Reloading data...'
         models.Restaurant.collection.drop()
+
         (new TGILoader).loadData()
         (new HusaLoader).loadData()
         (new IlNostroLoader).loadData()
+        (new UBilehoLvaLoader).loadData()
+        (new AndelkaLoader).loadData()
