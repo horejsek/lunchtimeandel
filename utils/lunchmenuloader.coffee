@@ -99,11 +99,10 @@ module.exports = (models) ->
 
     load = () ->
         console.log 'Reloading data...'
-        models.Restaurant.collection.drop()
-
-        (new TGILoader).loadData()
-        (new HusaLoader).loadData()
-        (new IlNostroLoader).loadData()
-        (new UBilehoLvaLoader).loadData()
-        (new AndelkaLoader).loadData()
-        (new TradiceLoader).loadData()
+        models.Restaurant.collection.drop (err) ->
+            (new TGILoader).loadData()
+            (new HusaLoader).loadData()
+            (new IlNostroLoader).loadData()
+            (new UBilehoLvaLoader).loadData()
+            (new AndelkaLoader).loadData()
+            (new TradiceLoader).loadData()
