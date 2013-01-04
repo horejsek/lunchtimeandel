@@ -18,4 +18,13 @@ module.exports = (app, models) ->
                 title: 'LunchtimeAnděl'
                 restaurants: restaurants
 
+    # /reloaddata is working only in dev.
+    app.get '/reloaddata', (req, res) ->
+        host = req.header 'host'
+        if host.match /^127\..*/i
+            res.send 'Reloading...'
+            require('../utils/lunchmenuloader')(models)()
+        else
+            res.redirect '/'
+
     @
