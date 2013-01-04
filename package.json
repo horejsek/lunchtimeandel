@@ -9,6 +9,7 @@
             "cron": "*",
             "express": "3.0.3",
             "cheerio": "*",
+            "iconv": "*",
             "jade": "*",
             "moment": "*",
             "mongoose": "*",

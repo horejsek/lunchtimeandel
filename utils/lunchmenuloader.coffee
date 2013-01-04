@@ -1,5 +1,6 @@
 
 cheerio = require 'cheerio'
+Iconv  = require('iconv').Iconv
 request = require 'request'
 
 module.exports = (models) ->
@@ -81,6 +82,20 @@ module.exports = (models) ->
                         name: name
                         price: price
 
+    class ZlatyKlasLoader extends LunchmenuLoader
+        constructor: () ->
+            @name = 'Zlatý Klas'
+            @url = 'http://www.zlatyklas.cz/index.php?sec=today-menu&lang=cz'
+
+        parse: (meals, $) ->
+            iconv = new Iconv 'CP1250', 'ASCII//IGNORE'
+            $('.jidelak div.today h2.today').each (i, elem) ->
+                name = $(this).find('span').first().text().trim()
+                price = $(this).find('span').last().text().trim()
+                meals.push new models.Meal
+                    name: iconv.convert(name)
+                    price: price
+
     class TradiceLoader extends LunchmenuLoader
         constructor: () ->
             @name = 'Tradice'
@@ -105,4 +120,5 @@ module.exports = (models) ->
             (new IlNostroLoader).loadData()
             (new UBilehoLvaLoader).loadData()
             (new AndelkaLoader).loadData()
+            (new ZlatyKlasLoader).loadData()
             (new TradiceLoader).loadData()
