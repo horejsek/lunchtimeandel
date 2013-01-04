@@ -81,6 +81,21 @@ module.exports = (models) ->
                         name: name
                         price: price
 
+    class TradiceLoader extends LunchmenuLoader
+        constructor: () ->
+            @name = 'Tradice'
+            @url = 'http://www.tradiceandel.cz/cz/denni-nabidka/'
+
+        parse: (meals, $) ->
+            n = (new Date()).getDay()
+            $('.separator-section').each (i, elem) ->
+                if i+1 is n
+                    $(this).find('.item').each (i, elem) ->
+                        meals.push new models.Meal
+                            name: $(this).find('div').first().text().trim()
+                            price: $(this).find('div').last().text().trim()
+
+
 
     load = () ->
         console.log 'Reloading data...'
@@ -91,3 +106,4 @@ module.exports = (models) ->
         (new IlNostroLoader).loadData()
         (new UBilehoLvaLoader).loadData()
         (new AndelkaLoader).loadData()
+        (new TradiceLoader).loadData()
