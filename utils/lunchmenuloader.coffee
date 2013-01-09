@@ -118,6 +118,23 @@ module.exports = (models) ->
                             name: $(this).find('div').first().text().trim()
                             price: $(this).find('div').last().text().trim()
 
+    class LaCambusaLoader extends LunchmenuLoader
+        constructor: () ->
+            @name = 'La Cambusa'
+            @url = 'http://www.lacambusa.cz/jidelni-listek'
+
+        parse: (meals, $) ->
+            n = (new Date()).getDay()
+            $('.roktabs-tab' + n + ' p').each (i, elem) ->
+                row = $(this).text().trim()
+                if not row
+                    return
+                row = row.split /\ (?=[0-9 ]+,-)/
+                console.log row
+                meals.push new models.Meal
+                    name: row[0]
+                    price: row[1]
+
 
 
     load = () ->
@@ -130,3 +147,4 @@ module.exports = (models) ->
             (new AndelkaLoader).loadData()
             (new ZlatyKlasLoader).loadData()
             (new TradiceLoader).loadData()
+            (new LaCambusaLoader).loadData()
