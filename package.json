@@ -1,19 +1,26 @@
 {
     "name": "lunchtimeandel",
-        "version": "0.0.1",
-        "private": true,
-        "scripts": {
-            "start": "node app"
-        },
-        "dependencies": {
-            "cron": "*",
-            "express": "3.0.3",
-            "cheerio": "*",
-            "iconv": "*",
-            "jade": "*",
-            "moment": "*",
-            "mongoose": "*",
-            "request": "*",
-            "stylus": "*"
-        }
+    "version": "0.0.1",
+    "author": {
+        "name": "Michal Horejsek",
+        "email": "horejsekmichal@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/horejsek/lunchtimeandel.git"
+    },
+    "scripts": {
+        "start": "node app"
+    },
+    "dependencies": {
+        "cron": "*",
+        "express": "3.0.3",
+        "cheerio": "*",
+        "iconv": "*",
+        "jade": "*",
+        "moment": "*",
+        "mongoose": "*",
+        "request": "*",
+        "stylus": "*"
+    }
 }

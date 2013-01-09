@@ -11,7 +11,11 @@ module.exports = (models) ->
 
         loadData: () ->
             that = @
-            request uri: @url, (err, response, body) ->
+            foo =
+                uri: @url
+                encoding: 'binary'
+            request foo, (err, response, body) ->
+                body = that.convertToUtf8 body
                 $ = cheerio.load body
                 restaurant = new models.Restaurant
                     name: that.name
@@ -19,6 +23,12 @@ module.exports = (models) ->
                     lastUpdate: new Date()
                 that.parse restaurant.meals, $
                 restaurant.save()
+
+        convertToUtf8: (body) ->
+            charset = @charset || 'UTF8'
+            body = new Buffer body, 'binary'
+            iconv = new Iconv charset, 'UTF8'
+            body = iconv.convert(body).toString()
 
         parse: (meals, $) -> 
 
@@ -86,15 +96,13 @@ module.exports = (models) ->
         constructor: () ->
             @name = 'Zlatý Klas'
             @url = 'http://www.zlatyklas.cz/index.php?sec=today-menu&lang=cz'
+            @charset = 'CP1250'
 
         parse: (meals, $) ->
-            iconv = new Iconv 'CP1250', 'ASCII//IGNORE'
             $('.jidelak div.today h2.today').each (i, elem) ->
-                name = $(this).find('span').first().text().trim()
-                price = $(this).find('span').last().text().trim()
                 meals.push new models.Meal
-                    name: iconv.convert(name)
-                    price: price
+                    name: $(this).find('span').first().text().trim()
+                    price: $(this).find('span').last().text().trim()
 
     class TradiceLoader extends LunchmenuLoader
         constructor: () ->
