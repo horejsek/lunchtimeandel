@@ -3,17 +3,18 @@ extends layout
 block content
     h1= title
     each restaurant in restaurants
-        h2= restaurant.name
-            &nbsp;
-            small
-                a(href=restaurant.url, target='_blank') Stránky restaurace
-        p Poslední update: #{restaurant.getPrintalbeLastUpdate()}
-        if restaurant.meals.length
-            table.table.table-bordered.table-hover
-                each meal in restaurant.meals
-                    tr(class="#{meal.price<100 ? 'success' : ''}")
-                        td= meal.name
-                        td.price= meal.getPrintablePrice()
-        else
-            p.well 
-                em Denní menu není k dispozici.
+        div.restaurant
+            h2= restaurant.name
+                &nbsp;
+                small
+                    a(href=restaurant.url, target='_blank') Stránky restaurace
+            p Poslední update: #{restaurant.getPrintalbeLastUpdate()}
+            if restaurant.meals.length
+                table.table.table-bordered.table-hover
+                    each meal in restaurant.meals
+                        tr(class="#{meal.price<100 ? 'success' : ''}")
+                            td= meal.name
+                            td.price= meal.getPrintablePrice()
+            else
+                p.well 
+                    em Denní menu není k dispozici.
