@@ -1,11 +1,21 @@
 
 express = require 'express'
+i18n = require 'i18n'
 path = require 'path'
 
 moment = require 'moment'
 moment.months = ['ledna', 'ůnora', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
 
 module.exports = (app) ->
+    i18n.configure
+        locales: ['en', 'cs']
+        register: global
+        updateFiles: true
+
+    app.locals
+        __i: i18n.__
+        __n: i18n.__n
+
     app.configure ->
         app.set 'port', process.env.PORT or 3000
         app.set 'views', __dirname + '/views'
@@ -16,6 +26,7 @@ module.exports = (app) ->
         app.use express.methodOverride()
         app.use express.cookieParser('your secret here')
         app.use express.session()
+        app.use i18n.init
         app.use app.router
         app.use require('stylus').middleware(__dirname + '/public')
         app.use express.static path.join __dirname, 'public'

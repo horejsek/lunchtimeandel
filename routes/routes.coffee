@@ -15,7 +15,7 @@ module.exports = (app, models) ->
     app.get '/', (req, res) ->
         models.Restaurant.find {}, (err, restaurants) ->
             res.render 'home.jade',
-                title: 'LunchtimeAnděl'
+                title: __('LunchtimeAndel')
                 restaurants: restaurants
 
     # /reloaddata is working only in dev.
