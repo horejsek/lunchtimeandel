@@ -10,4 +10,5 @@ module.exports = (models) ->
             (new (require('./andelkaLoader')(models))()).loadData()
             (new (require('./zlatyKlasLoader')(models))()).loadData()
             (new (require('./tradiceLoader')(models))()).loadData()
+            (new (require('./hlubinaLoader')(models))()).loadData()
             (new (require('./laCambusaLoader')(models))()).loadData()
