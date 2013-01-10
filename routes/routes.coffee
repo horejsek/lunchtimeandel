@@ -23,7 +23,7 @@ module.exports = (app, models) ->
         host = req.header 'host'
         if host.match /^127\..*/i
             res.send 'Reloading...'
-            require('../utils/lunchmenuloader')(models)()
+            require('../lunchmenuloader')(models)()
         else
             res.redirect '/'
 
