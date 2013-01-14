@@ -7,8 +7,8 @@ block content
             h2= restaurant.name
                 &nbsp;
                 small
-                    a(href=restaurant.url, target='_blank') Stránky restaurace
-            p Poslední update: #{restaurant.getPrintalbeLastUpdate()}
+                    a(href=restaurant.url, target='_blank') #{__i('Restaurant pages')}
+            p #{__i('Last update')}: #{restaurant.getPrintalbeLastUpdate()}
             if restaurant.meals.length
                 table.table.table-bordered.table-hover
                     each meal in restaurant.meals
@@ -17,6 +17,6 @@ block content
                             td.price= meal.getPrintablePrice()
             else
                 p.well 
-                    em Denní menu není k dispozici.
+                    em #{__('Daily lunch menu is not available')}
     div.well
         p !{md(__i('[Fork me](%s) or [create feature request](%s) on GitHub or just [contact me](%s).', 'https://github.com/horejsek/lunchtimeandel', 'https://github.com/horejsek/lunchtimeandel/issues', 'mailto:horejsekmichal@gmail.com'))}

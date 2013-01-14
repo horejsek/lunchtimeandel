@@ -2,10 +2,10 @@
 express = require 'express'
 i18n = require 'i18n'
 path = require 'path'
-md = require('node-markdown').Markdown;
+md = require('node-markdown').Markdown
 
 moment = require 'moment'
-moment.months = ['ledna', 'ůnora', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
+moment.months = ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
 
 module.exports = (app) ->
     i18n.configure
