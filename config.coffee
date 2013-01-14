@@ -2,6 +2,7 @@
 express = require 'express'
 i18n = require 'i18n'
 path = require 'path'
+md = require('node-markdown').Markdown;
 
 moment = require 'moment'
 moment.months = ['ledna', 'ůnora', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
@@ -13,8 +14,9 @@ module.exports = (app) ->
         updateFiles: true
 
     app.locals
-        __i: i18n.__
-        __n: i18n.__n
+        __i: __
+        __n: __n
+        md: md
 
     app.configure ->
         app.set 'port', process.env.PORT or 3000
