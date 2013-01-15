@@ -18,12 +18,6 @@ Then you can already start node.js server with this command:
 
 That's all! Now you can help me to add some cool features. ;) But remember: it have to be stay for user easy to use, clean and quick to load.
 
-# Deploying
-
-I recommend (and for this app is used) appfog.com. It's website where you can by few clicks configure server and then with command `af upload appname` deploy it. For free.
-
-And of course: only I can do deploying.
-
 # Fork
 
 If you want, you can fork it and create your own lunchtime for another area.
