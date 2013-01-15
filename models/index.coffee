@@ -1,4 +1,5 @@
 
+i18n = require 'i18n'
 moment = require 'moment'
 
 module.exports = (mongoose) ->
@@ -18,7 +19,8 @@ module.exports = (mongoose) ->
         lastUpdate: Date
         meals: [Meal]
     Restaurant.methods.getPrintalbeLastUpdate = () ->
-        moment(@lastUpdate).format 'D. MMMM v H:mm'
+        moment.lang i18n.getLocale()
+        moment(@lastUpdate).format __ 'MMMM D, H:mm A'
 
     Meal: mongoose.model 'Meal', Meal
     Restaurant: mongoose.model 'Restaurant', Restaurant
