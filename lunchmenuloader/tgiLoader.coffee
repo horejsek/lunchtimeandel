@@ -4,7 +4,7 @@ module.exports = (models) ->
 
     class TGILoader extends LunchmenuLoader
         constructor: () ->
-            @name = 'T.G.I. Friday'
+            @name = 'T.G.I. Friday\'s'
             @homepage = 'http://www.tgifridays.cz/cs/na-andelu/'
             @downloadUrl = 'http://www.tgifridays.cz/cs/na-andelu/obedove-menu-andel/'
 
