@@ -14,7 +14,7 @@ module.exports = (models) ->
                 row = $(this).text().trim()
                 if not row
                     return
-                row = row.split /\(?=[0-9 ]+,-)/
+                row = row.split /\ (?=[0-9 ]+,-)/
                 meals.push new models.Meal
                     name: row[0]
                     price: row[1]
