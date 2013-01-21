@@ -13,7 +13,8 @@ run: compile
 	supervisor app.js
 
 run-forever: compile
-	forever restart app.js
+	- forever stop app.js
+	forever start app.js
 
 compile:
 	coffee -cb ./
