@@ -12,3 +12,4 @@ module.exports = (models) ->
             (new (require('./tradiceLoader')(models))()).loadData()
             (new (require('./hlubinaLoader')(models))()).loadData()
             (new (require('./laCambusaLoader')(models))()).loadData()
+            (new (require('./elBarrioLoader')(models))()).loadData()
