@@ -1,4 +1,7 @@
 
+exec = require('child_process').exec
+tikajar = require('path').dirname(require.main.filename) + '/tika-app-1.3.jar'
+
 module.exports = (models) ->
     LunchmenuLoader = require('./lunchmenuLoader')(models)
 
@@ -7,5 +10,27 @@ module.exports = (models) ->
             @name = 'U Bílého lva'
             @homepage = 'http://www.ubileholva.com'
             @downloadUrl = 'http://www.ubileholva.com/index.cfm/co-bude-dnes-k-obedu/'
+
+        parse: (meals, $) ->
+            pdflink = $('#sysDennMenu a').attr('href')
+            pdflink = @homepage + pdflink if 'http://' not in pdflink
+            @parsePdf meals, pdflink
+
+        parsePdf: (meals, pdflink) ->
+            that = @
+            command = 'curl ' + pdflink + ' | java -jar ' + tikajar + ' --text | grep -E "^[0-9]{3,4}[^0-9].*" | cut -d" " -f2-'
+            exec command, (error, stdout, stderr) ->
+                that.parseMenu meals, stdout
+                # This function is called async, so there must be extra save.
+                # Normally is restaurant save immediately after parsing.
+                that.restaurant.save()
+
+        parseMenu: (meals, data) ->
+            for line in data.split /\n/
+                line = line.split /\ (?=[0-9 ]+,-)/
+                if line[0] and line[1]
+                    meals.push new models.Meal
+                        name: line[0]
+                        price: line[1]
 
     return UBilehoLvaLoader

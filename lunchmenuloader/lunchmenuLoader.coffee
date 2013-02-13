@@ -18,12 +18,15 @@ module.exports = (models) ->
             request foo, (err, response, body) ->
                 body = that.convertToUtf8 body
                 $ = cheerio.load body
-                restaurant = new models.Restaurant
-                    name: that.name
-                    url: that.homepage
-                    lastUpdate: new Date()
+                that.restaurant = restaurant = that.createRestaurant()
                 that.parse restaurant.meals, $
                 restaurant.save()
+
+        createRestaurant: () ->
+            new models.Restaurant
+                name: @name
+                url: @homepage
+                lastUpdate: new Date()
 
         convertToUtf8: (body) ->
             charset = @charset || 'UTF8'

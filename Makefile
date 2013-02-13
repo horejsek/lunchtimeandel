@@ -23,7 +23,7 @@ watch:
 	coffee --watch -c ./
 
 install-dependencies:
+	apt-get install mongodb curl openjdk-7-jre
 	curl https://npmjs.org/install.sh | bash
-	apt-get install mongodb
 	npm install
 	npm install forever supervisor -g
