@@ -1,0 +1,6 @@
+[submodule "libs/closure-library"]
+	path = libs/closure-library
+	url = https://github.com/jarib/google-closure-library.git
+[submodule "libs/bootstrap"]
+	path = libs/bootstrap
+	url = https://github.com/twitter/bootstrap
