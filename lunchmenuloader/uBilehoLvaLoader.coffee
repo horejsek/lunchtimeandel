@@ -30,7 +30,7 @@ module.exports = (models) ->
                 line = line.split /\ (?=[0-9 ]+,-)/
                 if line[0] and line[1]
                     meals.push new models.Meal
-                        name: line[0]
+                        name: line[0].replace(/([A-Zm]) ([^ ])/g, '$1$2')
                         price: line[1]
 
     return UBilehoLvaLoader
