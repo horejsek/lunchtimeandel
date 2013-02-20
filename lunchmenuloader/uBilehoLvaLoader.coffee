@@ -1,4 +1,5 @@
 
+moment = require 'moment'
 exec = require('child_process').exec
 tikajar = require('path').dirname(require.main.filename) + '/tika-app-1.3.jar'
 
@@ -12,6 +13,9 @@ module.exports = (models) ->
             @downloadUrl = 'http://www.ubileholva.com/index.cfm/co-bude-dnes-k-obedu/'
 
         parse: (meals, $) ->
+            today = moment().format('DD.MM.YY')
+            if $('#sysDennMenu a').text().search(today) == -1
+                return
             pdflink = $('#sysDennMenu a').attr('href')
             pdflink = @homepage + pdflink if 'http://' not in pdflink
             @parsePdf meals, pdflink
