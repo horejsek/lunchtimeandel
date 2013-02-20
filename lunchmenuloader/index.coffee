@@ -13,3 +13,4 @@ module.exports = (models) ->
             (new (require('./hlubinaLoader')(models))()).loadData()
             (new (require('./laCambusaLoader')(models))()).loadData()
             (new (require('./elBarrioLoader')(models))()).loadData()
+            (new (require('./formankaLoader')(models))()).loadData()
