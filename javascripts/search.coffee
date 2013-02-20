@@ -19,6 +19,7 @@ class lta.Search
     constructor: (searchboxId) ->
         that = @
         @searchbox_ = goog.dom.getElement searchboxId
+        @searchbox_.focus()
         goog.events.listen @searchbox_, goog.events.EventType.INPUT, (e) ->
             that.search()
 
