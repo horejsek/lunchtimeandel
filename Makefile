@@ -1,4 +1,7 @@
 
+CLOSURE_LIBRARY=libs/closure-library/
+CLOSURE_COMPILER=libs/closure-compiler.jar
+
 PORT=3000
 
 all:
@@ -18,6 +21,12 @@ run-forever: compile
 
 compile:
 	coffee -cb ./
+	ls javascripts/*.js | python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
+	    --path $(CLOSURE_LIBRARY) \
+	    --compiler_jar $(CLOSURE_COMPILER) \
+	    --output_mode compiled \
+	    --compiler_flags="--warning_level=VERBOSE" \
+	    > public/javascripts/app.min.js;
 
 watch:
 	coffee --watch -c ./

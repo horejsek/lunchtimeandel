@@ -4,5 +4,6 @@
 	"Last update": "Last update",
 	"Restaurant pages": "Restaurant pages",
 	"Daily lunch menu is not available": "Daily lunch menu is not available",
-	"MMMM D, H:mm A": "MMMM D, H:mm A"
+	"MMMM D, H:mm A": "MMMM D, H:mm A",
+    "Search": "Search"
 }

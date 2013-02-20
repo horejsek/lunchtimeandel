@@ -2,6 +2,10 @@ extends layout
 
 block content
     h1= title
+    div.search
+        input(type='text', id='search', placeholder='#{__i('Search')}')
+    script(type='text/javascript')
+        new lta.Search('search')
     each restaurant in restaurants
         div.restaurant
             h2= restaurant.name
@@ -12,7 +16,7 @@ block content
             if restaurant.meals.length
                 table.table.table-bordered.table-hover
                     each meal in restaurant.meals
-                        tr(class="#{meal.price<100 ? 'success' : ''}")
+                        tr(class="meal #{meal.price<100 ? 'success' : ''}")
                             td= meal.name
                             td.price= meal.getPrintablePrice()
             else
