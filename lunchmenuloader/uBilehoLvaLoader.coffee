@@ -1,7 +1,7 @@
 
 moment = require 'moment'
 exec = require('child_process').exec
-tikajar = require('path').dirname(require.main.filename) + '/tika-app-1.3.jar'
+tikajar = require('path').dirname(require.main.filename) + '/libs/tika-app-1.3.jar'
 
 module.exports = (models) ->
     LunchmenuLoader = require('./lunchmenuLoader')(models)
