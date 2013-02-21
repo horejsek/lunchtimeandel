@@ -15,13 +15,15 @@ run: compile
 	if [ $(pid) ]; then kill $(pid); fi
 	supervisor lunchtime.js
 
-run-forever: compile
+run-forever: compile-coffeescript
 	- forever stop lunchtime.js
 	forever start lunchtime.js
 
-compile:
+compile: compile-coffeescript compile-javascript
+compile-coffeescript:
 	coffee -cb ./
-	ls javascripts/*.js | python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
+compile-javascript:
+	find public/javascripts/ -name *.js -not -name *.min.js | python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
 	    --path $(CLOSURE_LIBRARY) \
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
@@ -36,3 +38,4 @@ install-dependencies:
 	curl https://npmjs.org/install.sh | bash
 	npm install
 	npm install forever supervisor -g
+
