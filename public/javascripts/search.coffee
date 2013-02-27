@@ -2,6 +2,7 @@
 goog.provide 'lta.Search'
 
 goog.require 'goog.dom'
+goog.require 'goog.dom.query'
 goog.require 'goog.events'
 
 
@@ -31,6 +32,7 @@ class lta.Search
             showed = not keyword or meal.innerHTML.search(pattern) > -1
             @highlight_(meal) if showed and keyword
             goog.dom.classes.enable meal.parentNode, 'hide', !showed
+        @showHideRestaurants_()
 
     ###*
     @private
@@ -48,3 +50,11 @@ class lta.Search
         for elm in goog.dom.getElementsByClass 'highlight'
             text = goog.dom.createTextNode goog.dom.getTextContent elm
             goog.dom.replaceNode text, elm
+
+    ###*
+    @private
+    ###
+    showHideRestaurants_: () ->
+        for restaurant in goog.dom.getElementsByClass 'restaurant'
+            meals = goog.dom.query 'tr:not(.hide)', restaurant
+            goog.dom.classes.enable restaurant, 'hide', !meals.length
