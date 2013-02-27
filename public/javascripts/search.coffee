@@ -15,6 +15,26 @@ class lta.Search
     searchinput_: null
 
     ###*
+    @type {Object}
+    @private
+    ###
+    keywordmap_: {
+        'a': ['á', 'ä'],
+        'c': ['č'],
+        'd': ['ď'],
+        'e': ['é', 'ě', 'ë'],
+        'i': ['í', 'ï'],
+        'n': ['ň'],
+        'o': ['ó', 'ö'],
+        'r': ['ř'],
+        's': ['š'],
+        't': ['ť'],
+        'u': ['ú', 'ů', 'ü'],
+        'y': ['ý']
+        'z': ['ž'],
+    }
+
+    ###*
     @param {string} searchboxId
     @constructor
     ###
@@ -40,7 +60,7 @@ class lta.Search
 
     search: () ->
         keyword = @searchinput_.value
-        pattern = new RegExp keyword, 'gi'
+        pattern = new RegExp @getKeywordForRegexp_(), 'gi'
         @removeHighlight_()
         for meal in goog.dom.getElementsByClass 'meal'
             showed = not keyword or meal.innerHTML.search(pattern) > -1
@@ -51,9 +71,21 @@ class lta.Search
     ###*
     @private
     ###
+    getKeywordForRegexp_: () ->
+        keyword = ''
+        for letter in @searchinput_.value
+            letters = @keywordmap_[letter] || []
+            letters = letters.slice(0)
+            letters.push(letter)
+            keyword += '[' + (letters).join('') + ']'
+        keyword
+
+    ###*
+    @private
+    ###
     highlight_: (meal) ->
         content = meal.innerHTML
-        pattern = new RegExp '(.*)(' + @searchinput_.value + ')(.*)', 'gi'
+        pattern = new RegExp '(.*)(' + @getKeywordForRegexp_() + ')(.*)', 'gi'
         replaceWith = '$1<span class="highlight label label-warning">$2</span>$3'
         meal.innerHTML = content.replace pattern, replaceWith
 
