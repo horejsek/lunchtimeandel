@@ -23,7 +23,7 @@ compile: compile-coffeescript compile-javascript
 compile-coffeescript:
 	coffee -cb ./
 compile-javascript:
-	find public/javascripts/ -name *.js -not -name *.min.js | python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
+	find public/javascripts/ -name '*.js' -not -name '*.min.js' | python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
 	    --path $(CLOSURE_LIBRARY) \
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
@@ -31,7 +31,7 @@ compile-javascript:
 	    > public/javascripts/app.min.js;
 
 watch:
-	coffee --watch -c ./
+	coffee --watch -cb ./
 
 install-dependencies:
 	apt-get install mongodb curl openjdk-7-jre
