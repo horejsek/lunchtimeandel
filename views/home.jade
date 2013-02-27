@@ -12,8 +12,14 @@ block content
             h2= restaurant.name
                 &nbsp;
                 small
-                    a(href=restaurant.url, target='_blank') #{__i('Restaurant pages')}
-            p #{__i('Last update')}: #{restaurant.getPrintalbeLastUpdate()}
+                    a(href='#', onclick='return lta.restaurantDetail(this)') #{__i('Info')}
+            div.well.hide.restaurant-detail
+                a(href=restaurant.url, target='_blank') #{__i('Restaurant pages')}
+                br
+                a(href=restaurant.lunchmenuUrl, target='_blank') #{__i('Lunch menu')}
+                p #{__i('Last update')}:
+                    &nbsp;
+                    strong #{restaurant.getPrintalbeLastUpdate()}
             if restaurant.meals.length
                 table.table.table-bordered.table-hover
                     each meal in restaurant.meals
@@ -21,7 +27,7 @@ block content
                             td.meal= meal.name
                             td.price= meal.getPrintablePrice()
             else
-                p.well 
+                p.well
                     em #{__('Daily lunch menu is not available')}
     div.well
         p !{md(__i('[Fork me](%s) or [create feature request](%s) on GitHub or just [contact me](%s).', 'https://github.com/horejsek/lunchtimeandel', 'https://github.com/horejsek/lunchtimeandel/issues', 'mailto:horejsekmichal@gmail.com'))}

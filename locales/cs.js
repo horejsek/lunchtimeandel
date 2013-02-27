@@ -5,5 +5,7 @@
 	"Restaurant pages": "Stránky restaurace",
 	"Daily lunch menu is not available": "Denní menu není k dispozici.",
 	"MMMM D, H:mm A": "D. MMMM v H:mm",
-	"Search": "Hledat"
+	"Search": "Hledat",
+	"Lunch menu": "Polední menu",
+	"Info": "Info"
 }

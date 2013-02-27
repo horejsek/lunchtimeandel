@@ -16,6 +16,7 @@ module.exports = (mongoose) ->
     Restaurant = new Schema
         name: String
         url: String
+        lunchmenuUrl: String
         lastUpdate: Date
         meals: [Meal]
     Restaurant.methods.getPrintalbeLastUpdate = () ->

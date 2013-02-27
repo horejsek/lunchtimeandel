@@ -26,6 +26,7 @@ module.exports = (models) ->
             new models.Restaurant
                 name: @name
                 url: @homepage
+                lunchmenuUrl: @downloadUrl
                 lastUpdate: new Date()
 
         convertToUtf8: (body) ->
