@@ -16,8 +16,8 @@ block content
             if restaurant.meals.length
                 table.table.table-bordered.table-hover
                     each meal in restaurant.meals
-                        tr(class="meal #{meal.price<100 ? 'success' : ''}")
-                            td= meal.name
+                        tr(class="#{meal.price<100 ? 'success' : ''}")
+                            td.meal= meal.name
                             td.price= meal.getPrintablePrice()
             else
                 p.well 

@@ -24,19 +24,20 @@ class lta.Search
             that.search()
 
     search: () ->
-        keyword = @searchbox_.value.toLowerCase()
+        keyword = @searchbox_.value
+        pattern = new RegExp keyword, 'gi'
         @removeHighlight_()
         for meal in goog.dom.getElementsByClass 'meal'
-            showed = not keyword or meal.innerHTML.toLowerCase().indexOf(keyword) > -1
+            showed = not keyword or meal.innerHTML.search(pattern) > -1
             @highlight_(meal) if showed and keyword
-            goog.dom.classes.enable meal, 'hidemeal', !showed
+            goog.dom.classes.enable meal.parentNode, 'hide', !showed
 
     ###*
     @private
     ###
     highlight_: (meal) ->
-        content = meal.innerHTML.toLowerCase()
-        pattern = new RegExp '(>[^<.]*)(' + @searchbox_.value.toLowerCase() + ')([^<.]*)', 'g'
+        content = meal.innerHTML
+        pattern = new RegExp '(.*)(' + @searchbox_.value + ')(.*)', 'gi'
         replaceWith = '$1<span class="highlight label label-warning">$2</span>$3'
         meal.innerHTML = content.replace pattern, replaceWith
 
