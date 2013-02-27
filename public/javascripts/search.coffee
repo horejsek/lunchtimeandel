@@ -4,6 +4,7 @@ goog.provide 'lta.Search'
 goog.require 'goog.dom'
 goog.require 'goog.dom.query'
 goog.require 'goog.events'
+goog.require 'goog.events.KeyCodes'
 
 
 class lta.Search
@@ -11,7 +12,7 @@ class lta.Search
     @type {Object}
     @private
     ###
-    searchbox_: null
+    searchinput_: null
 
     ###*
     @param {string} searchboxId
@@ -19,13 +20,26 @@ class lta.Search
     ###
     constructor: (searchboxId) ->
         that = @
-        @searchbox_ = goog.dom.getElement searchboxId
-        @searchbox_.focus()
-        goog.events.listen @searchbox_, goog.events.EventType.INPUT, (e) ->
+        searchbox = goog.dom.getElement searchboxId
+        @searchinput_ = goog.dom.getElementsByTagNameAndClass('input', null, searchbox)[0]
+        searchbutton = goog.dom.getElementsByTagNameAndClass('button', null, searchbox)[0]
+
+        @searchinput_.focus()
+        goog.events.listen @searchinput_, goog.events.EventType.INPUT, (e) ->
             that.search()
+        goog.events.listen @searchinput_, goog.events.EventType.KEYUP, (e) ->
+            that.clear() if e.keyCode is goog.events.KeyCodes.ESC
+        goog.events.listen searchbutton, goog.events.EventType.CLICK, (e) ->
+            that.clear()
+
+    clear: () ->
+        @searchinput_.value = ''
+        @searchinput_.focus()
+        # Remove highlight, show restaurant, ...
+        @search()
 
     search: () ->
-        keyword = @searchbox_.value
+        keyword = @searchinput_.value
         pattern = new RegExp keyword, 'gi'
         @removeHighlight_()
         for meal in goog.dom.getElementsByClass 'meal'
@@ -39,7 +53,7 @@ class lta.Search
     ###
     highlight_: (meal) ->
         content = meal.innerHTML
-        pattern = new RegExp '(.*)(' + @searchbox_.value + ')(.*)', 'gi'
+        pattern = new RegExp '(.*)(' + @searchinput_.value + ')(.*)', 'gi'
         replaceWith = '$1<span class="highlight label label-warning">$2</span>$3'
         meal.innerHTML = content.replace pattern, replaceWith
 
