@@ -11,6 +11,12 @@ module.exports = (models) ->
             @downloadUrl = undefined
 
         loadData: () ->
+            try
+                @loadData_()
+            catch e
+                console.error e
+
+        loadData_: () ->
             that = @
             foo =
                 uri: @downloadUrl
