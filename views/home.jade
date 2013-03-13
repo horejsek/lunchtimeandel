@@ -15,10 +15,17 @@ block content
                 small
                     a(href='#', onclick='return lta.restaurantDetail(this)') #{__i('Info')}
             div.well.hide.restaurant-detail
+                i.icon-external-link
+                &nbsp;
                 a(href=restaurant.url, target='_blank') #{__i('Restaurant pages')}
                 br
+                i.icon-external-link
+                &nbsp;
                 a(href=restaurant.lunchmenuUrl, target='_blank') #{__i('Lunch menu')}
-                p #{__i('Last update')}:
+                p
+                    i.icon-refresh
+                    &nbsp;
+                    span #{__i('Last update')}:
                     &nbsp;
                     strong #{restaurant.getPrintalbeLastUpdate()}
             if restaurant.meals.length
