@@ -4,7 +4,8 @@ block content
     h1= title
     div.search.input-append#search
         input(type='text', placeholder='#{__i('Search')}')
-        button(type='button', class='btn') X
+        button(type='button', class='btn')
+            i.icon-search
     script(type='text/javascript')
         new lta.Search('search')
     each restaurant in restaurants
