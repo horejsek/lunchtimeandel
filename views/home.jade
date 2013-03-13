@@ -11,12 +11,12 @@ block list
         li.nav-header #{__i('Restaurants')}
         each restaurant in restaurants
             li
-                a(href='##{restaurant.id}')= restaurant.name
+                a(href='##{restaurant.name}')= restaurant.name
 
 block content
     h1= title
     each restaurant in restaurants
-        div.restaurant(id='#{restaurant.id}')
+        div.restaurant(id='#{restaurant.name}')
             h2= restaurant.name
                 &nbsp;
                 small
