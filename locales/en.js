@@ -7,5 +7,6 @@
 	"MMMM D, H:mm A": "MMMM D, H:mm A",
     "Search": "Search",
     "Lunch menu": "Lunch menu",
-    "Info": "Info"
+    "Info": "Info",
+    "Restaurants": "Restaurants"
 }

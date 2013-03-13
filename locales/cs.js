@@ -7,5 +7,6 @@
 	"MMMM D, H:mm A": "D. MMMM v H:mm",
 	"Search": "Hledat",
 	"Lunch menu": "Polední menu",
-	"Info": "Info"
+	"Info": "Info",
+	"Restaurants": "Restaurace"
 }

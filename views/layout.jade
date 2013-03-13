@@ -9,8 +9,13 @@ html
         link(rel='shortcut icon', href='/images/favicon.ico')
         script(src='/javascripts/app.min.js')
     body
-        div#page
-            block content
+        div#page.container-fluid
+            div.row-fluid
+                div.span3
+                    div#list
+                        block list
+                div.span9
+                    block content
 
         script(type='text/javascript')
             var _gaq = _gaq || [];

@@ -1,15 +1,22 @@
 extends layout
 
-block content
-    h1= title
-    div.search.input-append#search
+block list
+    div.input-append#search
         input(type='text', placeholder='#{__i('Search')}')
         button(type='button', class='btn')
             i.icon-search
     script(type='text/javascript')
         new lta.Search('search')
+    ul.nav.nav-list
+        li.nav-header #{__i('Restaurants')}
+        each restaurant in restaurants
+            li
+                a(href='##{restaurant.id}')= restaurant.name
+
+block content
+    h1= title
     each restaurant in restaurants
-        div.restaurant
+        div.restaurant(id='#{restaurant.id}')
             h2= restaurant.name
                 &nbsp;
                 small
