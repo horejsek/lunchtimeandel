@@ -4,7 +4,8 @@ module.exports = (models) ->
         console.log 'Reloading data...'
         models.Restaurant.collection.drop (err) ->
             (new (require('./tgiLoader')(models))()).loadData()
-            (new (require('./husaLoader')(models))()).loadData()
+            (new (require('./husaNaVerandachLoader')(models))()).loadData()
+            (new (require('./husaAndelLoader')(models))()).loadData()
             (new (require('./ilNostroLoader')(models))()).loadData()
             (new (require('./uBilehoLvaLoader')(models))()).loadData()
             (new (require('./andelkaLoader')(models))()).loadData()

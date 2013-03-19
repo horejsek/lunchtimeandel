@@ -2,9 +2,9 @@
 module.exports = (models) ->
     LunchmenuLoader = require('./lunchmenuLoader')(models)
 
-    class HusaLoader extends LunchmenuLoader
+    class HusaNaVerandachLoader extends LunchmenuLoader
         constructor: () ->
-            @name = 'Potrefená Husa'
+            @name = 'Potrefená Husa (na Verandách)'
             @homepage = 'http://www.phnaverandach.cz/'
             @downloadUrl = 'http://www.phnaverandach.cz/cz/menu/daily-menu'
 
@@ -19,4 +19,4 @@ module.exports = (models) ->
                             name: name
                             price: price
 
-    return HusaLoader
+    return HusaNaVerandachLoader
