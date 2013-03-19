@@ -22,11 +22,14 @@ module.exports = (models) ->
                 uri: @downloadUrl
                 encoding: 'binary'
             request foo, (err, response, body) ->
-                body = that.convertToUtf8 body
-                $ = cheerio.load body
-                that.restaurant = restaurant = that.createRestaurant()
-                that.parse restaurant.meals, $
-                restaurant.save()
+                try
+                    body = that.convertToUtf8 body
+                    $ = cheerio.load body
+                    that.restaurant = restaurant = that.createRestaurant()
+                    that.parse restaurant.meals, $
+                    restaurant.save()
+                catch e
+                    console.error e
 
         createRestaurant: () ->
             new models.Restaurant
