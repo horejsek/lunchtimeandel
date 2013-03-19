@@ -24,6 +24,15 @@ module.exports = (mongoose) ->
     Restaurant.methods.getPrintalbeLastUpdate = () ->
         moment.lang i18n.getLocale()
         moment(@lastUpdate).format __ 'MMMM D, H:mm A'
+    Restaurant.pre 'save', (next) ->
+        mealNames = []
+        meals = []
+        for meal in @meals
+            if meal.name not in mealNames
+                meals.push meal
+            mealNames.push meal.name
+        @meals = meals
+        next()
 
     Meal: mongoose.model 'Meal', Meal
     Restaurant: mongoose.model 'Restaurant', Restaurant
