@@ -15,3 +15,4 @@ module.exports = (models) ->
             (new (require('./laCambusaLoader')(models))()).loadData()
             (new (require('./elBarrioLoader')(models))()).loadData()
             (new (require('./formankaLoader')(models))()).loadData()
+            (new (require('./jetSetLoader')(models))()).loadData()
