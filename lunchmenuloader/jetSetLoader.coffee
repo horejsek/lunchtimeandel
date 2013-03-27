@@ -9,7 +9,6 @@ module.exports = (models) ->
             @downloadUrl = 'http://www.docservis.cz/jetset/www/cs/home/daily-menu'
 
         parse: (meals, $) ->
-            n = (new Date()).getDay()
             $('tbody tr').each (i, elem) ->
                 row = $(this).text().trim().split /\ (?=[0-9 ]+,-)/
                 meals.push new models.Meal

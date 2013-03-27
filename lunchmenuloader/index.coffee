@@ -16,3 +16,4 @@ module.exports = (models) ->
             (new (require('./elBarrioLoader')(models))()).loadData()
             (new (require('./formankaLoader')(models))()).loadData()
             (new (require('./jetSetLoader')(models))()).loadData()
+            (new (require('./cyrilspubLoader')(models))()).loadData()
