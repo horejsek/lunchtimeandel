@@ -10,6 +10,12 @@ block list
     ul.nav.nav-list
         li.nav-header #{__i('Restaurants')}
         each restaurant in restaurants
+            script(type='text/javascript')
+                restaurants.push({
+                    name: "#{restaurant.name}",
+                    lat: #{restaurant.map.lat},
+                    lon: #{restaurant.map.lon}
+                });
             li
                 a(href='##{restaurant.name}')= restaurant.name
 

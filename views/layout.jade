@@ -8,14 +8,45 @@ html
         link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel='shortcut icon', href='/images/favicon.ico')
         script(src='/javascripts/app.min.js')
+        script(src='http://maps.google.com/maps/api/js?sensor=false')
     body
+        script(type='text/javascript')
+            var restaurants = [];
+
         div#page.container-fluid
             div.row-fluid
-                div.span3
-                    div#list
-                        block list
-                div.span9
+                div.span7
                     block content
+                div.span5
+                    div#list
+                        div#map_canvas(style="width:400px;height:300px")
+                        block list
+
+        script(type='text/javascript')
+            (function () {
+                var map_options = {
+                    center: new google.maps.LatLng(50.070541,14.403634),
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var google_map = new google.maps.Map(document.getElementById("map_canvas"), map_options);
+                var info_window = new google.maps.InfoWindow();
+                for (var i = 0; i < restaurants.length; i++) {
+                    var restaurant = restaurants[i],
+                        info = document.getElementById(restaurant.name).getElementsByClassName('restaurant-detail')[0].innerHTML,
+                        html = '<h4><a href="#' + restaurant.name + '">' + restaurant.name + '</a></h4>' + info;
+                    var marker = new google.maps.Marker({
+                        map: google_map,
+                        title: restaurant.name,
+                        position: new google.maps.LatLng(restaurant.lat, restaurant.lon),
+                        html: html
+                    });
+                    google.maps.event.addListener(marker, 'click', function() {
+                        info_window.setContent(this.html);
+                        info_window.open(google_map, this);
+                    });
+                }
+            })();
 
         script(type='text/javascript')
             var _gaq = _gaq || [];
