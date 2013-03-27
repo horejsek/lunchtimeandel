@@ -7,6 +7,9 @@ module.exports = (models) ->
             @name = 'La Cambusa'
             @homepage = 'http://www.lacambusa.cz'
             @downloadUrl = 'http://www.lacambusa.cz/jidelni-listek'
+            @map =
+                lat: 50.06976
+                lon: 14.402803
 
         parse: (meals, $) ->
             n = (new Date()).getDay()

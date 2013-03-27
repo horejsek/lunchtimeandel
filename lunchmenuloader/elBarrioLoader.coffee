@@ -7,6 +7,9 @@ module.exports = (models) ->
             @name = 'El Barrio de Ángel'
             @homepage = 'http://www.elbarrio.cz/'
             @downloadUrl = 'http://www.elbarrio.cz/index.php?option=com_phocamenu&view=dailymenu'
+            @map =
+                lat: 50.072173
+                lon: 14.404519
 
         parse: (meals, $) ->
             $('.pm-item tr').each (i, elem) ->

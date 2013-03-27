@@ -7,6 +7,9 @@ module.exports = (models) ->
             @name = 'Hlubina'
             @homepage = 'http://www.restaurace-hlubina.cz/'
             @downloadUrl = 'http://www.lunchtime.cz/denni-menu/praha/smichov/'
+            @map =
+                lat: 50.072111
+                lon: 14.405276
 
         parse: (meals, $) ->
             $('#restaurace2006 tr').each (i, elem) ->

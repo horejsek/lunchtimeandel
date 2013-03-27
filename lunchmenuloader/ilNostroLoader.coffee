@@ -7,6 +7,9 @@ module.exports = (models) ->
             @name = 'Il Nostro'
             @homepage = 'http://www.ilnostro.cz'
             @downloadUrl = 'http://www.ilnostro.cz/cz/tydenni-menu'
+            @map =
+                lat: 50.071509
+                lon: 14.400603
 
         parse: (meals, $) ->
             n = (new Date()).getDay()

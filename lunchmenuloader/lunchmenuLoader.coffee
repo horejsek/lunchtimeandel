@@ -9,6 +9,9 @@ module.exports = (models) ->
             @name = undefined
             @homepage = undefined
             @downloadUrl = undefined
+            @map =
+                lat: undefined
+                lon: undefined
 
         loadData: () ->
             try
@@ -37,6 +40,7 @@ module.exports = (models) ->
                 url: @homepage
                 lunchmenuUrl: @downloadUrl
                 lastUpdate: new Date()
+                map: @map
 
         convertToUtf8: (body) ->
             charset = @charset || 'UTF8'
@@ -46,4 +50,4 @@ module.exports = (models) ->
 
         parse: (meals, $) ->
 
-    return LunchmenuLoader 
+    return LunchmenuLoader

@@ -8,6 +8,9 @@ module.exports = (models) ->
             @homepage = 'http://www.smichovskaformanka.cz/'
             @downloadUrl = 'http://www.smichovskaformanka.cz/poledni_menu.htm'
             @charset = 'CP1250'
+            @map =
+                lat: 50.068787
+                lon: 14.400989
 
         parse: (meals, $) ->
             $('table tr').each (i, elem) ->

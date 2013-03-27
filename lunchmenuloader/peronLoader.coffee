@@ -7,6 +7,9 @@ module.exports = (models) ->
             @name = 'U perónu'
             @homepage = 'http://www.uperonu.cz/'
             @downloadUrl = 'http://www.uperonu.cz/jidelni-listek/tydenni-menu-1100-1500.html'
+            @map =
+                lat: 50.069773
+                lon: 14.405764
 
         parse: (meals, $) ->
 

@@ -8,6 +8,9 @@ module.exports = (models) ->
             @homepage = 'http://www.zlatyklas.cz'
             @downloadUrl = 'http://www.zlatyklas.cz/index.php?sec=today-menu&lang=cz'
             @charset = 'CP1250'
+            @map =
+                lat: 50.071636
+                lon: 14.400287
 
         parse: (meals, $) ->
             $('.jidelak div.today h2.today').each (i, elem) ->

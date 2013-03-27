@@ -7,6 +7,9 @@ module.exports = (models) ->
             @name = 'Andělka'
             @homepage = 'http://www.andelka.cz'
             @downloadUrl = 'http://www.andelka.cz/denni-menu.php'
+            @map =
+                lat: 50.06867
+                lon: 14.401639
 
         parse: (meals, $) ->
             $('#container tbody tr').each (i, elem) ->
