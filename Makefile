@@ -9,7 +9,7 @@ all:
 	@echo "make watch"
 	@echo "make localdev"
 
-run: compile
+run: compile-coffeescript
 	# Make sure that nothing is running on port $(PORT).
 	$(eval pid := `lsof -i tcp:$(PORT) | grep LISTEN | cut -d" " -f2`)
 	if [ $(pid) ]; then kill $(pid); fi
