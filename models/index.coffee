@@ -21,6 +21,9 @@ module.exports = (mongoose) ->
         lunchmenuUrl: String
         lastUpdate: Date
         meals: [Meal]
+        map:
+            lat: Number
+            lon: Number
     Restaurant.methods.getPrintalbeLastUpdate = () ->
         moment.lang i18n.getLocale()
         moment(@lastUpdate).format __ 'MMMM D, H:mm A'
