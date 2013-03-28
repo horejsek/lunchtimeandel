@@ -5,6 +5,7 @@ goog.require 'goog.dom'
 goog.require 'goog.dom.query'
 goog.require 'goog.events'
 goog.require 'goog.events.KeyCodes'
+goog.require 'lta.Restaurants'
 
 
 class lta.Search
@@ -36,10 +37,13 @@ class lta.Search
 
     ###*
     @param {string} searchboxId
+    @param {lta.Restaurants} restaurants
     @constructor
     ###
-    constructor: (searchboxId) ->
+    constructor: (searchboxId, restaurants) ->
         that = @
+        @restaurants_ = restaurants
+
         searchbox = goog.dom.getElement searchboxId
         @searchinput_ = goog.dom.getElementsByTagNameAndClass('input', null, searchbox)[0]
         searchbutton = goog.dom.getElementsByTagNameAndClass('button', null, searchbox)[0]
@@ -59,14 +63,8 @@ class lta.Search
         @search()
 
     search: () ->
-        keyword = @searchinput_.value
         pattern = new RegExp @getKeywordForRegexp_(), 'gi'
-        @removeHighlight_()
-        for meal in goog.dom.getElementsByClass 'meal'
-            showed = not keyword or meal.innerHTML.search(pattern) > -1
-            @highlight_(meal) if showed and keyword
-            goog.dom.classes.enable meal.parentNode, 'hide', !showed
-        @showHideRestaurants_()
+        @restaurants_.search pattern
 
     ###*
     @private
@@ -79,28 +77,3 @@ class lta.Search
             letters.push(letter)
             keyword += '[' + (letters).join('') + ']'
         keyword
-
-    ###*
-    @private
-    ###
-    highlight_: (meal) ->
-        content = meal.innerHTML
-        pattern = new RegExp '(.*)(' + @getKeywordForRegexp_() + ')(.*)', 'gi'
-        replaceWith = '$1<span class="highlight label label-warning">$2</span>$3'
-        meal.innerHTML = content.replace pattern, replaceWith
-
-    ###*
-    @private
-    ###
-    removeHighlight_: () ->
-        for elm in goog.dom.getElementsByClass 'highlight'
-            text = goog.dom.createTextNode goog.dom.getTextContent elm
-            goog.dom.replaceNode text, elm
-
-    ###*
-    @private
-    ###
-    showHideRestaurants_: () ->
-        for restaurant in goog.dom.getElementsByClass 'restaurant'
-            meals = goog.dom.query 'tr:not(.hide)', restaurant
-            goog.dom.classes.enable restaurant, 'hide', !meals.length
