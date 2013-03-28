@@ -23,11 +23,15 @@ compile: compile-coffeescript compile-javascript
 compile-coffeescript:
 	coffee -cb ./
 compile-javascript:
-	find public/javascripts/ -name '*.js' -not -name '*.min.js' | python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
+	python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
 	    --path $(CLOSURE_LIBRARY) \
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
+	    --input="public/javascripts/restaurant.js" \
+	    --input="public/javascripts/restaurants.js" \
+	    --input="public/javascripts/search.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
+	    --compiler_flags="--externs=public/javascripts/externs.js" \
 	    > public/javascripts/app.min.js;
 
 watch:
