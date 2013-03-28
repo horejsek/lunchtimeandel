@@ -5,8 +5,9 @@
 	"Restaurant pages": "Restaurant pages",
 	"Daily lunch menu is not available": "Daily lunch menu is not available",
 	"MMMM D, H:mm A": "MMMM D, H:mm A",
-    "Search": "Search",
-    "Lunch menu": "Lunch menu",
-    "Info": "Info",
-    "Restaurants": "Restaurants"
+	"Search": "Search",
+	"Lunch menu": "Lunch menu",
+	"Info": "Info",
+	"Restaurants": "Restaurants",
+	"Show in map": "Show in map"
 }

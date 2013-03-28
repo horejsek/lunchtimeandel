@@ -8,5 +8,6 @@
 	"Search": "Hledat",
 	"Lunch menu": "Polední menu",
 	"Info": "Info",
-	"Restaurants": "Restaurace"
+	"Restaurants": "Restaurace",
+	"Show in map": "Zobrazit na mapě"
 }
