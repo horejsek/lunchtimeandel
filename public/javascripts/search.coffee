@@ -77,3 +77,7 @@ class lta.Search
             letters.push(letter)
             keyword += '[' + (letters).join('') + ']'
         keyword
+
+
+window['lta'] = lta
+lta['Search'] = lta.Search

@@ -124,10 +124,10 @@ class lta.Restaurant
     registerMapMarker: (googleMap) ->
         that = @
         @mapMarker_ = new google.maps.Marker
-            map: googleMap
-            title: @name
-            position: new google.maps.LatLng @coordinates_.lat, @coordinates_.lon
-            icon: 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
+            'map': googleMap
+            'title': @name
+            'position': new google.maps.LatLng @coordinates_['lat'], @coordinates_['lon']
+            'icon': 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
         google.maps.event.addListener @mapMarker_, 'click', () ->
             that.history_.setToken that.name
             that.mark()

@@ -39,6 +39,7 @@ class lta.Restaurants
     ###*
     @param {string} name
     @param {Object} coordinates
+    @expose
     ###
     add: (name, coordinates) ->
         @restaurants_.push new lta.Restaurant name, coordinates, @history_
@@ -52,7 +53,12 @@ class lta.Restaurants
 
     ###*
     @param {google.maps.Map} googleMap
+    @expose
     ###
     registerMap: (googleMap) ->
         for restaurant in @restaurants_
             restaurant.registerMapMarker googleMap
+
+
+window['lta'] = lta
+lta['Restaurants'] = lta.Restaurants
