@@ -31,7 +31,7 @@ compile-javascript:
 	    --input="public/javascripts/restaurants.js" \
 	    --input="public/javascripts/search.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
-	    --compiler_flags="--externs=public/javascripts/externs.js" \
+	    --compiler_flags="--externs=public/javascripts/externs/googlemapsv3.js" \
 	    > public/javascripts/app.min.js;
 
 watch:
