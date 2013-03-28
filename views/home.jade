@@ -1,23 +1,26 @@
 extends layout
 
 block list
+    div#map_canvas(style="width:400px;height:400px")
+    script(type='text/javascript')
+        (function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(50.07061,14.403334),
+                minZoom: 15,
+                zoom: 16,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true,
+                disableDoubleClickZoom: true
+            };
+            var googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            restaurants.registerMap(googleMap);
+        })();
     div.input-append#search
         input(type='text', placeholder='#{__i('Search')}')
         button(type='button', class='btn')
             i.icon-remove
     script(type='text/javascript')
-        new lta.Search('search')
-    ul.nav.nav-list
-        li.nav-header #{__i('Restaurants')}
-        each restaurant in restaurants
-            script(type='text/javascript')
-                restaurants.push({
-                    name: "#{restaurant.name}",
-                    lat: #{restaurant.map.lat},
-                    lon: #{restaurant.map.lon}
-                });
-            li
-                a(href='##{restaurant.name}')= restaurant.name
+        new lta.Search('search', restaurants)
 
 block content
     h1= title
@@ -26,8 +29,12 @@ block content
             h2= restaurant.name
                 &nbsp;
                 small
-                    a(href='#', onclick='return lta.restaurantDetail(this)') #{__i('Info')}
+                    a.restaurant-detail-link(href='#') #{__i('Info')}
             div.well.hide.restaurant-detail
+                i.icon-globe
+                &nbsp
+                a(href='#'+restaurant.name) #{__i('Show in map')}
+                br
                 i.icon-external-link
                 &nbsp;
                 a(href=restaurant.url, target='_blank') #{__i('Restaurant pages')}
@@ -50,5 +57,10 @@ block content
             else
                 p.well
                     em #{__('Daily lunch menu is not available')}
+        script(type='text/javascript')
+            restaurants.add("#{restaurant.name}", {
+                lat: #{restaurant.map.lat},
+                lon: #{restaurant.map.lon}
+            });
     div.well
         p !{md(__i('[Fork me](%s) or [create feature request](%s) on GitHub or just [contact me](%s).', 'https://github.com/horejsek/lunchtimeandel', 'https://github.com/horejsek/lunchtimeandel/issues', 'mailto:horejsekmichal@gmail.com'))}
