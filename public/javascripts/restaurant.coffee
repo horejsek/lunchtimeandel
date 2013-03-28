@@ -78,10 +78,11 @@ class lta.Restaurant
     @param {string} query
     ###
     search: (query) ->
+        pattern = new RegExp query, 'gi'
         @removeHighlight_()
         countOfShowedMeals = 0
         for meal in @getMealsElms_()
-            showed = not query or meal.innerHTML.search(query) > -1
+            showed = not query or meal.innerHTML.search(pattern) > -1
             countOfShowedMeals++ if showed
             @highlight_(meal, query) if showed and query
             goog.dom.classes.enable meal.parentNode, 'hide', !showed

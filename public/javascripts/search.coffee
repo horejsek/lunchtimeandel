@@ -63,13 +63,12 @@ class lta.Search
         @search()
 
     search: () ->
-        pattern = new RegExp @getKeywordForRegexp_(), 'gi'
-        @restaurants_.search pattern
+        @restaurants_.search @getQuery_()
 
     ###*
     @private
     ###
-    getKeywordForRegexp_: () ->
+    getQuery_: () ->
         keyword = ''
         for letter in @searchinput_.value
             letters = @keywordmap_[letter] || []
