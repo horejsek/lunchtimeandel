@@ -75,6 +75,12 @@ class lta.Restaurant
         goog.dom.getElementsByClass 'meal', @contentElm_
 
     ###*
+    @private
+    ###
+    getCountOfMeals_: () ->
+        @getMealsElms_().length
+
+    ###*
     @param {string} query
     ###
     search: (query) ->
@@ -131,7 +137,7 @@ class lta.Restaurant
             'map': googleMap
             'title': @name
             'position': new google.maps.LatLng @coordinates_['lat'], @coordinates_['lon']
-            'icon': 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
+            'icon': @getDefaultMarkerIconUrl_()
         google.maps.event.addListener @mapMarker_, 'click', () ->
             that.history_.setToken that.name
             that.mark()
@@ -139,8 +145,24 @@ class lta.Restaurant
 
     mark: () ->
         goog.dom.classes.add @contentElm_, 'restaurant-highlight'
-        @mapMarker_.setIcon 'http://maps.google.com/mapfiles/ms/micons/blue-dot.png'
+        @mapMarker_.setIcon @getMarkerIconUrl_ 'blue'
 
     unmark: () ->
         goog.dom.classes.remove @contentElm_, 'restaurant-highlight'
-        @mapMarker_.setIcon 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
+        @mapMarker_.setIcon @getDefaultMarkerIconUrl_()
+
+    ###*
+    @private
+    ###
+    getDefaultMarkerIconUrl_: () ->
+        if @getCountOfMeals_()
+            @getMarkerIconUrl_ 'red'
+        else
+            @getMarkerIconUrl_ 'gray'
+
+    ###*
+    @param {string} name
+    @private
+    ###
+    getMarkerIconUrl_: (name) ->
+        'http://labs.google.com/ridefinder/images/mm_20_' + name + '.png'
