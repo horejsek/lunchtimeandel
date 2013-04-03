@@ -139,8 +139,9 @@ class lta.Restaurant
             'position': new google.maps.LatLng @coordinates_['lat'], @coordinates_['lon']
             'icon': @getDefaultMarkerIconUrl_()
         google.maps.event.addListener @mapMarker_, 'click', () ->
-            that.history_.setToken that.name
             that.mark()
+            that.scrollTo_()
+            that.history_.setToken that.name
         @mark() if that.history_.getToken() is @name
 
     mark: () ->
@@ -150,6 +151,27 @@ class lta.Restaurant
     unmark: () ->
         goog.dom.classes.remove @contentElm_, 'restaurant-highlight'
         @mapMarker_.setIcon @getDefaultMarkerIconUrl_()
+
+    ###*
+    @private
+    ###
+    scrollTo_: () ->
+        frameTime = 10
+        totalTime = 500
+
+        position = startPosition = window.scrollY
+        maxEndPosition = document.height - window.innerHeight
+        endPosition = if @contentElm_.offsetTop > maxEndPosition then maxEndPosition else @contentElm_.offsetTop
+        scrollBy = (endPosition - startPosition)*frameTime/totalTime
+
+        animate = () ->
+            #  Used scrollTo because ID automatically scroll to element, so
+            #+ scollBy would calculate it wrongly.
+            position += scrollBy
+            window.scrollTo 0, position
+            if (scrollBy > 0 and position < endPosition) or (scrollBy < 0 and position > endPosition)
+                setTimeout animate, frameTime
+        animate() if scrollBy
 
     ###*
     @private
