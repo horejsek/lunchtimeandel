@@ -138,7 +138,9 @@ class lta.Restaurant
         @mark() if that.history_.getToken() is @name
 
     mark: () ->
+        goog.dom.classes.add @contentElm_, 'restaurant-highlight'
         @mapMarker_.setIcon 'http://maps.google.com/mapfiles/ms/micons/blue-dot.png'
 
     unmark: () ->
+        goog.dom.classes.remove @contentElm_, 'restaurant-highlight'
         @mapMarker_.setIcon 'http://maps.google.com/mapfiles/ms/micons/red-dot.png'
