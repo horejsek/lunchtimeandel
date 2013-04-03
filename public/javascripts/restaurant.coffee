@@ -86,7 +86,10 @@ class lta.Restaurant
             countOfShowedMeals++ if showed
             @highlight_(meal, query) if showed and query
             goog.dom.classes.enable meal.parentNode, 'hide', !showed
-        if countOfShowedMeals then @show() else @hide()
+        if countOfShowedMeals or not query
+            @show()
+        else
+            @hide()
 
     ###*
     @private
