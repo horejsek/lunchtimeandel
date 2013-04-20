@@ -17,3 +17,7 @@ module.exports = (models) ->
             (new (require('./formankaLoader')(models))()).loadData()
             (new (require('./jetSetLoader')(models))()).loadData()
             (new (require('./cyrilspubLoader')(models))()).loadData()
+            (new (require('./sodexoLoader')(models))()).loadData()
+            (new (require('./blazinecLoader')(models))()).loadData()
+            (new (require('./kristianLoader')(models))()).loadData()
+            (new (require('./uZiznivehoJelenaLoader')(models))()).loadData()
