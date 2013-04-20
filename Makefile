@@ -4,6 +4,8 @@ CLOSURE_COMPILER=libs/closure-compiler.jar
 
 PORT=3000
 
+FOREVER=/usr/local/bin/forever
+
 all:
 	@echo "make run"
 	@echo "make watch"
@@ -16,8 +18,8 @@ run: compile-coffeescript
 	supervisor lunchtime.js
 
 run-forever: compile-coffeescript
-	- forever stop lunchtime.js
-	forever start lunchtime.js
+	- $(FOREVER) stop lunchtime.js
+	$(FOREVER) start lunchtime.js
 
 compile: compile-coffeescript compile-javascript
 compile-coffeescript:
