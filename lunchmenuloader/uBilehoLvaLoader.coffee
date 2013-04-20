@@ -30,6 +30,7 @@ module.exports = (models) ->
                 that.parseMenu meals, stdout
                 # This function is called async, so there must be extra save.
                 # Normally is restaurant save immediately after parsing.
+                that.restaurant.meals = meals
                 that.restaurant.save()
 
         parseMenu: (meals, data) ->
