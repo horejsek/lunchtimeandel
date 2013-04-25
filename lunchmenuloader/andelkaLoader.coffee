@@ -6,16 +6,16 @@ module.exports = (models) ->
         constructor: () ->
             @name = 'Andělka'
             @homepage = 'http://www.andelka.cz'
-            @downloadUrl = 'http://www.andelka.cz/denni-menu.php'
+            @downloadUrl = 'http://www.andelka.cz/denni-menu/'
             @map =
                 lat: 50.06867
                 lon: 14.401639
 
         parse: (meals, $) ->
-            $('#container tbody tr').each (i, elem) ->
-                name = $(this).find('td').eq(1).text().trim()
+            $('table tbody tr').each (i, elem) ->
+                name = $(this).find('td').first().text().trim()
                 price = $(this).find('td').last().text().trim()
-                if name
+                if name and price
                     meals.push new models.Meal
                         name: name
                         price: price
