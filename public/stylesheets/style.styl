@@ -6,8 +6,11 @@ html
     max-width 1000px
 
 #list
-    margin-top 30px
     position fixed
+
+#map_canvas
+    width 400px
+    height 400px
 
 #search
     margin 10px auto
@@ -36,3 +39,35 @@ html
     -moz-animation highlight 3s
     -webkit-animation highlight 3s
     -o-animation highlight 3s
+
+@media (max-width: 1000px)
+    #map_canvas
+        width 350px
+        height 350px
+    #search input[type=text]
+        width 300px
+
+@media (max-width: 900px)
+    #map_canvas
+        width 300px
+        height 300px
+    #search input[type=text]
+        width 250px
+
+@media (max-width: 767px)
+    #page
+        margin-top 40px
+    #list
+        top 5px
+        left 20px
+        width 100%
+    #search input[type=text]
+        width 85%
+
+@media (max-width: 580px)
+    #search input[type=text]
+        width 80%
+
+@media (max-width: 440px)
+    #search input[type=text]
+        width 75%
