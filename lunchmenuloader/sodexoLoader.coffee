@@ -1,4 +1,6 @@
 
+moment = require 'moment'
+
 module.exports = (models) ->
     LunchmenuLoader = require('./lunchmenuLoader')(models)
 
@@ -12,12 +14,12 @@ module.exports = (models) ->
                 lon: 14.400818
 
         parse: (meals, $) ->
-            n = (new Date()).getDay()
-            if n > 5 or n < 1
-                return
-            n = Math.abs(n - 5)
-            $('#menu-' + n + ' td.popisJidla').each (i, elem) ->
-                meals.push new models.Meal
-                    name: $(this).text().trim()
+            today = moment().format('DD. MM. YY')
+            $('.today-menu').each (i, elem) ->
+                if $('h2').text().search(today) == -1
+                    return
+                $(this).find('td.popisJidla').each (i, elem) ->
+                    meals.push new models.Meal
+                        name: $(this).text().trim()
 
     return SodexoLoader
