@@ -38,6 +38,6 @@ module.exports = (app) ->
         app.use express.errorHandler()
 
     app.mongoose = require 'mongoose'
-    app.mongoose.connect 'mongodb://localhost/lunchtimeandeldb̈́'
+    app.mongoose.connect 'mongodb://localhost/lunchtimeandeldb'
 
     @
