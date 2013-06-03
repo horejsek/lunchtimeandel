@@ -23,4 +23,4 @@ lta.shake = () ->
             goog.dom.classes.add elm, classes[index]
 
 
-setTimeout lta.shake, 15*60*1000
+setTimeout lta.shake, 60*60*1000
