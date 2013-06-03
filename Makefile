@@ -30,6 +30,7 @@ compile-javascript:
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
 	    --input="public/javascripts/restaurant.js" \
+	    --input="public/javascripts/choicehelp.js" \
 	    --input="public/javascripts/restaurants.js" \
 	    --input="public/javascripts/search.js" \
 	    --input="public/javascripts/shake.js" \

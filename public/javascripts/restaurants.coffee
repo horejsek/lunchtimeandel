@@ -4,6 +4,7 @@ goog.provide 'lta.Restaurants'
 goog.require 'goog.dom'
 goog.require 'goog.History'
 goog.require 'lta.Restaurant'
+goog.require 'lta.ChoiceHelp'
 
 
 class lta.Restaurants
@@ -15,6 +16,7 @@ class lta.Restaurants
 
     ###*
     @type {goog.History}
+    @private
     ###
     history_: null
 
@@ -58,6 +60,12 @@ class lta.Restaurants
     registerMap: (googleMap) ->
         for restaurant in @restaurants_
             restaurant.registerMapMarker googleMap
+
+    ###*
+    @expose
+    ###
+    registerHelp: () ->
+        new lta.ChoiceHelp()
 
 
 window['lta'] = lta
