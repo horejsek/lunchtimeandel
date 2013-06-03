@@ -9,5 +9,6 @@
 	"Lunch menu": "Polední menu",
 	"Info": "Info",
 	"Restaurants": "Restaurace",
-	"Show in map": "Zobrazit na mapě"
+	"Show in map": "Zobrazit na mapě",
+	"What about…": "Co třeba…"
 }

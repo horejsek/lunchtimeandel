@@ -9,5 +9,6 @@
 	"Lunch menu": "Lunch menu",
 	"Info": "Info",
 	"Restaurants": "Restaurants",
-	"Show in map": "Show in map"
+	"Show in map": "Show in map",
+	"What about…": "What about…"
 }
