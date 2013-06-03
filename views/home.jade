@@ -62,3 +62,10 @@ block content
                 lat: #{restaurant.map.lat},
                 lon: #{restaurant.map.lon}
             });
+    i#choicehelp-link.icon-meh
+    div#choicehelp-box.alert.hide
+        h2 #{__i('What about…')}
+        i#choicehelp-close.icon-remove
+        div#choicehelp-text
+    script(type='text/javascript')
+        restaurants.registerHelp()
