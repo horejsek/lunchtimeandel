@@ -37,4 +37,17 @@ module.exports = (app, models) ->
                     meals: meals
             res.json result
 
+    app.get '/api/meal/random', (req, res) ->
+        models.Restaurant.random (err, restaurant) ->
+            meals = []
+            for meal in restaurant.meals
+                meals.push meal if meal.price > 50
+
+            rand = Math.floor(Math.random() * meals.length)
+            meal = meals[rand]
+            res.json
+                restaurantName: restaurant.name
+                mealName: meal.name
+                mealPrice: meal.getPrintablePrice()
+
     @
