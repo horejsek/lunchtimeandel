@@ -19,4 +19,22 @@ module.exports = (app, models) ->
         else
             res.redirect '/'
 
+    app.get '/api/listall', (req, res) ->
+        models.Restaurant.find {}, (err, restaurants) ->
+            result = []
+            for restaurant in restaurants
+                meals = []
+                for meal in restaurant.meals
+                    meals.push
+                        name: meal.name
+                        price: meal.price
+                result.push
+                    name: restaurant.name
+                    url: restaurant.url
+                    lunchmenuUrl: restaurant.lunchmenuUrl
+                    lastUpdate: restaurant.lastUpdate
+                    map: restaurant.map
+                    meals: meals
+            res.json result
+
     @
