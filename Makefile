@@ -33,7 +33,6 @@ compile-javascript:
 	    --input="public/javascripts/choicehelp.js" \
 	    --input="public/javascripts/restaurants.js" \
 	    --input="public/javascripts/search.js" \
-	    --input="public/javascripts/shake.js" \
 	    --compiler_flags="--externs=public/javascripts/externs/googlemapsv3.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
 	    --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
