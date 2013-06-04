@@ -27,6 +27,13 @@ module.exports = (mongoose) ->
     Restaurant.methods.getPrintalbeLastUpdate = () ->
         moment.lang i18n.getLocale()
         moment(@lastUpdate).format __ 'MMMM D, H:mm A'
+    Restaurant.methods.getRandomMeal = () ->
+        meals = []
+        for meal in @meals
+            meals.push meal if meal.price > 50
+
+        rand = Math.floor(Math.random() * meals.length)
+        meals[rand]
     Restaurant.pre 'save', (next) ->
         mealNames = []
         meals = []

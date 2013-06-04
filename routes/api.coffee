@@ -6,29 +6,28 @@ module.exports = (app, models) ->
             for restaurant in restaurants
                 meals = []
                 for meal in restaurant.meals
-                    meals.push
-                        name: meal.name
-                        price: meal.price
-                result.push
-                    name: restaurant.name
-                    url: restaurant.url
-                    lunchmenuUrl: restaurant.lunchmenuUrl
-                    lastUpdate: restaurant.lastUpdate
-                    map: restaurant.map
-                    meals: meals
+                    meals.push getMealAttributes meal
+                restaurant = getRestaurantAttributes restaurant
+                restaurant.meals = meals
+                result.push restaurant
             res.json result
 
     app.get '/api/meal/random', (req, res) ->
         models.Restaurant.random (err, restaurant) ->
-            meals = []
-            for meal in restaurant.meals
-                meals.push meal if meal.price > 50
-
-            rand = Math.floor(Math.random() * meals.length)
-            meal = meals[rand]
+            meal = restaurant.getRandomMeal()
             res.json
-                restaurantName: restaurant.name
-                mealName: meal.name
-                mealPrice: meal.getPrintablePrice()
+                restaurant: getRestaurantAttributes restaurant
+                meal: getMealAttributes meal
+
+    getRestaurantAttributes = (restaurant) ->
+        name: restaurant.name
+        url: restaurant.url
+        lunchmenuUrl: restaurant.lunchmenuUrl
+        lastUpdate: restaurant.lastUpdate
+        map: restaurant.map
+
+    getMealAttributes = (meal) ->
+        name: meal.name
+        price: meal.getPrintablePrice()
 
     @

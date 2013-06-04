@@ -29,7 +29,7 @@ class lta.ChoiceHelp
             res = e.target.getResponseJson()
 
             textElm = goog.dom.getElement 'choicehelp-text'
-            textElm.innerHTML = '<strong>' + res['restaurantName'] + '</strong>' + ' – ' + res['mealName'] + ' (' + res['mealPrice'] + ')'
+            textElm.innerHTML = '<strong>' + res['restaurant']['name'] + '</strong>' + ' – ' + res['meal']['name'] + ' (' + res['meal']['price'] + ')'
 
             boxElm = goog.dom.getElement 'choicehelp-box'
             goog.dom.classes.remove boxElm, 'hide'
