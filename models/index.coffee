@@ -44,12 +44,11 @@ module.exports = (mongoose) ->
         @meals = meals
         next()
     Restaurant.statics.random = (callback) ->
-        that = @
-        @count (err, count) ->
+        @find {meals: {$not: {$size: 0}}}, (err, restaurants) ->
             if err
                 return callback err
-            rand = Math.floor(Math.random() * count)
-            that.findOne().skip(rand).exec callback
+            rand = Math.floor(Math.random() * restaurants.length)
+            callback err, restaurants[rand]
 
     Meal: mongoose.model 'Meal', Meal
     Restaurant: mongoose.model 'Restaurant', Restaurant
