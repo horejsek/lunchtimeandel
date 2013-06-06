@@ -12,7 +12,7 @@ module.exports = (models) ->
                 lon: 14.403237
 
         parse: (meals, $) ->
-            $('table tr').each (i, elem) ->
+            $('table').first().find('tr').each (i, elem) ->
                 meals.push new models.Meal
                     name: $(this).find('td').first().text().trim()
                     price: $(this).find('td').last().text().trim()
