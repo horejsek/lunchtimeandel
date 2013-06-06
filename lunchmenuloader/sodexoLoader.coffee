@@ -14,9 +14,9 @@ module.exports = (models) ->
                 lon: 14.400818
 
         parse: (meals, $) ->
-            today = moment().format('DD. MM. YY')
+            today = moment().format('DD. MM. YYYY')
             $('.today-menu').each (i, elem) ->
-                if $('h2').text().search(today) == -1
+                if $(this).find('h2').text().search(today) == -1
                     return
                 $(this).find('td.popisJidla').each (i, elem) ->
                     meals.push new models.Meal
