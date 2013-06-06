@@ -12,7 +12,7 @@ module.exports = (models) ->
                 lon: 14.401639
 
         parse: (meals, $) ->
-            $('table tbody tr').each (i, elem) ->
+            $('table').first().find('tbody tr').each (i, elem) ->
                 name = $(this).find('td').first().text().trim()
                 price = $(this).find('td').last().text().trim()
                 if name and price
