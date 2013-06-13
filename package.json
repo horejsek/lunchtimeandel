@@ -24,6 +24,6 @@
         "mongoose": "*",
         "request": "*",
         "time": "*",
-        "stylus": "*"
+        "less-middleware": "*"
     }
 }

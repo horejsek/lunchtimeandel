@@ -29,14 +29,14 @@ compile-javascript:
 	    --path $(CLOSURE_LIBRARY) \
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
-	    --input="public/javascripts/restaurant.js" \
-	    --input="public/javascripts/choicehelp.js" \
-	    --input="public/javascripts/restaurants.js" \
-	    --input="public/javascripts/search.js" \
-	    --compiler_flags="--externs=public/javascripts/externs/googlemapsv3.js" \
+	    --input="javascripts/restaurant.js" \
+	    --input="javascripts/choicehelp.js" \
+	    --input="javascripts/restaurants.js" \
+	    --input="javascripts/search.js" \
+	    --compiler_flags="--externs=javascripts/externs/googlemapsv3.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
 	    --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
-	    > public/javascripts/app.min.js;
+	    > public/app.min.js;
 
 watch:
 	coffee --watch -cb ./

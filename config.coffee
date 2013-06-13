@@ -3,6 +3,7 @@ express = require 'express'
 i18n = require 'i18n'
 md = require('node-markdown').Markdown
 path = require 'path'
+lessMiddleware = require 'less-middleware'
 
 moment = require 'moment'
 moment.lang 'cs',
@@ -31,7 +32,9 @@ module.exports = (app) ->
         app.use express.session()
         app.use i18n.init
         app.use app.router
-        app.use require('stylus').middleware(__dirname + '/public')
+        app.use lessMiddleware
+            src: path.join __dirname, 'public'
+            compress: true
         app.use express.static path.join __dirname, 'public'
 
     app.configure 'development', ->
