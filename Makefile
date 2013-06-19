@@ -33,6 +33,7 @@ compile-javascript:
 	    --input="javascripts/choicehelp.js" \
 	    --input="javascripts/restaurants.js" \
 	    --input="javascripts/search.js" \
+	    --input="javascripts/api.js" \
 	    --compiler_flags="--externs=javascripts/externs/googlemapsv3.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
 	    --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
