@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'Jet Set'
             @homepage = 'http://www.jetset.cz/'
             @downloadUrl = 'http://www.docservis.cz/jetset/www/cs/home/daily-menu'
-            @map =
-                lat: 50.071646
-                lon: 14.401585
+            @phoneNumber = '+420 257 327 251'
+            @address =
+                street: 'Radlická 3185/1C'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.071646
+                    lng: 14.401585
 
         parse: (meals, $) ->
             $('tbody tr').each (i, elem) ->

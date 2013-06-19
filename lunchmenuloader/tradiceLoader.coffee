@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'Tradice'
             @homepage = 'http://www.tradiceandel.cz'
             @downloadUrl = 'http://www.tradiceandel.cz/cz/denni-nabidka/'
-            @map =
-                lat: 50.06924
-                lon: 14.401515
+            @phoneNumber = '+420 251 550 050'
+            @address =
+                street: 'Radlická 806/18'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.06924
+                    lng: 14.401515
 
         parse: (meals, $) ->
             n = (new Date()).getDay()

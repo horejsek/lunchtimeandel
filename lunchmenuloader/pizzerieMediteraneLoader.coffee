@@ -9,9 +9,14 @@ module.exports = (models) ->
             @name = 'Pizzerie Mediterane‎'
             @homepage = 'http://www.pizzeriemediterane.cz'
             @downloadUrl = 'http://www.pizzeriemediterane.cz/denni_menu.php'
-            @map =
-                lat: 50.071295
-                lon: 14.40159
+            @phoneNumber = '+420 257 320 579'
+            @address =
+                street: 'Radlická 3179/1e'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.071295
+                    lng: 14.40159
 
         parse: (meals, $) ->
             today = moment().format('D.M.YYYY')

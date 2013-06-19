@@ -11,9 +11,14 @@ module.exports = (models) ->
             @name = 'U Bílého lva'
             @homepage = 'http://www.ubileholva.com'
             @downloadUrl = 'http://www.ubileholva.com/index.cfm/co-bude-dnes-k-obedu/'
-            @map =
-                lat: 50.071753
-                lon: 14.405973
+            @phoneNumber = '+420 257 316 731'
+            @address =
+                street: 'Na Bělidle 310/30'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.071753
+                    lng: 14.405973
 
         parse: (meals, $) ->
             today = moment().format('DD.MM.YY')

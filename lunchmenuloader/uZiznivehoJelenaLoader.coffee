@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'U Žíznivého jelena'
             @homepage = 'http://www.uziznivehojelena.cz/'
             @downloadUrl = 'http://www.uziznivehojelena.cz/poledni-menu'
-            @map =
-                lat: 50.069632
-                lon: 14.406402
+            @phoneNumber = '+420 257 322 525'
+            @address =
+                street: 'Vltavská 523/15'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.069632
+                    lng: 14.406402
 
         parse: (meals, $) ->
             callback = (i, elem) ->

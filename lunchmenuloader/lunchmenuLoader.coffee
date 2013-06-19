@@ -9,9 +9,9 @@ module.exports = (models) ->
             @name = undefined
             @homepage = undefined
             @downloadUrl = undefined
-            @map =
-                lat: undefined
-                lon: undefined
+            @address = undefined
+            @phoneNumber = undefined
+            @charset = undefined
 
         loadData: () ->
             try
@@ -37,10 +37,12 @@ module.exports = (models) ->
         createRestaurant: () ->
             new models.Restaurant
                 name: @name
-                url: @homepage
-                lunchmenuUrl: @downloadUrl
+                urls:
+                    homepage: @homepage
+                    lunchmenu: @downloadUrl
                 lastUpdate: new Date()
-                map: @map
+                phoneNumber: @phoneNumber
+                address: @address
 
         convertToUtf8: (body) ->
             charset = @charset || 'UTF8'

@@ -9,9 +9,14 @@ module.exports = (models) ->
             @name = 'Firemní restaurace Sodexo'
             @homepage = 'http://mafra.portal.sodexo.cz/cs/uvod'
             @downloadUrl = 'http://mafra.portal.sodexo.cz/cs/jidelni-listek-na-cely-tyden'
-            @map =
-                lat: 50.069842
-                lon: 14.400818
+            @phoneNumber = '+420 225 061 233'
+            @address =
+                street: 'Karla Engliše 519/11'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.069842
+                    lng: 14.400818
 
         parse: (meals, $) ->
             today = moment().format('DD. MM. YYYY')

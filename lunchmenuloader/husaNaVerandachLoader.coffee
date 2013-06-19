@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'Potrefená Husa (na Verandách)'
             @homepage = 'http://www.phnaverandach.cz/'
             @downloadUrl = 'http://www.phnaverandach.cz/cz/menu/daily-menu'
-            @map =
-                lat: 50.068493
-                lon: 14.406593
+            @phoneNumber = '+420 257 191 200'
+            @address =
+                street: 'Nádražní 43/84'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.068493
+                    lng: 14.406593
 
         parse: (meals, $) ->
             n = (new Date()).getDay()

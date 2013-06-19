@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'U Kristiána'
             @homepage = 'http://www.restaurace-vinarna.cz/restaurace-ukristiana'
             @downloadUrl = 'http://www.restaurace-vinarna.cz/restaurace-ukristiana'
-            @map =
-                lat: 50.070045
-                lon: 14.409481
+            @phoneNumber = '+420 603 424 700'
+            @address =
+                street: 'Vltavská 787/8'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.070045
+                    lng: 14.409481
 
         parse: (meals, $) ->
             $('#listek').find('table').eq(1).find('tr').each (i, elem) ->

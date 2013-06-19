@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'Potrefená Husa (Anděl)'
             @homepage = 'http://www.staropramen.cz/husa/restaurace-praha-andel/denni-menu'
             @downloadUrl = 'http://www.staropramen.cz/husa/restaurace-praha-andel/denni-menu'
-            @map =
-                lat: 50.070479
-                lon: 14.404525
+            @phoneNumber = '+420 257 941 669'
+            @address =
+                street: 'Nádražní 222/23'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.070479
+                    lng: 14.404525
 
         parse: (meals, $) ->
             $('#denniMenuCarousel li').first().find('li').each (i, elem) ->

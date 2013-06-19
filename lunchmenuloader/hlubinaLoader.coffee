@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'Hlubina'
             @homepage = 'http://www.restaurace-hlubina.cz/'
             @downloadUrl = 'http://www.lunchtime.cz/denni-menu/praha/smichov/'
-            @map =
-                lat: 50.072111
-                lon: 14.405276
+            @phoneNumber = '+420 257 328 184'
+            @address =
+                street: 'Lidická 311/37'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.072111
+                    lng: 14.405276
 
         parse: (meals, $) ->
             $('#restaurace2006 tr').each (i, elem) ->

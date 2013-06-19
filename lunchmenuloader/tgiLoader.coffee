@@ -7,9 +7,14 @@ module.exports = (models) ->
             @name = 'T.G.I. Friday\'s'
             @homepage = 'http://www.tgifridays.cz/cs/na-andelu/'
             @downloadUrl = 'http://www.tgifridays.cz/cs/na-andelu/obedove-menu-andel/'
-            @map =
-                lat: 50.070572
-                lon: 14.405136
+            @phoneNumber = '+420 257 286 261'
+            @address =
+                street: 'Nádražní 110'
+                city: 'Praha 5'
+                zip: 15000
+                map:
+                    lat: 50.070572
+                    lng: 14.405136
 
         parse: (meals, $) ->
             $('#articles table tr').each (i, elem) ->
