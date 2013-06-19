@@ -136,7 +136,7 @@ class lta.Restaurant
         @mapMarker_ = new google.maps.Marker
             'map': googleMap
             'title': @name
-            'position': new google.maps.LatLng @coordinates_['lat'], @coordinates_['lon']
+            'position': new google.maps.LatLng @coordinates_['lat'], @coordinates_['lng']
             'icon': @getDefaultMarkerIconUrl_()
         google.maps.event.addListener @mapMarker_, 'click', () ->
             that.mark()
