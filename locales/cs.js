@@ -10,5 +10,8 @@
 	"Info": "Info",
 	"Restaurants": "Restaurace",
 	"Show in map": "Zobrazit na mapě",
-	"What about…": "Co třeba…"
+	"What about…": "Co třeba…",
+	"Load all restaurants with their meals.": "Načíst všechny restaurace s obědy.",
+	"Get random meal with information about restaurant.": "Získat náhodný oběd s informací o restauraci.",
+	"Loading…": "Načítání…"
 }

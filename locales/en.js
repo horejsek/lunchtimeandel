@@ -10,5 +10,8 @@
 	"Info": "Info",
 	"Restaurants": "Restaurants",
 	"Show in map": "Show in map",
-	"What about…": "What about…"
+	"What about…": "What about…",
+	"Load all restaurants with their meals.": "Load all restaurants with their meals.",
+	"Get random meal with information about restaurant.": "Get random meal with information about restaurant.",
+	"Loading…": "Loading…"
 }
