@@ -1,5 +1,19 @@
 
 module.exports = (app, models) ->
+    app.get '/api', (req, res) ->
+        res.render 'api.jade',
+            title: __('LunchtimeAndel') + ' API'
+            apis: [
+                {
+                    url: '/api/listall'
+                    description: __('Load all restaurants with their meals.')
+                }
+                {
+                    url: '/api/meal/random'
+                    description: __('Get random meal with information about restaurant.')
+                }
+            ]
+
     app.get '/api/listall', (req, res) ->
         models.Restaurant.find {}, (err, restaurants) ->
             result = []

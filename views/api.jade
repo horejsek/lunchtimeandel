@@ -1,0 +1,23 @@
+extends layout
+
+block vars
+    - var listSize=2
+
+block list
+    ul.nav.nav-pills.nav-stacked
+        each api in apis
+            li
+                a(href='##{api.url}')= api.url
+
+
+block content
+    each api in apis
+        div.well(id='#{api.url}')
+            h2
+                a(href='#{api.url}')= api.url
+            p= api.description
+            pre.pre-scrollable
+                code.example-result(url='#{api.url}') #{__i('Loading…')}
+
+    script(type='text/javascript')
+        lta.api.load()

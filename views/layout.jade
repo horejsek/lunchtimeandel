@@ -1,5 +1,8 @@
+- var listSize=5
+
 doctype 5
 html
+    block vars
     head
         title= title
         link(rel='stylesheet', href='/stylesheets/style.min.css')
@@ -13,9 +16,9 @@ html
         div#page.container-fluid
             h1= title
             div.row-fluid
-                div.span7
+                div(class='span#{12-listSize}')
                     block content
-                div.span5
+                div(class='span#{listSize}')
                     div#list
                         block list
             div.well
