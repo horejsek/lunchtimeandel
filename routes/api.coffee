@@ -35,10 +35,10 @@ module.exports = (app, models) ->
 
     getRestaurantAttributes = (restaurant) ->
         name: restaurant.name
-        url: restaurant.url
-        lunchmenuUrl: restaurant.lunchmenuUrl
+        urls: restaurant.urls
         lastUpdate: restaurant.lastUpdate
-        map: restaurant.map
+        phoneNumber: restaurant.phoneNumber
+        address: restaurant.address
 
     getMealAttributes = (meal) ->
         name: meal.name
