@@ -7,13 +7,19 @@ module.exports = (Schema) ->
 
     Restaurant = new Schema
         name: String
-        url: String
-        lunchmenuUrl: String
+        urls:
+            homepage: String
+            lunchmenu: String
         lastUpdate: Date
         meals: [Meal]
-        map:
-            lat: Number
-            lon: Number
+        phoneNumber: String
+        address:
+            street: String
+            city: String
+            zip: Number
+            map:
+                lat: Number
+                lng: Number
 
     Restaurant.methods.getPrintalbeLastUpdate = () ->
         moment.lang i18n.getLocale()
