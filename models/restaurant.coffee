@@ -1,11 +1,13 @@
 
 i18n = require 'i18n'
 moment = require 'moment'
+slug = require 'slug'
 
 module.exports = (Schema) ->
     Meal = require('./meal')(Schema)
 
     Restaurant = new Schema
+        id: String
         name: String
         urls:
             homepage: String
@@ -41,6 +43,7 @@ module.exports = (Schema) ->
                 meals.push meal
             mealNames.push meal.name
         @meals = meals
+        @id = slug(@name).toLowerCase()
         next()
 
     Restaurant.statics.random = (callback) ->

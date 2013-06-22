@@ -19,11 +19,12 @@
         "i18n": "*",
         "iconv": "*",
         "jade": "*",
+        "less-middleware": "*",
         "node-markdown": "*",
         "moment": "*",
         "mongoose": "*",
         "request": "*",
-        "time": "*",
-        "less-middleware": "*"
+        "slug": "*",
+        "time": "*"
     }
 }

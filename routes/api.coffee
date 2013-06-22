@@ -34,6 +34,7 @@ module.exports = (app, models) ->
                 meal: getMealAttributes meal
 
     getRestaurantAttributes = (restaurant) ->
+        id: restaurant.id
         name: restaurant.name
         urls: restaurant.urls
         lastUpdate: restaurant.lastUpdate
