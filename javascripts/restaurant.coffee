@@ -42,10 +42,29 @@ class lta.Restaurant
         @history_ = history
 
     getId: () ->
-        @data_.id
+        @data_['id']
 
     appendToDocument: () ->
-        @contentElm_ = soy.renderAsElement lta.templates.restaurant, @data_
+        meals = []
+        for meal in @data_['meals']
+            meals.push
+                name: meal['name']
+                priceStr: meal['priceStr']
+                isExpensive: meal['isExpensive']
+                isMainCourse: meal['isMainCourse']
+        @contentElm_ = soy.renderAsElement lta.templates.restaurant,
+            id: @data_['id']
+            name: @data_['name']
+            urls:
+                homepage: @data_['urls']['homepage']
+                lunchmenu: @data_['urls']['lunchmenu']
+            phoneNumber: @data_['phoneNumber']
+            address:
+                street: @data_['address']['street']
+                zip: @data_['address']['zip']
+                city: @data_['address']['city']
+            lastUpdateStr: @data_['lastUpdateStr']
+            meals: meals
         @initDetailListener_()
 
         container = goog.dom.getElement 'restaurants'
@@ -75,7 +94,7 @@ class lta.Restaurant
     @private
     ###
     getCountOfMeals_: () ->
-        @data_.meals.length
+        @data_['meals'].length
 
     ###*
     @param {string} query
@@ -132,14 +151,14 @@ class lta.Restaurant
         that = @
         @mapMarker_ = new google.maps.Marker
             'map': googleMap
-            'title': @data_.name
-            'position': new google.maps.LatLng @data_.address.map['lat'], @data_.address.map['lng']
+            'title': @data_['name']
+            'position': new google.maps.LatLng @data_['address']['map']['lat'], @data_['address']['map']['lng']
             'icon': @getDefaultMarkerIconUrl_()
         google.maps.event.addListener @mapMarker_, 'click', () ->
             that.mark()
             that.scrollTo_()
-            that.history_.setToken that.data_.id
-        if @history_.getToken() is @data_.id
+            that.history_.setToken that.getId()
+        if @history_.getToken() is @getId()
             @mark()
             @scrollTo_()
 
