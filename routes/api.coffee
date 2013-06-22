@@ -46,5 +46,7 @@ module.exports = (app, models) ->
         name: meal.name
         price: meal.price
         priceStr: meal.getPrintablePrice()
+        isExpensive: meal.isExpensive()
+        isMainCourse: meal.isMainCourse()
 
     @
