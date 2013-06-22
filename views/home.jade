@@ -12,8 +12,7 @@ block list
                 disableDefaultUI: true,
                 disableDoubleClickZoom: true
             };
-            var googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-            restaurants.registerMap(googleMap);
+            googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         })();
     div.input-append#search
         input(type='text', placeholder='#{__i('Search')}')
@@ -23,60 +22,16 @@ block list
         new lta.Search('search', restaurants)
 
 block content
-    each restaurant in restaurants
-        div.restaurant(id='#{restaurant.name}')
-            h2= restaurant.name
-                &nbsp;
-                small
-                    a.restaurant-detail-link(href='#') #{__i('Info')}
-            div.well.hide.restaurant-detail
-                div.row-fluid
-                    div.span6
-                        span.hidden-phone
-                            i.icon-globe
-                            &nbsp
-                            a(href='#'+restaurant.name) #{__i('Show in map')}
-                            br
-                        span= restaurant.address.street
-                        br
-                        span #{restaurant.address.zip}, #{restaurant.address.city}
-                        br
-                        span
-                            i.icon-phone
-                            &nbsp;
-                            span= restaurant.phoneNumber
-                    div.span6
-                        i.icon-external-link
-                        &nbsp;
-                        a(href=restaurant.urls.homepage, target='_blank') #{__i('Restaurant pages')}
-                        br
-                        i.icon-external-link
-                        &nbsp;
-                        a(href=restaurant.urls.lunchmenu, target='_blank') #{__i('Lunch menu')}
-                        p
-                            i.icon-refresh
-                            &nbsp;
-                            span #{__i('Last update')}:
-                            &nbsp;
-                            strong #{restaurant.getPrintalbeLastUpdate()}
-            if restaurant.meals.length
-                table.table.table-bordered.table-hover
-                    each meal in restaurant.meals
-                        tr(class="#{meal.price>100 ? 'warning' : ''} #{meal.price<50 ? 'info' : ''}")
-                            td.meal= meal.name
-                            td.price= meal.getPrintablePrice()
-            else
-                p.well
-                    em #{__('Daily lunch menu is not available')}
-        script(type='text/javascript')
-            restaurants.add("#{restaurant.name}", {
-                lat: #{restaurant.address.map.lat},
-                lng: #{restaurant.address.map.lng}
-            });
+    div#restaurants
+
     i#choicehelp-link.icon-meh
     div#choicehelp-box.alert.hide
         h2 #{__i('What about…')}
         i#choicehelp-close.icon-remove
         div#choicehelp-text
+
+block end
     script(type='text/javascript')
-        restaurants.registerHelp()
+        var restaurants = new lta.Restaurants(googleMap);
+        restaurants.load();
+        restaurants.registerHelp();
