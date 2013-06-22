@@ -1,0 +1,43 @@
+{namespace lta.templates}
+
+/**
+ * @param id
+ * @param name
+ * @param urls
+ * @param address
+ * @param phoneNumber
+ * @param lastUpdateStr
+ * @param meals
+ */
+{template .restaurant}
+    <div id="{$id}" class="restaurant">
+        <h2>{$name} <small><a href="#" class="restaurant-detail-link">Info</a></small></h2>
+        <div class="well hide restaurant-detail">
+            <div class="row-fluid">
+                <div class="span6">
+                    <span class="hidden-phone"><i class="icon-globe"></i> <a href="#{$id}">Show in map</a></span><br />
+                    {$address.street}<br />
+                    {$address.zip}, {$address.city}<br />
+                    <i class="icon-phone"></i> {$phoneNumber}
+                </div>
+                <div class="span6">
+                    <i class="icon-external-link"></i> <a href="{$urls.homepage}">Restaurant pages</a><br />
+                    <i class="icon-external-link"></i> <a href="{$urls.lunchmenu}">Lunch menu</a><br />
+                    <i class="icon-refresh"></i> Last update: <strong>{$lastUpdateStr}</strong>
+                </div>
+            </div>
+        </div>
+        {if $meals.length}
+            <table class="table table-bordered table-hover">
+                {foreach $meal in $meals}
+                    <tr class="{if $meal.isExpensive}warning{/if} {if not $meal.isMainCourse}info{/if}">
+                        <td class="meal">{$meal.name}</td>
+                        <td class="price">{$meal.priceStr}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        {else}
+            <p class="well"><em>Daily lunch menu is not available</em></p>
+        {/if}
+    </div>
+{/template}

@@ -1,6 +1,7 @@
 
 CLOSURE_LIBRARY=libs/closure-library/
 CLOSURE_COMPILER=libs/closure-compiler.jar
+SOY_COMPILER=libs/closure-templates/SoyToJsSrcCompiler.jar
 
 PORT=3000
 
@@ -21,14 +22,21 @@ run-forever: compile-coffeescript
 	- $(FOREVER) stop lunchtime.js
 	$(FOREVER) start lunchtime.js
 
-compile: compile-coffeescript compile-javascript
+compile: compile-coffeescript compile-templates compile-javascript
 compile-coffeescript:
 	coffee -cb ./
+compile-templates:
+	java -jar $(SOY_COMPILER) \
+	    --shouldProvideRequireSoyNamespaces \
+	    --outputPathFormat javascripts/template.js \
+	    --srcs javascripts/template.soy
 compile-javascript:
 	python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
-	    --path $(CLOSURE_LIBRARY) \
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
+	    --path $(CLOSURE_LIBRARY) \
+	    --path="libs/closure-templates/soyutils_usegoog.js" \
+	    --path="javascripts/template.js" \
 	    --input="javascripts/restaurant.js" \
 	    --input="javascripts/choicehelp.js" \
 	    --input="javascripts/restaurants.js" \
