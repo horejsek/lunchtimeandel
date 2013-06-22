@@ -139,7 +139,9 @@ class lta.Restaurant
             that.mark()
             that.scrollTo_()
             that.history_.setToken that.data_.id
-        @mark() if @history_.getToken() is @data_.id
+        if @history_.getToken() is @data_.id
+            @mark()
+            @scrollTo_()
 
     mark: () ->
         goog.dom.classes.add @contentElm_, 'restaurant-highlight'
