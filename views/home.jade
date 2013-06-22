@@ -18,8 +18,6 @@ block list
         input(type='text', placeholder='#{__i('Search')}')
         button(type='button', class='btn')
             i.icon-remove
-    script(type='text/javascript')
-        new lta.Search('search', restaurants)
 
 block content
     div#restaurants
@@ -34,4 +32,5 @@ block end
     script(type='text/javascript')
         var restaurants = new lta.Restaurants(googleMap);
         restaurants.load();
-        restaurants.registerHelp();
+        new lta.ChoiceHelp();
+        new lta.Search('search', restaurants)
