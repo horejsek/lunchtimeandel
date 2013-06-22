@@ -21,11 +21,22 @@ class lta.Restaurants
     history_: null
 
     ###*
-    @param {string} name
-    @param {Object} coordinates
+    @type {google.maps.Map}
+    @private
+    ###
+    googleMap_: null
+
+    ###*
     @constructor
     ###
-    constructor: (name, coordinates) ->
+    constructor: (googleMap) ->
+        @googleMap_ = googleMap
+        @constructHistory_()
+
+    ###*
+    @private
+    ###
+    constructHistory_: () ->
         that = @
         @history_ = new goog.History()
         @history_.setEnabled true
@@ -36,15 +47,23 @@ class lta.Restaurants
     ###
     historyNavigate_: (e) ->
         for restaurant in @restaurants_
-            if e.token is restaurant.name then restaurant.mark() else restaurant.unmark()
+            if e.token is restaurant.getId() then restaurant.mark() else restaurant.unmark()
 
     ###*
-    @param {string} name
-    @param {Object} coordinates
     @expose
     ###
-    add: (name, coordinates) ->
-        @restaurants_.push new lta.Restaurant name, coordinates, @history_
+    load: () ->
+        that = @
+        goog.net.XhrIo.send '/api/listall', (e) ->
+            container = goog.dom.getElement 'restaurants'
+            container.innerHTML = ''
+
+            res = e.target.getResponseJson()
+            for restaurant in res
+                restaurant = new lta.Restaurant restaurant, that.history_
+                restaurant.appendToDocument()
+                restaurant.registerMapMarker that.googleMap_
+                that.restaurants_.push restaurant
 
     ###*
     @param {string} query
@@ -52,20 +71,6 @@ class lta.Restaurants
     search: (query) ->
         for restaurant in @restaurants_
             restaurant.search query
-
-    ###*
-    @param {google.maps.Map} googleMap
-    @expose
-    ###
-    registerMap: (googleMap) ->
-        for restaurant in @restaurants_
-            restaurant.registerMapMarker googleMap
-
-    ###*
-    @expose
-    ###
-    registerHelp: () ->
-        new lta.ChoiceHelp()
 
 
 window['lta'] = lta

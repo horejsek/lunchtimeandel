@@ -3,23 +3,20 @@ goog.provide 'lta.Restaurant'
 
 goog.require 'goog.dom'
 goog.require 'goog.events'
+goog.require 'soy'
+goog.require 'lta.templates'
 
 
 class lta.Restaurant
     ###*
-    @type {string}
-    @protected
-    ###
-    name: ''
-
-    ###*
     @type {Object}
     @private
     ###
-    coordinates_: null
+    data_: null
 
     ###*
     @type {goog.History}
+    @private
     ###
     history_: null
 
@@ -36,23 +33,23 @@ class lta.Restaurant
     mapMarker_: null
 
     ###*
-    @param {string} name
-    @param {Object} coordinates
+    @param {Object} data
     @param {goog.History} history
     @constructor
     ###
-    constructor: (name, coordinates, history) ->
-        @name = name
-        @coordinates_ = coordinates
+    constructor: (data, history) ->
+        @data_ = data
         @history_ = history
-        @contentElm_ = goog.dom.getElement name
-        @initListeners_()
 
-    ###*
-    @private
-    ###
-    initListeners_: () ->
+    getId: () ->
+        @data_.id
+
+    appendToDocument: () ->
+        @contentElm_ = soy.renderAsElement lta.templates.restaurant, @data_
         @initDetailListener_()
+
+        container = goog.dom.getElement 'restaurants'
+        goog.dom.appendChild container, @contentElm_
 
     ###*
     @private
@@ -78,7 +75,7 @@ class lta.Restaurant
     @private
     ###
     getCountOfMeals_: () ->
-        @getMealsElms_().length
+        @data_.meals.length
 
     ###*
     @param {string} query
@@ -135,14 +132,14 @@ class lta.Restaurant
         that = @
         @mapMarker_ = new google.maps.Marker
             'map': googleMap
-            'title': @name
-            'position': new google.maps.LatLng @coordinates_['lat'], @coordinates_['lng']
+            'title': @data_.name
+            'position': new google.maps.LatLng @data_.address.map['lat'], @data_.address.map['lng']
             'icon': @getDefaultMarkerIconUrl_()
         google.maps.event.addListener @mapMarker_, 'click', () ->
             that.mark()
             that.scrollTo_()
-            that.history_.setToken that.name
-        @mark() if that.history_.getToken() is @name
+            that.history_.setToken that.data_.id
+        @mark() if @history_.getToken() is @data_.id
 
     mark: () ->
         goog.dom.classes.add @contentElm_, 'restaurant-highlight'
