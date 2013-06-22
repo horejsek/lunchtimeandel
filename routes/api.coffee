@@ -38,11 +38,13 @@ module.exports = (app, models) ->
         name: restaurant.name
         urls: restaurant.urls
         lastUpdate: restaurant.lastUpdate
+        lastUpdateStr: restaurant.getPrintalbeLastUpdate()
         phoneNumber: restaurant.phoneNumber
         address: restaurant.address
 
     getMealAttributes = (meal) ->
         name: meal.name
-        price: meal.getPrintablePrice()
+        price: meal.price
+        priceStr: meal.getPrintablePrice()
 
     @
