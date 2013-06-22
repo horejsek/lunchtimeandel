@@ -37,3 +37,7 @@ class lta.ChoiceHelp
     hide: () ->
         boxElm = goog.dom.getElement 'choicehelp-box'
         goog.dom.classes.add boxElm, 'hide'
+
+
+window['lta'] = lta
+lta['ChoiceHelp'] = lta.ChoiceHelp
