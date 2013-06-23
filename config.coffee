@@ -11,9 +11,10 @@ moment.lang 'cs',
 
 module.exports = (app) ->
     i18n.configure
-        locales: ['en', 'cs']
+        locales: ['cs']
         register: global
         updateFiles: true
+    i18n.setLocale 'cs'
 
     app.locals
         __i: __
