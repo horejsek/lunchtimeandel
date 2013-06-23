@@ -11,19 +11,19 @@
  */
 {template .restaurant}
     <div id="{$id}" class="restaurant">
-        <h2>{$name} <small><a href="#" class="restaurant-detail-link">Info</a></small></h2>
+        <h2>{$name} <small><a href="#" class="restaurant-detail-link">{msg desc="Info"}Info{/msg}</a></small></h2>
         <div class="well hide restaurant-detail">
             <div class="row-fluid">
                 <div class="span6">
-                    <span class="hidden-phone"><i class="icon-globe"></i> <a href="#{$id}">Show in map</a></span><br />
+                    <span class="hidden-phone"><i class="icon-globe"></i> <a href="#{$id}">{msg desc="Show in map"}Show in map{/msg}</a></span><br />
                     {$address.street}<br />
                     {$address.zip}, {$address.city}<br />
                     <i class="icon-phone"></i> {$phoneNumber}
                 </div>
                 <div class="span6">
-                    <i class="icon-external-link"></i> <a href="{$urls.homepage}" target="_blank">Restaurant pages</a><br />
-                    <i class="icon-external-link"></i> <a href="{$urls.lunchmenu}" target="_blank">Lunch menu</a><br />
-                    <i class="icon-refresh"></i> Last update: <strong>{$lastUpdateStr}</strong>
+                    <i class="icon-external-link"></i> <a href="{$urls.homepage}" target="_blank">{msg desc="Restaurant pages"}Restaurant pages{/msg}</a><br />
+                    <i class="icon-external-link"></i> <a href="{$urls.lunchmenu}" target="_blank">{msg desc="Lunch menu"}Lunch menu{/msg}</a><br />
+                    <i class="icon-refresh"></i> {msg desc="Last update"}Last update{/msg}: <strong>{$lastUpdateStr}</strong>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 {/foreach}
             </table>
         {else}
-            <p class="well"><em>Daily lunch menu is not available</em></p>
+            <p class="well"><em>{msg desc="Daily lunch menu is not available"}Daily lunch menu is not available.{/msg}</em></p>
         {/if}
     </div>
 {/template}

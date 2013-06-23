@@ -2,6 +2,7 @@
 CLOSURE_LIBRARY=libs/closure-library/
 CLOSURE_COMPILER=libs/closure-compiler.jar
 SOY_COMPILER=libs/closure-templates/SoyToJsSrcCompiler.jar
+SOY_MSG_EXTRACTOR=libs/closure-templates/SoyMsgExtractor.jar
 
 PORT=3000
 
@@ -28,8 +29,15 @@ compile-coffeescript:
 compile-templates:
 	java -jar $(SOY_COMPILER) \
 	    --shouldProvideRequireSoyNamespaces \
+	    --shouldGenerateGoogMsgDefs \
+	    --bidiGlobalDir 1 \
 	    --outputPathFormat javascripts/template.js \
 	    --srcs javascripts/template.soy
+	java -jar libs/XtbGenerator.jar \
+	    --lang cs \
+	    --translations_file javascripts/messages.xtb \
+	    --xtb_output_file javascripts/messages.xtb \
+	    --js javascripts/template.js
 compile-javascript:
 	python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
 	    --compiler_jar $(CLOSURE_COMPILER) \
@@ -42,6 +50,7 @@ compile-javascript:
 	    --input="javascripts/restaurants.js" \
 	    --input="javascripts/search.js" \
 	    --input="javascripts/api.js" \
+	    --compiler_flags="--translations_file=javascripts/messages.xtb" \
 	    --compiler_flags="--externs=javascripts/externs/googlemapsv3.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
 	    --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
