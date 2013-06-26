@@ -47,7 +47,7 @@ module.exports = (Schema) ->
         next()
 
     Restaurant.statics.random = (callback) ->
-        @find {meals: {$not: {$size: 0}}}, (err, restaurants) ->
+        @find {meals: {$not: {$size: 0}}, 'meals.price': {$gt: 50}}, (err, restaurants) ->
             if err
                 return callback err
             rand = Math.floor(Math.random() * restaurants.length)
