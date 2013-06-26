@@ -65,6 +65,12 @@ class lta.Restaurants
                 restaurant.registerMapMarker that.googleMap_
                 that.restaurants_.push restaurant
 
+            for restaurant in that.restaurants_
+                if that.history_.getToken() is restaurant.getId()
+                    restaurant.scrollTo()
+                    restaurant.mark()
+                    break
+
     ###*
     @param {string} query
     ###

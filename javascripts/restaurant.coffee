@@ -155,12 +155,9 @@ class lta.Restaurant
             'position': new google.maps.LatLng @data_['address']['map']['lat'], @data_['address']['map']['lng']
             'icon': @getDefaultMarkerIconUrl_()
         google.maps.event.addListener @mapMarker_, 'click', () ->
+            that.scrollTo()
             that.mark()
-            that.scrollTo_()
             that.history_.setToken that.getId()
-        if @history_.getToken() is @getId()
-            @mark()
-            @scrollTo_()
 
     mark: () ->
         goog.dom.classes.add @contentElm_, 'restaurant-highlight'
@@ -170,10 +167,7 @@ class lta.Restaurant
         goog.dom.classes.remove @contentElm_, 'restaurant-highlight'
         @mapMarker_.setIcon @getDefaultMarkerIconUrl_()
 
-    ###*
-    @private
-    ###
-    scrollTo_: () ->
+    scrollTo: () ->
         frameTime = 10 # ms
         totalTime = 300 # ms
 
