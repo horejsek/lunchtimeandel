@@ -1,6 +1,10 @@
 extends layout
 
 block list
+    div.input-append#search
+        input(type='text', placeholder='#{__i('Search')}')
+        button(type='button', class='btn')
+            i.icon-remove
     div#map_canvas.hidden-phone
     script(type='text/javascript')
         (function () {
@@ -14,10 +18,6 @@ block list
             };
             googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         })();
-    div.input-append#search
-        input(type='text', placeholder='#{__i('Search')}')
-        button(type='button', class='btn')
-            i.icon-remove
 
 block content
     div#restaurants
