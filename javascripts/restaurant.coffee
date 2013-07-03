@@ -66,6 +66,7 @@ class lta.Restaurant
             lastUpdateStr: @data_['lastUpdateStr']
             meals: meals
         @initDetailListener_()
+        @initMealHighliter_()
 
         container = goog.dom.getElement 'restaurants'
         goog.dom.appendChild container, @contentElm_
@@ -83,6 +84,15 @@ class lta.Restaurant
         restaurantDetail = goog.dom.getElementByClass 'restaurant-detail', @contentElm_
         goog.dom.classes.toggle restaurantDetail, 'hide'
         e.preventDefault()
+
+    ###*
+    @private
+    ###
+    initMealHighliter_: () ->
+        goog.events.listen @contentElm_, goog.events.EventType.CLICK, (e) ->
+            tr = goog.dom.getAncestorByTagNameAndClass e.target, 'tr'
+            return if not tr
+            goog.dom.classes.toggle tr, 'meal-highlight'
 
     ###*
     @private
