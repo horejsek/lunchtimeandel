@@ -41,3 +41,13 @@
         {/if}
     </div>
 {/template}
+
+/**
+ * @param restaurant
+ * @param meal
+ */
+{template .random}
+    <div id="choicehelp-text">
+        <strong><a href="#{$restaurant.id}">{$restaurant.name}</a></strong> – {$meal.name} ({$meal.priceStr})
+    </div>
+{/template}

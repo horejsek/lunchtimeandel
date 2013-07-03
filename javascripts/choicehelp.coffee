@@ -28,8 +28,14 @@ class lta.ChoiceHelp
         goog.net.XhrIo.send '/api/meal/random', (e) ->
             res = e.target.getResponseJson()
 
-            textElm = goog.dom.getElement 'choicehelp-text'
-            textElm.innerHTML = '<strong>' + res['restaurant']['name'] + '</strong>' + ' – ' + res['meal']['name'] + ' (' + res['meal']['priceStr'] + ')'
+            elm = soy.renderAsElement lta.templates.random,
+                restaurant:
+                    id: res['restaurant']['id']
+                    name: res['restaurant']['name']
+                meal:
+                    name: res['meal']['name']
+                    priceStr: res['meal']['priceStr']
+            goog.dom.replaceNode elm, goog.dom.getElement 'choicehelp-text'
 
             boxElm = goog.dom.getElement 'choicehelp-box'
             goog.dom.classes.remove boxElm, 'hide'
