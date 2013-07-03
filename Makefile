@@ -31,26 +31,26 @@ compile-templates:
 	    --shouldProvideRequireSoyNamespaces \
 	    --shouldGenerateGoogMsgDefs \
 	    --bidiGlobalDir 1 \
-	    --outputPathFormat javascripts/template.js \
-	    --srcs javascripts/template.soy
+	    --outputPathFormat javascripts/templates/template.js \
+	    --srcs javascripts/templates/template.soy
 	java -jar libs/XtbGenerator.jar \
 	    --lang cs \
-	    --translations_file javascripts/messages.xtb \
-	    --xtb_output_file javascripts/messages.xtb \
-	    --js javascripts/template.js
+	    --translations_file javascripts/templates/messages.xtb \
+	    --xtb_output_file javascripts/templates/messages.xtb \
+	    --js javascripts/templates/template.js
 compile-javascript:
 	python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
 	    --path $(CLOSURE_LIBRARY) \
 	    --path="libs/closure-templates/soyutils_usegoog.js" \
-	    --path="javascripts/template.js" \
+	    --path="javascripts/templates/template.js" \
 	    --input="javascripts/restaurant.js" \
 	    --input="javascripts/choicehelp.js" \
 	    --input="javascripts/restaurants.js" \
 	    --input="javascripts/search.js" \
 	    --input="javascripts/api.js" \
-	    --compiler_flags="--translations_file=javascripts/messages.xtb" \
+	    --compiler_flags="--translations_file=javascripts/templates/messages.xtb" \
 	    --compiler_flags="--externs=javascripts/externs/googlemapsv3.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
 	    --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
