@@ -52,6 +52,7 @@ class lta.Restaurant
                 priceStr: meal['priceStr']
                 isExpensive: meal['isExpensive']
                 isMainCourse: meal['isMainCourse']
+                image: meal['image']
         @contentElm_ = soy.renderAsElement lta.templates.restaurant,
             id: @data_['id']
             name: @data_['name']
@@ -117,7 +118,7 @@ class lta.Restaurant
             showed = not query or meal.innerHTML.search(pattern) > -1
             countOfShowedMeals++ if showed
             @highlight_(meal, query) if showed and query
-            goog.dom.classes.enable meal.parentNode, 'hide', !showed
+            goog.dom.classes.enable meal.parentNode.parentNode, 'hide', !showed
         if countOfShowedMeals or not query
             @show()
         else

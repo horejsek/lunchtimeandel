@@ -46,6 +46,22 @@
     }
 }
 
+.meal-image {
+    float: right;
+    cursor: pointer;
+    img {
+        position: absolute;
+        z-index: 10;
+        margin-top: -3px;
+        margin-left: 13px;
+        .border-radius(10px);
+        display: none;
+    }
+    &:hover img {
+        display: block;
+    }
+}
+
 @keyframes highlight {
     0% {
         background: #dbe5ff;

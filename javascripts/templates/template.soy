@@ -31,7 +31,7 @@
             <table class="table table-bordered table-hover">
                 {foreach $meal in $meals}
                     <tr class="{if $meal.isExpensive}warning{/if} {if not $meal.isMainCourse}info{/if}">
-                        <td class="meal">{$meal.name}</td>
+                        <td><span class="meal">{$meal.name}</span> {if $meal.image}<div class="meal-image"><i class="icon-camera"></i><img src="{$meal.image}" class="hide" /></div>{/if}</td>
                         <td class="price">{$meal.priceStr}</td>
                     </tr>
                 {/foreach}
