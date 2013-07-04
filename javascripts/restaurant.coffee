@@ -115,7 +115,7 @@ class lta.Restaurant
         @removeHighlight_()
         countOfShowedMeals = 0
         for meal in @getMealsElms_()
-            showed = not query or meal.innerHTML.search(pattern) > -1
+            showed = not query or meal.innerHTML.replace('&nbsp;', ' ').search(pattern) > -1
             countOfShowedMeals++ if showed
             @highlight_(meal, query) if showed and query
             goog.dom.classes.enable meal.parentNode.parentNode, 'hide', !showed
@@ -136,7 +136,7 @@ class lta.Restaurant
     @private
     ###
     highlight_: (meal, query) ->
-        content = meal.innerHTML
+        content = meal.innerHTML.replace('&nbsp;', ' ')
         pattern = new RegExp '(.*)(' + query + ')(.*)', 'gi'
         replaceWith = '$1<span class="highlight label label-warning">$2</span>$3'
         meal.innerHTML = content.replace pattern, replaceWith
