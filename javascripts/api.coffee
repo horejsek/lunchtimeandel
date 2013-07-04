@@ -13,7 +13,6 @@ lta.api.load = () ->
             url = elm.getAttribute 'url'
             goog.net.XhrIo.send url, (e) ->
                 res = e.target.getResponseText()
-                window.console.log e, e.target, res
                 elm.innerText = res
         )(elm)
 
