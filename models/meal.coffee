@@ -1,4 +1,46 @@
 
+pastaImages = [
+    'bavette'
+    'bucatini'
+    'cannelloni'
+    'capellini'
+    'casarecce'
+    'ditaloni'
+    'farfalle'
+    'farfalline'
+    'fettuccine'
+    'fusilli_bucati'
+    'fusilli_stretti'
+    'fusilli'
+    'gomiti_rigati'
+    'grattugiata'
+    'lasagna'
+    'lumaconi'
+    'malfattini'
+    'manicotti'
+    'midolline'
+    'orecchiette'
+    'orsetti'
+    'pappardelle'
+    'penne'
+    'penne_lisce'
+    'penne_rigate'
+    'pipe'
+    'reginette'
+    'riccioli'
+    'rigatoni'
+    'sedanini_rigati'
+    'sedani_rigati'
+    'spaghetti'
+    'spaghettini'
+    'spirali_agli_spinaci'
+    'stelline'
+    'tagliatelle'
+    'tagliatelline'
+    'tagliolini'
+    'tortiglioni'
+]
+
 module.exports = (Schema) ->
     Meal = new Schema
         name: String
@@ -18,5 +60,12 @@ module.exports = (Schema) ->
 
     Meal.methods.isMainCourse = () ->
         @price > 50
+
+    Meal.methods.getImage = () ->
+        for pastaImage in pastaImages
+            re = new RegExp pastaImage.replace('_', '.*'), 'i'
+            if @name.search(re) > -1
+                return '/images/pasta/' + pastaImage + '.jpg'
+        return ''
 
     return Meal
