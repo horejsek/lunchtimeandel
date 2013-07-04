@@ -29,9 +29,18 @@ class lta.Restaurants
     ###*
     @constructor
     ###
-    constructor: (googleMap) ->
-        @googleMap_ = googleMap
+    constructor: (mapOptions) ->
+        @createGoogleMap_ mapOptions
         @constructHistory_()
+
+    createGoogleMap_: (mapOptions) ->
+        # Mobile is without map. Better for time execution and data needed to be downloaded.
+        window.console.log 'ismob', goog.userAgent.MOBILE
+        if goog.userAgent.MOBILE
+            return
+        elm = goog.dom.getElement 'restaurants_map'
+        window.console.log 'register map', elm, mapOptions
+        @googleMap_ = new google.maps.Map elm, mapOptions
 
     ###*
     @private
@@ -62,7 +71,7 @@ class lta.Restaurants
             for restaurant in res
                 restaurant = new lta.Restaurant restaurant, that.history_
                 restaurant.appendToDocument()
-                restaurant.registerMapMarker that.googleMap_
+                restaurant.registerMapMarker that.googleMap_ if that.googleMap_
                 that.restaurants_.push restaurant
 
             for restaurant in that.restaurants_

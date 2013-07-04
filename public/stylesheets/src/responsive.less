@@ -20,6 +20,9 @@
 }
 
 @media (max-width: 767px) {
+    body {
+        padding: 0;
+    }
     #page {
         margin-top: 40px;
     }
@@ -28,19 +31,33 @@
         left: 20px;
         width: 100%;
     }
-    #search input[type=text] {
+    #search {
         width: 85%;
+        & input[type=text] {
+            width: 100%;
+        }
+    }
+    .restaurant {
+        margin-bottom: 20px;
     }
 }
 
 @media (max-width: 580px) {
-    #search input[type=text] {
+    #search {
         width: 80%;
+    }
+
+    #choicehelp-box {
+        position: relative;
+        top: 0;
+        left: 3%;
+        width: 80%;
+        margin-left: 0;
     }
 }
 
 @media (max-width: 440px) {
-    #search input[type=text] {
+    #search {
         width: 75%;
     }
 }

@@ -5,19 +5,7 @@ block list
         input(type='text', placeholder='#{__i('Search')}')
         button(type='button', class='btn')
             i.icon-remove
-    div#map_canvas.hidden-phone
-    script(type='text/javascript')
-        (function () {
-            var mapOptions = {
-                center: new google.maps.LatLng(50.07061,14.403334),
-                minZoom: 15,
-                zoom: 16,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                disableDefaultUI: true,
-                disableDoubleClickZoom: true
-            };
-            googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-        })();
+    div#restaurants_map.hidden-phone
 
 block content
     div#restaurants
@@ -34,7 +22,15 @@ block content
 
 block end
     script(type='text/javascript')
-        var restaurants = new lta.Restaurants(googleMap);
+        var mapOptions = {
+            center: new google.maps.LatLng(50.07061,14.403334),
+            minZoom: 15,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            disableDefaultUI: true,
+            disableDoubleClickZoom: true
+        };
+        var restaurants = new lta.Restaurants(mapOptions);
         restaurants.load();
         new lta.ChoiceHelp();
         new lta.Search('search', restaurants)
