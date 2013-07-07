@@ -25,7 +25,7 @@ run-forever: compile-coffeescript
 
 compile: compile-coffeescript compile-templates compile-javascript
 compile-coffeescript:
-	coffee -cb ./
+	coffee -cb ./javascripts ./lunchmenuloader
 compile-templates:
 	java -jar $(SOY_COMPILER) \
 	    --shouldProvideRequireSoyNamespaces \
