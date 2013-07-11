@@ -27,6 +27,8 @@ class lta.ChoiceHelp
         closeElm = goog.dom.getElement 'choicehelp-close'
         goog.events.listen closeElm, goog.events.EventType.CLICK, (e) ->
             that.hide()
+        goog.events.listen window.document, goog.events.EventType.KEYUP, (e) ->
+            that.hide() if e.keyCode is goog.events.KeyCodes.ESC
 
     help: () ->
         # When user clicks on random, do not show random after XY minutes.
