@@ -22,8 +22,28 @@ h1 {
 }
 
 #search {
-    margin: 10px auto;
+    margin: 10px auto 0;
+    white-space: nowrap;
     input[type=text] {
-        width: 350px;
+        width: 200px;
+        transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+    }
+    #show-selection {
+        width: 145px;
+        margin-left: 5px;
+        margin-bottom: 10px;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+        -webkit-transition: opacity 0.5s ease;
+    }
+    &.hide-btn-selection {
+        input[type=text] {
+            width: 350px;
+        }
+        #show-selection {
+            display: none;
+            opacity: 0;
+        }
     }
 }

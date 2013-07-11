@@ -1,10 +1,15 @@
 extends layout
 
 block list
-    div.input-append#search
-        input(type='text', placeholder='#{__i('Search')}')
-        button(type='button', class='btn')
-            i.icon-remove
+    div#search.hide-btn-selection
+        div.input-append
+            input(type='text', placeholder='#{__i('Search')}')
+            button.btn(type='button')
+                i.icon-remove
+        button#show-selection.btn.btn-success(type='button')
+            i.icon-filter
+            &nbsp;
+            span #{__i('Show selection')}
     div#restaurants_map.hidden-phone
 
 block content

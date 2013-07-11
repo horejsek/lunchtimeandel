@@ -9,5 +9,6 @@
 	"Get random meal with information about restaurant.": "Získat náhodný oběd s informací o restauraci.",
 	"Loading…": "Načítání…",
 	"For properly function, please, allow JavaScript for this site.": "Pro správnou funkčnost, prosím, povolte JavaScript.",
-	"This page takes some money for hosting and time for developing. I would appreciate any tip. Thank you!": "Tato stránka si žádá peníze za hosting a čas na vývoj. Ocením jakékoliv dýško. Děkuju!"
+	"This page takes some money for hosting and time for developing. I would appreciate any tip. Thank you!": "Tato stránka si žádá peníze za hosting a čas na vývoj. Ocením jakékoliv dýško. Děkuju!",
+	"Show selection": "Zobrazit výběr"
 }
