@@ -3,6 +3,7 @@ module.exports = (models) ->
     load = () ->
         console.log 'Reloading data...'
         models.Restaurant.collection.drop (err) ->
+            (new (require('./andelLoader')(models))()).loadData()
             (new (require('./andelkaLoader')(models))()).loadData()
             (new (require('./blazinecLoader')(models))()).loadData()
             (new (require('./cyrilspubLoader')(models))()).loadData()
