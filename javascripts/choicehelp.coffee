@@ -19,14 +19,21 @@ class lta.ChoiceHelp
         callback = () -> that.help()
         @timeout = setTimeout callback, 10*60*1000
         linkElm = goog.dom.getElement 'choicehelp-link'
-        goog.events.listen linkElm, goog.events.EventType.CLICK, callback
+        goog.events.listen linkElm, goog.events.EventType.CLICK, (e) ->
+            if window['_gaq']
+                window['_gaq'].push ['_trackEvent', 'Random', 'ShowByClick']
+            that.help()
 
         closeElm = goog.dom.getElement 'choicehelp-close'
-        goog.events.listen closeElm, goog.events.EventType.CLICK, () -> that.hide()
+        goog.events.listen closeElm, goog.events.EventType.CLICK, (e) ->
+            that.hide()
 
     help: () ->
         # When user clicks on random, do not show random after XY minutes.
         window.clearTimeout @timeout
+
+        if window['_gaq']
+            window['_gaq'].push ['_trackEvent', 'Random', 'Show']
 
         goog.net.XhrIo.send '/api/meal/random', (e) ->
             res = e.target.getResponseJson()
