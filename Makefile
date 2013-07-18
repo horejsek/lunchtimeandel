@@ -45,6 +45,7 @@ compile-javascript:
 	    --path $(CLOSURE_LIBRARY) \
 	    --path="libs/closure-templates/soyutils_usegoog.js" \
 	    --path="javascripts/templates/template.js" \
+	    --input="javascripts/scrolling.js" \
 	    --input="javascripts/restaurant.js" \
 	    --input="javascripts/choicehelp.js" \
 	    --input="javascripts/restaurants.js" \

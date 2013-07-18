@@ -5,20 +5,21 @@ goog.require 'goog.dom'
 goog.require 'goog.events'
 goog.require 'soy'
 goog.require 'lta.templates'
+goog.require 'lta.smoothlyScrollTo'
 
 
 class lta.Restaurant
+    ###*
+    @type {lta.Restaurant}
+    @private
+    ###
+    restaurants_: null
+
     ###*
     @type {Object}
     @private
     ###
     data_: null
-
-    ###*
-    @type {goog.History}
-    @private
-    ###
-    history_: null
 
     ###*
     @type {Element}
@@ -33,17 +34,29 @@ class lta.Restaurant
     mapMarker_: null
 
     ###*
+    @param {lta.Restaurants} restaurants
     @param {Object} data
-    @param {goog.History} history
     @constructor
     ###
-    constructor: (data, history) ->
+    constructor: (restaurants, data) ->
+        @restaurants_ = restaurants
         @data_ = data
-        @history_ = history
 
+    ###*
+    @public
+    ###
     getId: () ->
         @data_['id']
 
+    ###*
+    @private
+    ###
+    getCountOfMeals_: () ->
+        @data_['meals'].length
+
+    ###*
+    @public
+    ###
     appendToDocument: () ->
         meals = []
         for meal in @data_['meals']
@@ -79,50 +92,49 @@ class lta.Restaurant
         that = @
         link = goog.dom.getElementByClass 'restaurant-detail-link', @contentElm_
         goog.events.listen link, goog.events.EventType.CLICK, (e) ->
-            that.showHideDetail e
+            e.preventDefault()
+            that.showHideDetail()
 
-    showHideDetail: (e) ->
+    ###*
+    @public
+    ###
+    showHideDetail: () ->
         restaurantDetail = goog.dom.getElementByClass 'restaurant-detail', @contentElm_
         goog.dom.classes.toggle restaurantDetail, 'hide'
-        e.preventDefault()
 
     ###*
     @private
     ###
     initMealHighliter_: () ->
+        that = @
         goog.events.listen @contentElm_, goog.events.EventType.CLICK, (e) ->
             tr = goog.dom.getAncestorByTagNameAndClass e.target, 'tr'
             return if not tr
             goog.dom.classes.toggle tr, 'meal-highlight'
+            that.restaurants_.showOrHideBtnSelection()
 
     ###*
-    @private
+    @public
     ###
-    getMealsElms_: () ->
-        goog.dom.getElementsByClass 'meal', @contentElm_
-
-    ###*
-    @private
-    ###
-    getCountOfMeals_: () ->
-        @data_['meals'].length
+    showAllOrSelectedMeals: (showOnlySelectedMeals) ->
+        that = @
+        @showOrHideMeals_ (meal) ->
+            return true if !showOnlySelectedMeals
+            tr = goog.dom.getAncestorByTagNameAndClass meal, 'tr'
+            goog.dom.classes.has tr, 'meal-highlight'
 
     ###*
     @param {string} query
+    @public
     ###
     search: (query) ->
+        that = @
         pattern = new RegExp query, 'gi'
         @removeHighlight_()
-        countOfShowedMeals = 0
-        for meal in @getMealsElms_()
+        @showOrHideMeals_ (meal) ->
             showed = not query or meal.innerHTML.replace('&nbsp;', ' ').search(pattern) > -1
-            countOfShowedMeals++ if showed
-            @highlight_(meal, query) if showed and query
-            goog.dom.classes.enable meal.parentNode.parentNode, 'hide', !showed
-        if countOfShowedMeals or not query
-            @show()
-        else
-            @hide()
+            that.highlight_(meal, query) if showed and query
+            return showed
 
     ###*
     @private
@@ -141,9 +153,36 @@ class lta.Restaurant
         replaceWith = '$1<span class="highlight label label-warning">$2</span>$3'
         meal.innerHTML = content.replace pattern, replaceWith
 
+    ###*
+    @private
+    ###
+    showOrHideMeals_: (callbackIfShowMeal) ->
+        countOfShowedMeals = 0
+        for meal in @getMealsElms_()
+            showed = callbackIfShowMeal meal
+            countOfShowedMeals++ if showed
+            tr = goog.dom.getAncestorByTagNameAndClass meal, 'tr'
+            goog.dom.classes.enable tr, 'hide', !showed
+        if countOfShowedMeals
+            @show()
+        else
+            @hide()
+
+    ###*
+    @private
+    ###
+    getMealsElms_: () ->
+        goog.dom.getElementsByClass 'meal', @contentElm_
+
+    ###*
+    @public
+    ###
     show: () ->
         @showHide_ true
 
+    ###*
+    @public
+    ###
     hide: () ->
         @showHide_ false
 
@@ -168,37 +207,27 @@ class lta.Restaurant
         google.maps.event.addListener @mapMarker_, 'click', () ->
             that.scrollTo()
             that.mark()
-            that.history_.setToken that.getId()
+            that.restaurants_.history.setToken that.getId()
 
+    ###*
+    @public
+    ###
+    scrollTo: () ->
+        lta.smoothlyScrollTo @contentElm_.offsetTop
+
+    ###*
+    @public
+    ###
     mark: () ->
         goog.dom.classes.add @contentElm_, 'restaurant-highlight'
         @mapMarker_.setIcon @getMarkerIconUrl_ 'blue'
 
+    ###*
+    @public
+    ###
     unmark: () ->
         goog.dom.classes.remove @contentElm_, 'restaurant-highlight'
         @mapMarker_.setIcon @getDefaultMarkerIconUrl_()
-
-    scrollTo: () ->
-        frameTime = 10 # ms
-        totalTime = 300 # ms
-
-        position = startPosition = window.scrollY
-        maxEndPosition = document.height - window.innerHeight
-        endPosition = if @contentElm_.offsetTop > maxEndPosition then maxEndPosition else @contentElm_.offsetTop
-        scrollBy = (endPosition - startPosition)*frameTime/totalTime
-
-        shouldAnimate = (position, scrollBy) ->
-            (scrollBy > 0 and position < endPosition) or (scrollBy < 0 and position > endPosition)
-        animate = () ->
-            #  Used scrollTo because ID automatically scroll to element, so
-            #+ scollBy would calculate it wrongly.
-            if !shouldAnimate(position + scrollBy, scrollBy)
-                scrollBy = if scrollBy > 0 then 2 else -2
-            position += scrollBy
-            window.scrollTo 0, position
-            if shouldAnimate(position, scrollBy)
-                setTimeout animate, frameTime
-        animate() if scrollBy
 
     ###*
     @private

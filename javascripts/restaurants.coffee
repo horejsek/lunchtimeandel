@@ -15,31 +15,40 @@ class lta.Restaurants
     restaurants_: []
 
     ###*
-    @type {goog.History}
-    @private
-    ###
-    history_: null
-
-    ###*
     @type {google.maps.Map}
     @private
     ###
     googleMap_: null
 
     ###*
+    @type {boolean}
+    @private
+    ###
+    showedOnlySelectedMeals_: false
+
+    ###*
+    @type {goog.History}
+    @public
+    ###
+    history: null
+
+    ###*
     @constructor
     ###
     constructor: (mapOptions) ->
+        @container = goog.dom.getElement 'restaurants'
         @createGoogleMap_ mapOptions
         @constructHistory_()
+        @initBtnSelection_()
 
+    ###*
+    @private
+    ###
     createGoogleMap_: (mapOptions) ->
         # Mobile is without map. Better for time execution and data needed to be downloaded.
-        window.console.log 'ismob', goog.userAgent.MOBILE
         if goog.userAgent.MOBILE
             return
         elm = goog.dom.getElement 'restaurants_map'
-        window.console.log 'register map', elm, mapOptions
         @googleMap_ = new google.maps.Map elm, mapOptions
 
     ###*
@@ -47,9 +56,9 @@ class lta.Restaurants
     ###
     constructHistory_: () ->
         that = @
-        @history_ = new goog.History()
-        @history_.setEnabled true
-        goog.events.listen @history_, goog.history.EventType.NAVIGATE, (e) -> that.historyNavigate_ e
+        @history = new goog.History()
+        @history.setEnabled true
+        goog.events.listen @history, goog.history.EventType.NAVIGATE, (e) -> that.historyNavigate_ e
 
     ###*
     @private
@@ -59,23 +68,40 @@ class lta.Restaurants
             if e.token is restaurant.getId() then restaurant.mark() else restaurant.unmark()
 
     ###*
+    @private
+    ###
+    initBtnSelection_: () ->
+        that = @
+        showSelectionBtn = goog.dom.getElement 'show-selection'
+        goog.events.listen showSelectionBtn, goog.events.EventType.CLICK, (e) ->
+            that.showedOnlySelectedMeals_ = !that.showedOnlySelectedMeals_
+            for restaurant in that.restaurants_
+                restaurant.showAllOrSelectedMeals that.showedOnlySelectedMeals_
+
+    showOrHideBtnSelection: () ->
+        highlightedMeals = goog.dom.getElementsByClass 'meal-highlight', @container
+        show = if highlightedMeals.length then true else false
+
+        search = goog.dom.getElement 'search'
+        goog.dom.classes.enable search, 'hide-btn-selection', !show
+
+    ###*
     @expose
     ###
     load: () ->
         that = @
         goog.net.XhrIo.send '/api/listall', (e) ->
-            container = goog.dom.getElement 'restaurants'
-            container.innerHTML = ''
+            that.container.innerHTML = ''
 
             res = e.target.getResponseJson()
             for restaurant in res
-                restaurant = new lta.Restaurant restaurant, that.history_
+                restaurant = new lta.Restaurant that, restaurant
                 restaurant.appendToDocument()
                 restaurant.registerMapMarker that.googleMap_ if that.googleMap_
                 that.restaurants_.push restaurant
 
             for restaurant in that.restaurants_
-                if that.history_.getToken() is restaurant.getId()
+                if that.history.getToken() is restaurant.getId()
                     restaurant.scrollTo()
                     restaurant.mark()
                     break
@@ -84,6 +110,7 @@ class lta.Restaurants
     @param {string} query
     ###
     search: (query) ->
+        @showedOnlySelectedMeals_ = false
         for restaurant in @restaurants_
             restaurant.search query
 
