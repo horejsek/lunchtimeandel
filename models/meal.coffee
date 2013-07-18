@@ -15,6 +15,7 @@ pastaImages = [
     'gomiti_rigati'
     'grattugiata'
     'lasagna'
+    'linguine'
     'lumaconi'
     'malfattini'
     'manicotti'
