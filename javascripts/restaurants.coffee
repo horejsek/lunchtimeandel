@@ -94,8 +94,8 @@ class lta.Restaurants
             that.container.innerHTML = ''
 
             res = e.target.getResponseJson()
-            for restaurant in res
-                restaurant = new lta.Restaurant that, restaurant
+            for restaurantData in res
+                restaurant = new lta.Restaurant that, restaurantData
                 restaurant.appendToDocument()
                 restaurant.registerMapMarker that.googleMap_ if that.googleMap_
                 that.restaurants_.push restaurant
