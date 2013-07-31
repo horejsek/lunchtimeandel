@@ -7,11 +7,20 @@
  * @param address
  * @param phoneNumber
  * @param lastUpdateStr
+ * @param isFavorite
+ * @param isHidden
  * @param meals
  */
 {template .restaurant}
     <div id="{$id}" class="restaurant">
-        <h2>{$name} <small><a href="#" class="restaurant-detail-link">{msg desc="Info"}Info{/msg}</a></small></h2>
+        <h2>
+            {$name}&nbsp;
+            <small><a href="#" class="restaurant-detail-link">{msg desc="Info"}Info{/msg}</a></small>
+            <small class="pull-right restaurant-buttons">
+                <i class="icon-{if not $isHidden}remove{else}plus{/if}-sign restaurant-hide"></i>
+                <i class="icon-star{if not $isFavorite}-empty{/if} restaurant-favorite"></i>
+            </small>
+        </h2>
         <div class="well hide restaurant-detail">
             <div class="row-fluid">
                 <div class="span5">
@@ -27,18 +36,20 @@
                 </div>
             </div>
         </div>
-        {if $meals.length}
-            <table class="table table-bordered table-hover">
-                {foreach $meal in $meals}
-                    <tr class="{if $meal.isExpensive}warning{/if} {if not $meal.isMainCourse}info{/if}">
-                        <td><span class="meal">{$meal.name}</span> {if $meal.image}<div class="meal-image"><i class="icon-camera"></i><img src="{$meal.image}" class="hide" /></div>{/if}</td>
-                        <td class="price">{$meal.priceStr}</td>
-                    </tr>
-                {/foreach}
-            </table>
-        {else}
-            <p class="well"><em>{msg desc="Daily lunch menu is not available"}Daily lunch menu is not available.{/msg}</em></p>
-        {/if}
+        <div class="restaurant-content {if $isHidden}hide{/if}">
+            {if $meals.length}
+                <table class="table table-bordered table-hover">
+                    {foreach $meal in $meals}
+                        <tr class="{if $meal.isExpensive}warning{/if} {if not $meal.isMainCourse}info{/if}">
+                            <td><span class="meal">{$meal.name}</span> {if $meal.image}<div class="meal-image"><i class="icon-camera"></i><img src="{$meal.image}" class="hide" /></div>{/if}</td>
+                            <td class="price">{$meal.priceStr}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+            {else}
+                <p class="well"><em>{msg desc="Daily lunch menu is not available"}Daily lunch menu is not available.{/msg}</em></p>
+            {/if}
+        </div>
     </div>
 {/template}
 
