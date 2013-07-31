@@ -34,6 +34,12 @@ class lta.Restaurant
     mapMarker_: null
 
     ###*
+    @type {boolean}
+    @private
+    ###
+    marked_: false
+
+    ###*
     @param {lta.Restaurants} restaurants
     @param {Object} data
     @constructor
@@ -41,6 +47,9 @@ class lta.Restaurant
     constructor: (restaurants, data) ->
         @restaurants_ = restaurants
         @data_ = data
+        @data_['isFavorite'] = window.localStorage.getItem(@data_['id'] + '_isFavorite')
+        @data_['isHidden'] = window.localStorage.getItem(@data_['id'] + '_isHidden')
+        @marked_ = false
 
     ###*
     @public
@@ -78,29 +87,75 @@ class lta.Restaurant
                 zip: @data_['address']['zip']
                 city: @data_['address']['city']
             lastUpdateStr: @data_['lastUpdateStr']
+            isFavorite: @data_['isFavorite']
+            isHidden: @data_['isHidden']
             meals: meals
         @initDetailListener_()
         @initMealHighliter_()
 
-        container = goog.dom.getElement 'restaurants'
-        goog.dom.appendChild container, @contentElm_
+        goog.dom.appendChild @getContainer_(), @contentElm_
+
+    ###*
+    @private
+    ###
+    getContainer_: () ->
+        goog.dom.getElement if @data_['isHidden'] then 'hidden-restaurants' else 'restaurants'
 
     ###*
     @private
     ###
     initDetailListener_: () ->
         that = @
-        link = goog.dom.getElementByClass 'restaurant-detail-link', @contentElm_
-        goog.events.listen link, goog.events.EventType.CLICK, (e) ->
+
+        detailLink = goog.dom.getElementByClass 'restaurant-detail-link', @contentElm_
+        goog.events.listen detailLink, goog.events.EventType.CLICK, (e) ->
             e.preventDefault()
-            that.showHideDetail()
+            that.toggleDetail()
+
+        hideButton = goog.dom.getElementByClass 'restaurant-hide', @contentElm_
+        goog.events.listen hideButton, goog.events.EventType.CLICK, (e) ->
+            that.toggleHide()
+
+        favoriteButton = goog.dom.getElementByClass 'restaurant-favorite', @contentElm_
+        goog.events.listen favoriteButton, goog.events.EventType.CLICK, (e) ->
+            that.toggleFavorite()
 
     ###*
     @public
     ###
-    showHideDetail: () ->
+    toggleDetail: () ->
         restaurantDetail = goog.dom.getElementByClass 'restaurant-detail', @contentElm_
         goog.dom.classes.toggle restaurantDetail, 'hide'
+
+    ###*
+    @public
+    ###
+    toggleHide: () ->
+        @data_['isHidden'] = !@data_['isHidden']
+        window.localStorage.setItem(@data_['id'] + '_isHidden', @data_['isHidden'])
+
+        restaurantContent = goog.dom.getElementByClass 'restaurant-content', @contentElm_
+        goog.dom.classes.enable restaurantContent, 'hide', @data_['isHidden']
+
+        hideButton = goog.dom.getElementByClass 'restaurant-hide', @contentElm_
+        goog.dom.classes.enable hideButton, 'icon-plus-sign', @data_['isHidden']
+        goog.dom.classes.enable hideButton, 'icon-remove-sign', !@data_['isHidden']
+
+        goog.dom.removeNode @contentElm_
+        goog.dom.appendChild @getContainer_(), @contentElm_
+        @scrollTo()
+
+    ###*
+    @public
+    ###
+    toggleFavorite: () ->
+        @data_['isFavorite'] = !@data_['isFavorite']
+        window.localStorage.setItem(@data_['id'] + '_isFavorite', @data_['isFavorite'])
+        @setMapMarkColor_()
+
+        favoriteButton = goog.dom.getElementByClass 'restaurant-favorite', @contentElm_
+        goog.dom.classes.enable favoriteButton, 'icon-star', @data_['isFavorite']
+        goog.dom.classes.enable favoriteButton, 'icon-star-empty', !@data_['isFavorite']
 
     ###*
     @private
@@ -219,28 +274,40 @@ class lta.Restaurant
     @public
     ###
     mark: () ->
+        @marked_ = true
+        @setMapMarkColor_()
         goog.dom.classes.add @contentElm_, 'restaurant-highlight'
-        @mapMarker_.setIcon @getMarkerIconUrl_ 'blue'
 
     ###*
     @public
     ###
     unmark: () ->
+        @marked_ = false
+        @setMapMarkColor_()
         goog.dom.classes.remove @contentElm_, 'restaurant-highlight'
-        @mapMarker_.setIcon @getDefaultMarkerIconUrl_()
+
+    ###*
+    @private
+    ###
+    setMapMarkColor_: () ->
+        if @marked_
+            @mapMarker_.setIcon @getMarkerIconUrl_ 'blue'
+        else
+            @mapMarker_.setIcon @getDefaultMarkerIconUrl_()
 
     ###*
     @private
     ###
     getDefaultMarkerIconUrl_: () ->
         if @getCountOfMeals_()
-            @getMarkerIconUrl_ 'red'
+            defaultColor = if @data_['isFavorite'] then 'green' else 'red'
+            @getMarkerIconUrl_ defaultColor
         else
             @getMarkerIconUrl_ 'gray'
 
     ###*
-    @param {string} name
+    @param {string} color
     @private
     ###
-    getMarkerIconUrl_: (name) ->
-        'http://labs.google.com/ridefinder/images/mm_20_' + name + '.png'
+    getMarkerIconUrl_: (color) ->
+        'http://labs.google.com/ridefinder/images/mm_20_' + color + '.png'
