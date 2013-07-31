@@ -187,7 +187,7 @@ class lta.Restaurant
         pattern = new RegExp query, 'gi'
         @removeHighlight_()
         @showOrHideMeals_ (meal) ->
-            showed = not query or meal.innerHTML.replace('&nbsp;', ' ').search(pattern) > -1
+            showed = not query or meal.innerHTML.replace('&nbsp;', ' ').search(pattern) > -1 or that.data_['name'].search(pattern) > -1
             that.highlight_(meal, query) if showed and query
             return showed
 
