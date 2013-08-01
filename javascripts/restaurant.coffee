@@ -200,10 +200,12 @@ class lta.Restaurant
         that = @
         pattern = new RegExp query, 'gi'
         @removeHighlight_()
-        @showOrHideMeals_ (meal) ->
+        callback = (meal) ->
             showed = not query or meal.innerHTML.replace('&nbsp;', ' ').search(pattern) > -1 or that.data_['name'].search(pattern) > -1
             that.highlight_(meal, query) if showed and query
             return showed
+        forceShow = not query or @data_['name'].search(pattern) > -1
+        @showOrHideMeals_ callback, forceShow
 
     ###*
     @private
@@ -225,14 +227,14 @@ class lta.Restaurant
     ###*
     @private
     ###
-    showOrHideMeals_: (callbackIfShowMeal) ->
+    showOrHideMeals_: (callbackIfShowMeal, forceShow) ->
         countOfShowedMeals = 0
         for meal in @getMealsElms_()
             showed = callbackIfShowMeal meal
             countOfShowedMeals++ if showed
             tr = goog.dom.getAncestorByTagNameAndClass meal, 'tr'
             goog.dom.classes.enable tr, 'hide', !showed
-        if countOfShowedMeals
+        if countOfShowedMeals or forceShow
             @show()
         else
             @hide()
