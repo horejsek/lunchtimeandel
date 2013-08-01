@@ -47,8 +47,8 @@ class lta.Restaurant
     constructor: (restaurants, data) ->
         @restaurants_ = restaurants
         @data_ = data
-        @data_['isFavorite'] = window.localStorage.getItem(@data_['id'] + '_isFavorite')
-        @data_['isHidden'] = window.localStorage.getItem(@data_['id'] + '_isHidden')
+        @data_['isFavorite'] = window.localStorage.getItem(@data_['id'] + '_isFavorite') is 'true'
+        @data_['isHidden'] = window.localStorage.getItem(@data_['id'] + '_isHidden') is 'true'
         @marked_ = false
 
     ###*
