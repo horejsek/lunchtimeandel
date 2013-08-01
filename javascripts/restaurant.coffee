@@ -99,7 +99,13 @@ class lta.Restaurant
     @private
     ###
     getContainer_: () ->
-        goog.dom.getElement if @data_['isHidden'] then 'hidden-restaurants' else 'restaurants'
+        if @data_['isHidden']
+            containerId = 'hidden-restaurants'
+        else if @data_['isFavorite']
+            containerId = 'favorite-restaurants'
+        else
+            containerId = 'restaurants'
+        goog.dom.getElement containerId
 
     ###*
     @private
@@ -141,9 +147,7 @@ class lta.Restaurant
         goog.dom.classes.enable hideButton, 'icon-plus-sign', @data_['isHidden']
         goog.dom.classes.enable hideButton, 'icon-remove-sign', !@data_['isHidden']
 
-        goog.dom.removeNode @contentElm_
-        goog.dom.appendChild @getContainer_(), @contentElm_
-        @scrollTo()
+        @reappendToContainer_()
 
     ###*
     @public
@@ -156,6 +160,16 @@ class lta.Restaurant
         favoriteButton = goog.dom.getElementByClass 'restaurant-favorite', @contentElm_
         goog.dom.classes.enable favoriteButton, 'icon-star', @data_['isFavorite']
         goog.dom.classes.enable favoriteButton, 'icon-star-empty', !@data_['isFavorite']
+
+        @reappendToContainer_()
+
+    ###*
+    @private
+    ###
+    reappendToContainer_: () ->
+        goog.dom.removeNode @contentElm_
+        goog.dom.insertChildAt @getContainer_(), @contentElm_, 0
+        @scrollTo()
 
     ###*
     @private
