@@ -7,4 +7,6 @@
 	<translation id="2882248889095323663" key="MSG_FY0Q7Y5A71S5" source="javascripts/template.js" desc="Lunch menu">Polední menu</translation>
 	<translation id="8187421185366965326" key="MSG_1PP2G7W5V5G2H" source="javascripts/template.js" desc="Last update">Poslední aktualizace</translation>
 	<translation id="7895966170207728330" key="MSG_15P6WDKKXSN46" source="javascripts/template.js" desc="Daily lunch menu is not available">Denní menu není k dispozici.</translation>
+	<translation id="7567339259088008146" key="MSG_24ZEVQOFROVY" source="javascripts/templates/template.js" desc="Hide restaurant">Skrýt restauraci</translation>
+	<translation id="3279408845380749309" key="MSG_1UU9JX9VU2P4I" source="javascripts/templates/template.js" desc="Make restaurant favorite">Přidat restauraci mezi oblíbené</translation>
 </translationbundle>
