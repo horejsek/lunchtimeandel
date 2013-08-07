@@ -13,13 +13,13 @@ class lta.Search
     @type {Object}
     @private
     ###
-    searchinput_: null
+    searchinput: null
 
     ###*
     @type {Object}
     @private
     ###
-    keywordmap_: {
+    keywordmap: {
         'a': ['á', 'ä'],
         'c': ['č'],
         'd': ['ď'],
@@ -36,42 +36,47 @@ class lta.Search
     }
 
     ###*
+    @type {lta.Restaurants}
+    @private
+    ###
+    restaurants: null
+
+    ###*
     @param {string} searchboxId
     @param {lta.Restaurants} restaurants
     @constructor
     ###
-    constructor: (searchboxId, restaurants) ->
+    constructor: (searchboxId, @restaurants) ->
         that = @
-        @restaurants_ = restaurants
 
         searchbox = goog.dom.getElement searchboxId
-        @searchinput_ = goog.dom.getElementsByTagNameAndClass('input', null, searchbox)[0]
+        @searchinput = goog.dom.getElementsByTagNameAndClass('input', null, searchbox)[0]
         searchbutton = goog.dom.getElementsByTagNameAndClass('button', null, searchbox)[0]
 
-        @searchinput_.focus()
-        goog.events.listen @searchinput_, goog.events.EventType.INPUT, (e) ->
+        @searchinput.focus()
+        goog.events.listen @searchinput, goog.events.EventType.INPUT, (e) ->
             that.search()
-        goog.events.listen @searchinput_, goog.events.EventType.KEYUP, (e) ->
+        goog.events.listen @searchinput, goog.events.EventType.KEYUP, (e) ->
             that.clear() if e.keyCode is goog.events.KeyCodes.ESC
         goog.events.listen searchbutton, goog.events.EventType.CLICK, (e) ->
             that.clear()
 
     clear: () ->
-        @searchinput_.value = ''
-        @searchinput_.focus()
+        @searchinput.value = ''
+        @searchinput.focus()
         # Remove highlight, show restaurant, ...
         @search()
 
     search: () ->
-        @restaurants_.search @getQuery_()
+        @restaurants.search @getQuery()
 
     ###*
     @private
     ###
-    getQuery_: () ->
+    getQuery: () ->
         keyword = ''
-        for letter in @searchinput_.value
-            letters = @keywordmap_[letter] || []
+        for letter in @searchinput.value
+            letters = @keywordmap[letter] || []
             letters = letters.slice(0)
             letters.push(letter)
             keyword += '[' + (letters).join('') + ']'

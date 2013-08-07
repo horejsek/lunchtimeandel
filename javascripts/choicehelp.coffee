@@ -7,13 +7,19 @@ goog.require 'goog.net.XhrIo'
 
 
 class lta.ChoiceHelp
+    ###*
+    @type {?number}
+    @private
+    ###
+    timeout: null
+
     constructor: () ->
-        @initListeners_()
+        @initListeners()
 
     ###*
     @private
     ###
-    initListeners_: () ->
+    initListeners: () ->
         that = @
 
         callback = () -> that.help()

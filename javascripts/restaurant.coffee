@@ -13,95 +13,93 @@ class lta.Restaurant
     @type {lta.Restaurant}
     @private
     ###
-    restaurants_: null
+    restaurants: null
 
     ###*
     @type {Object}
     @private
     ###
-    data_: null
+    data: null
 
     ###*
     @type {Element}
     @private
     ###
-    contentElm_: null
+    contentElm: null
 
     ###*
     @type {google.maps.Marker}
     @private
     ###
-    mapMarker_: null
+    mapMarker: null
 
     ###*
     @type {boolean}
     @private
     ###
-    marked_: false
+    marked: false
 
     ###*
     @param {lta.Restaurants} restaurants
     @param {Object} data
     @constructor
     ###
-    constructor: (restaurants, data) ->
-        @restaurants_ = restaurants
-        @data_ = data
-        @data_['isFavorite'] = window.localStorage.getItem(@data_['id'] + '_isFavorite') is 'true'
-        @data_['isHidden'] = window.localStorage.getItem(@data_['id'] + '_isHidden') is 'true'
-        @marked_ = false
+    constructor: (@restaurants, @data) ->
+        @data['isFavorite'] = window.localStorage.getItem(@data['id'] + '_isFavorite') is 'true'
+        @data['isHidden'] = window.localStorage.getItem(@data['id'] + '_isHidden') is 'true'
+        @marked = false
 
     ###*
     @public
     ###
     getId: () ->
-        @data_['id']
+        @data['id']
 
     ###*
     @private
     ###
-    getCountOfMeals_: () ->
-        @data_['meals'].length
+    getCountOfMeals: () ->
+        @data['meals'].length
 
     ###*
     @public
     ###
     appendToDocument: () ->
         meals = []
-        for meal in @data_['meals']
+        for meal in @data['meals']
             meals.push
                 name: meal['name']
                 priceStr: meal['priceStr']
                 isExpensive: meal['isExpensive']
                 isMainCourse: meal['isMainCourse']
                 image: meal['image']
-        @contentElm_ = soy.renderAsElement lta.templates.restaurant,
-            id: @data_['id']
-            name: @data_['name']
+        @contentElm = soy.renderAsElement lta.templates.restaurant,
+            id: @data['id']
+            name: @data['name']
             urls:
-                homepage: @data_['urls']['homepage']
-                lunchmenu: @data_['urls']['lunchmenu']
-            phoneNumber: @data_['phoneNumber']
+                homepage: @data['urls']['homepage']
+                lunchmenu: @data['urls']['lunchmenu']
+            phoneNumber: @data['phoneNumber']
             address:
-                street: @data_['address']['street']
-                zip: @data_['address']['zip']
-                city: @data_['address']['city']
-            lastUpdateStr: @data_['lastUpdateStr']
-            isFavorite: @data_['isFavorite']
-            isHidden: @data_['isHidden']
+                street: @data['address']['street']
+                zip: @data['address']['zip']
+                city: @data['address']['city']
+            lastUpdateStr: @data['lastUpdateStr']
+            isFavorite: @data['isFavorite']
+            isHidden: @data['isHidden']
             meals: meals
-        @initDetailListener_()
-        @initMealHighliter_()
+        @initDetailListener()
+        @initMealHighliter()
 
-        goog.dom.appendChild @getContainer_(), @contentElm_
+        goog.dom.appendChild @getContainer(), @contentElm
 
     ###*
     @private
     ###
-    getContainer_: () ->
-        if @data_['isHidden']
+    getContainer: () ->
+        if @data['isHidden']
             containerId = 'hidden-restaurants'
-        else if @data_['isFavorite']
+        else if @data['isFavorite']
             containerId = 'favorite-restaurants'
         else
             containerId = 'restaurants'
@@ -110,19 +108,19 @@ class lta.Restaurant
     ###*
     @private
     ###
-    initDetailListener_: () ->
+    initDetailListener: () ->
         that = @
 
-        detailLink = goog.dom.getElementByClass 'restaurant-detail-link', @contentElm_
+        detailLink = goog.dom.getElementByClass 'restaurant-detail-link', @contentElm
         goog.events.listen detailLink, goog.events.EventType.CLICK, (e) ->
             e.preventDefault()
             that.toggleDetail()
 
-        hideButton = goog.dom.getElementByClass 'restaurant-hide', @contentElm_
+        hideButton = goog.dom.getElementByClass 'restaurant-hide', @contentElm
         goog.events.listen hideButton, goog.events.EventType.CLICK, (e) ->
             that.toggleHide()
 
-        favoriteButton = goog.dom.getElementByClass 'restaurant-favorite', @contentElm_
+        favoriteButton = goog.dom.getElementByClass 'restaurant-favorite', @contentElm
         goog.events.listen favoriteButton, goog.events.EventType.CLICK, (e) ->
             that.toggleFavorite()
 
@@ -130,64 +128,64 @@ class lta.Restaurant
     @public
     ###
     toggleDetail: () ->
-        restaurantDetail = goog.dom.getElementByClass 'restaurant-detail', @contentElm_
+        restaurantDetail = goog.dom.getElementByClass 'restaurant-detail', @contentElm
         goog.dom.classes.toggle restaurantDetail, 'hide'
 
     ###*
     @public
     ###
     toggleHide: () ->
-        @data_['isHidden'] = !@data_['isHidden']
-        window.localStorage.setItem(@data_['id'] + '_isHidden', @data_['isHidden'])
+        @data['isHidden'] = !@data['isHidden']
+        window.localStorage.setItem(@data['id'] + '_isHidden', @data['isHidden'])
 
-        restaurantContent = goog.dom.getElementByClass 'restaurant-content', @contentElm_
-        goog.dom.classes.enable restaurantContent, 'hide', @data_['isHidden']
+        restaurantContent = goog.dom.getElementByClass 'restaurant-content', @contentElm
+        goog.dom.classes.enable restaurantContent, 'hide', @data['isHidden']
 
-        hideButton = goog.dom.getElementByClass 'restaurant-hide', @contentElm_
-        goog.dom.classes.enable hideButton, 'icon-plus-sign', @data_['isHidden']
-        goog.dom.classes.enable hideButton, 'icon-remove-sign', !@data_['isHidden']
+        hideButton = goog.dom.getElementByClass 'restaurant-hide', @contentElm
+        goog.dom.classes.enable hideButton, 'icon-plus-sign', @data['isHidden']
+        goog.dom.classes.enable hideButton, 'icon-remove-sign', !@data['isHidden']
 
-        @reappendToContainer_()
+        @reappendToContainer()
 
     ###*
     @public
     ###
     toggleFavorite: () ->
-        @data_['isFavorite'] = !@data_['isFavorite']
-        window.localStorage.setItem(@data_['id'] + '_isFavorite', @data_['isFavorite'])
-        @setMapMarkColor_()
+        @data['isFavorite'] = !@data['isFavorite']
+        window.localStorage.setItem(@data['id'] + '_isFavorite', @data['isFavorite'])
+        @setMapMarkColor()
 
-        favoriteButton = goog.dom.getElementByClass 'restaurant-favorite', @contentElm_
-        goog.dom.classes.enable favoriteButton, 'icon-star', @data_['isFavorite']
-        goog.dom.classes.enable favoriteButton, 'icon-star-empty', !@data_['isFavorite']
+        favoriteButton = goog.dom.getElementByClass 'restaurant-favorite', @contentElm
+        goog.dom.classes.enable favoriteButton, 'icon-star', @data['isFavorite']
+        goog.dom.classes.enable favoriteButton, 'icon-star-empty', !@data['isFavorite']
 
-        @reappendToContainer_()
+        @reappendToContainer()
 
     ###*
     @private
     ###
-    reappendToContainer_: () ->
-        goog.dom.removeNode @contentElm_
-        goog.dom.insertChildAt @getContainer_(), @contentElm_, 0
+    reappendToContainer: () ->
+        goog.dom.removeNode @contentElm
+        goog.dom.insertChildAt @getContainer(), @contentElm, 0
         @scrollTo()
 
     ###*
     @private
     ###
-    initMealHighliter_: () ->
+    initMealHighliter: () ->
         that = @
-        goog.events.listen @contentElm_, goog.events.EventType.CLICK, (e) ->
+        goog.events.listen @contentElm, goog.events.EventType.CLICK, (e) ->
             tr = goog.dom.getAncestorByTagNameAndClass e.target, 'tr'
             return if not tr
             goog.dom.classes.toggle tr, 'meal-highlight'
-            that.restaurants_.showOrHideBtnSelection()
+            that.restaurants.showOrHideBtnSelection()
 
     ###*
     @public
     ###
     showAllOrSelectedMeals: (showOnlySelectedMeals) ->
         that = @
-        @showOrHideMeals_ (meal) ->
+        @showOrHideMeals (meal) ->
             return true if !showOnlySelectedMeals
             tr = goog.dom.getAncestorByTagNameAndClass meal, 'tr'
             goog.dom.classes.has tr, 'meal-highlight'
@@ -199,26 +197,26 @@ class lta.Restaurant
     search: (query) ->
         that = @
         pattern = new RegExp query, 'gi'
-        @removeHighlight_()
+        @removeHighlight()
         callback = (meal) ->
-            showed = not query or meal.innerHTML.replace('&nbsp;', ' ').search(pattern) > -1 or that.data_['name'].search(pattern) > -1
-            that.highlight_(meal, query) if showed and query
+            showed = not query or meal.innerHTML.replace('&nbsp;', ' ').search(pattern) > -1 or that.data['name'].search(pattern) > -1
+            that.highlight(meal, query) if showed and query
             return showed
-        forceShow = not query or @data_['name'].search(pattern) > -1
-        @showOrHideMeals_ callback, forceShow
+        forceShow = not query or @data['name'].search(pattern) > -1
+        @showOrHideMeals callback, forceShow
 
     ###*
     @private
     ###
-    removeHighlight_: () ->
-        for elm in goog.dom.getElementsByClass 'highlight', @contentElm_
+    removeHighlight: () ->
+        for elm in goog.dom.getElementsByClass 'highlight', @contentElm
             text = goog.dom.createTextNode goog.dom.getTextContent elm
             goog.dom.replaceNode text, elm
 
     ###*
     @private
     ###
-    highlight_: (meal, query) ->
+    highlight: (meal, query) ->
         content = meal.innerHTML.replace('&nbsp;', ' ')
         pattern = new RegExp '(.*)(' + query + ')(.*)', 'gi'
         replaceWith = '$1<span class="highlight label label-warning">$2</span>$3'
@@ -227,9 +225,9 @@ class lta.Restaurant
     ###*
     @private
     ###
-    showOrHideMeals_: (callbackIfShowMeal, forceShow) ->
+    showOrHideMeals: (callbackIfShowMeal, forceShow) ->
         countOfShowedMeals = 0
-        for meal in @getMealsElms_()
+        for meal in @getMealsElms()
             showed = callbackIfShowMeal meal
             countOfShowedMeals++ if showed
             tr = goog.dom.getAncestorByTagNameAndClass meal, 'tr'
@@ -242,88 +240,88 @@ class lta.Restaurant
     ###*
     @private
     ###
-    getMealsElms_: () ->
-        goog.dom.getElementsByClass 'meal', @contentElm_
+    getMealsElms: () ->
+        goog.dom.getElementsByClass 'meal', @contentElm
 
     ###*
     @public
     ###
     show: () ->
-        @showHide_ true
+        @showHide true
 
     ###*
     @public
     ###
     hide: () ->
-        @showHide_ false
+        @showHide false
 
     ###*
     @param {boolean} show
     @private
     ###
-    showHide_: (show) ->
-        goog.dom.classes.enable @contentElm_, 'hide', !show
-        @mapMarker_.setVisible show if @mapMarker_
+    showHide: (show) ->
+        goog.dom.classes.enable @contentElm, 'hide', !show
+        @mapMarker.setVisible show if @mapMarker
 
     ###*
     @param {google.maps.Map} googleMap
     ###
     registerMapMarker: (googleMap) ->
         that = @
-        @mapMarker_ = new google.maps.Marker
+        @mapMarker = new google.maps.Marker
             'map': googleMap
-            'title': @data_['name']
-            'position': new google.maps.LatLng @data_['address']['map']['lat'], @data_['address']['map']['lng']
-            'icon': @getDefaultMarkerIconUrl_()
-        google.maps.event.addListener @mapMarker_, 'click', () ->
+            'title': @data['name']
+            'position': new google.maps.LatLng @data['address']['map']['lat'], @data['address']['map']['lng']
+            'icon': @getDefaultMarkerIconUrl()
+        google.maps.event.addListener @mapMarker, 'click', () ->
             that.scrollTo()
             that.mark()
-            that.restaurants_.history.setToken that.getId()
+            that.restaurants.history.setToken that.getId()
 
     ###*
     @public
     ###
     scrollTo: () ->
-        lta.smoothlyScrollTo @contentElm_.offsetTop
+        lta.smoothlyScrollTo @contentElm.offsetTop
 
     ###*
     @public
     ###
     mark: () ->
-        @marked_ = true
-        @setMapMarkColor_()
-        goog.dom.classes.add @contentElm_, 'restaurant-highlight'
+        @marked = true
+        @setMapMarkColor()
+        goog.dom.classes.add @contentElm, 'restaurant-highlight'
 
     ###*
     @public
     ###
     unmark: () ->
-        @marked_ = false
-        @setMapMarkColor_()
-        goog.dom.classes.remove @contentElm_, 'restaurant-highlight'
+        @marked = false
+        @setMapMarkColor()
+        goog.dom.classes.remove @contentElm, 'restaurant-highlight'
 
     ###*
     @private
     ###
-    setMapMarkColor_: () ->
-        if @marked_
-            @mapMarker_.setIcon @getMarkerIconUrl_ 'blue'
+    setMapMarkColor: () ->
+        if @marked
+            @mapMarker.setIcon @getMarkerIconUrl 'blue'
         else
-            @mapMarker_.setIcon @getDefaultMarkerIconUrl_()
+            @mapMarker.setIcon @getDefaultMarkerIconUrl()
 
     ###*
     @private
     ###
-    getDefaultMarkerIconUrl_: () ->
-        if @getCountOfMeals_()
-            defaultColor = if @data_['isFavorite'] then 'green' else 'red'
-            @getMarkerIconUrl_ defaultColor
+    getDefaultMarkerIconUrl: () ->
+        if @getCountOfMeals()
+            defaultColor = if @data['isFavorite'] then 'green' else 'red'
+            @getMarkerIconUrl defaultColor
         else
-            @getMarkerIconUrl_ 'gray'
+            @getMarkerIconUrl 'gray'
 
     ###*
     @param {string} color
     @private
     ###
-    getMarkerIconUrl_: (color) ->
+    getMarkerIconUrl: (color) ->
         'http://labs.google.com/ridefinder/images/mm_20_' + color + '.png'
