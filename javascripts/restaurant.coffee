@@ -49,9 +49,6 @@ class lta.Restaurant
         @data['isHidden'] = window.localStorage.getItem(@data['id'] + '_isHidden') is 'true'
         @marked = false
 
-    ###*
-    @public
-    ###
     getId: () ->
         @data['id']
 
@@ -61,9 +58,6 @@ class lta.Restaurant
     getCountOfMeals: () ->
         @data['meals'].length
 
-    ###*
-    @public
-    ###
     appendToDocument: () ->
         meals = []
         for meal in @data['meals']
@@ -124,16 +118,10 @@ class lta.Restaurant
         goog.events.listen favoriteButton, goog.events.EventType.CLICK, (e) ->
             that.toggleFavorite()
 
-    ###*
-    @public
-    ###
     toggleDetail: () ->
         restaurantDetail = goog.dom.getElementByClass 'restaurant-detail', @contentElm
         goog.dom.classes.toggle restaurantDetail, 'hide'
 
-    ###*
-    @public
-    ###
     toggleHide: () ->
         @data['isHidden'] = !@data['isHidden']
         window.localStorage.setItem(@data['id'] + '_isHidden', @data['isHidden'])
@@ -147,9 +135,6 @@ class lta.Restaurant
 
         @reappendToContainer()
 
-    ###*
-    @public
-    ###
     toggleFavorite: () ->
         @data['isFavorite'] = !@data['isFavorite']
         window.localStorage.setItem(@data['id'] + '_isFavorite', @data['isFavorite'])
@@ -181,7 +166,7 @@ class lta.Restaurant
             that.restaurants.showOrHideBtnSelection()
 
     ###*
-    @public
+    @param {boolean} showOnlySelectedMeals
     ###
     showAllOrSelectedMeals: (showOnlySelectedMeals) ->
         that = @
@@ -192,7 +177,6 @@ class lta.Restaurant
 
     ###*
     @param {string} query
-    @public
     ###
     search: (query) ->
         that = @
@@ -223,6 +207,8 @@ class lta.Restaurant
         meal.innerHTML = content.replace pattern, replaceWith
 
     ###*
+    @param {function(Element)} callbackIfShowMeal
+    @param {boolean=} forceShow
     @private
     ###
     showOrHideMeals: (callbackIfShowMeal, forceShow) ->
@@ -243,15 +229,9 @@ class lta.Restaurant
     getMealsElms: () ->
         goog.dom.getElementsByClass 'meal', @contentElm
 
-    ###*
-    @public
-    ###
     show: () ->
         @showHide true
 
-    ###*
-    @public
-    ###
     hide: () ->
         @showHide false
 
@@ -278,23 +258,14 @@ class lta.Restaurant
             that.mark()
             that.restaurants.history.setToken that.getId()
 
-    ###*
-    @public
-    ###
     scrollTo: () ->
         lta.smoothlyScrollTo @contentElm.offsetTop
 
-    ###*
-    @public
-    ###
     mark: () ->
         @marked = true
         @setMapMarkColor()
         goog.dom.classes.add @contentElm, 'restaurant-highlight'
 
-    ###*
-    @public
-    ###
     unmark: () ->
         @marked = false
         @setMapMarkColor()

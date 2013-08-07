@@ -28,7 +28,6 @@ class lta.Restaurants
 
     ###*
     @type {goog.History}
-    @public
     ###
     history: null
 
