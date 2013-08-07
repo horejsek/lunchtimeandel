@@ -42,6 +42,12 @@ class lta.Search
     restaurants: null
 
     ###*
+    @type {?number}
+    @private
+    ###
+    timeout: null
+
+    ###*
     @param {string} searchboxId
     @param {lta.Restaurants} restaurants
     @constructor
@@ -57,7 +63,15 @@ class lta.Search
         goog.events.listen @searchinput, goog.events.EventType.INPUT, (e) ->
             that.search()
         goog.events.listen @searchinput, goog.events.EventType.KEYUP, (e) ->
-            that.clear() if e.keyCode is goog.events.KeyCodes.ESC
+            if that.timeout
+                window.clearTimeout that.timeout
+                that.timeout = null
+            if e.keyCode is goog.events.KeyCodes.ESC
+                that.clear()
+            else
+                callback = () ->
+                    that.trackSearch that.searchinput.value
+                that.timeout = setTimeout callback, 2000
         goog.events.listen searchbutton, goog.events.EventType.CLICK, (e) ->
             that.clear()
 
@@ -81,6 +95,14 @@ class lta.Search
             letters.push(letter)
             keyword += '[' + (letters).join('') + ']'
         keyword
+
+    ###*
+    @param {string} keyword
+    @private
+    ###
+    trackSearch: (keyword) ->
+        if window['_gaq']
+            window['_gaq'].push ['_trackEvent', 'Search', 'Keyword', keyword]
 
 
 window['lta'] = lta
