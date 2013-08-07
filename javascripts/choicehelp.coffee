@@ -38,7 +38,9 @@ class lta.ChoiceHelp
 
     help: () ->
         # When user clicks on random, do not show random after XY minutes.
-        window.clearTimeout @timeout
+        if @timeout
+            window.clearTimeout @timeout
+            @timeout = null
 
         if window['_gaq']
             window['_gaq'].push ['_trackEvent', 'Random', 'Show']
