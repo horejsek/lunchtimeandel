@@ -13,13 +13,14 @@ block list
     div#restaurants_map.hidden-phone
 
 block content
-    div#favorite-restaurants
     div#restaurants
-        script
-            document.write("#{__i('Loading…')}");
-        noscript
-            p.label.label-important #{__i('For properly function, please, allow JavaScript for this site.')}
-    div#hidden-restaurants
+        div#favorite-restaurants
+        div#common-restaurants
+            script
+                document.write("#{__i('Loading…')}");
+            noscript
+                p.label.label-important #{__i('For properly function, please, allow JavaScript for this site.')}
+        div#hidden-restaurants
 
     i#choicehelp-link.icon-meh
     div#choicehelp-box.alert.hide

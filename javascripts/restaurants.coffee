@@ -21,6 +21,12 @@ class lta.Restaurants
     googleMap: null
 
     ###*
+    @type {Element}
+    @private
+    ###
+    container: null
+
+    ###*
     @type {boolean}
     @private
     ###
@@ -90,7 +96,7 @@ class lta.Restaurants
     load: () ->
         that = @
         goog.net.XhrIo.send '/api/listall', (e) ->
-            that.container.innerHTML = ''
+            goog.dom.getElement('common-restaurants').innerHTML = ''
 
             res = e.target.getResponseJson()
             for restaurantData in res

@@ -96,7 +96,7 @@ class lta.Restaurant
         else if @data['isFavorite']
             containerId = 'favorite-restaurants'
         else
-            containerId = 'restaurants'
+            containerId = 'common-restaurants'
         goog.dom.getElement containerId
 
     ###*
