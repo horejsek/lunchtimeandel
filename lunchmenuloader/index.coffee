@@ -17,6 +17,7 @@ module.exports = (models) ->
             (new (require('./kristianLoader')(models))()).loadData()
             (new (require('./laCambusaLoader')(models))()).loadData()
             #(new (require('./peronLoader')(models))()).loadData()
+            (new (require('./plachtaLoader')(models))()).loadData()
             (new (require('./pizzerieMediteraneLoader')(models))()).loadData()
             (new (require('./sodexoLoader')(models))()).loadData()
             (new (require('./tgiLoader')(models))()).loadData()
