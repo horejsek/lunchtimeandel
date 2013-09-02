@@ -126,9 +126,6 @@ class lta.Restaurant
         @data['isHidden'] = !@data['isHidden']
         window.localStorage.setItem(@data['id'] + '_isHidden', @data['isHidden'])
 
-        restaurantContent = goog.dom.getElementByClass 'restaurant-content', @contentElm
-        goog.dom.classes.enable restaurantContent, 'hide', @data['isHidden']
-
         hideButton = goog.dom.getElementByClass 'restaurant-hide', @contentElm
         goog.dom.classes.enable hideButton, 'icon-plus-sign', @data['isHidden']
         goog.dom.classes.enable hideButton, 'icon-remove-sign', !@data['isHidden']

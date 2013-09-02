@@ -51,6 +51,28 @@
     }
 }
 
+#hidden-restaurants {
+    margin-top: 70px;
+    padding-top: 50px;
+
+    &:empty {
+        display: none;
+    }
+    &:before {
+        content: "Dál jen na vlastní nebezpečí. :-)";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        border-top: 5px solid #bbb;
+        margin-top: -70px;
+        padding: 5px 10px 0 10px;
+    }
+}
+
+.restaurant-hidden {
+    opacity: 0.8;
+}
+
 .meal-highlight,
 .meal-highlight td {
     background: #468847 !important;

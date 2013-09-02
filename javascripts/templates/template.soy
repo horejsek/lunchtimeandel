@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="restaurant-content {if $isHidden}hide{/if}">
+        <div class="restaurant-content {if $isHidden}restaurant-hidden{/if}">
             {if $meals.length}
                 <table class="table table-bordered table-hover">
                     {foreach $meal in $meals}
