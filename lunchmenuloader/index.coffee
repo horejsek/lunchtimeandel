@@ -16,6 +16,7 @@ module.exports = (models) ->
             (new (require('./jetSetLoader')(models))()).loadData()
             (new (require('./kristianLoader')(models))()).loadData()
             (new (require('./laCambusaLoader')(models))()).loadData()
+            (new (require('./lokalblokLoader')(models))()).loadData()
             #(new (require('./peronLoader')(models))()).loadData()
             (new (require('./plachtaLoader')(models))()).loadData()
             (new (require('./pizzerieMediteraneLoader')(models))()).loadData()
