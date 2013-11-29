@@ -33,9 +33,6 @@
     }
     #search {
         width: 85%;
-        & input[type=text] {
-            width: 100%;
-        }
     }
     .restaurant {
         margin-bottom: 20px;
@@ -45,13 +42,25 @@
 @media (max-width: 580px) {
     #search {
         width: 80%;
+        margin: 10px;
+        input[type=text] {
+            width: 100px;
+        }
+        .input-group {
+            width: 10px;
+        }
+        &.hide-btn-selection {
+            input[type=text] {
+                width: 255px;
+            }
+        }
     }
 
     #choicehelp-box {
         position: relative;
         top: 0;
         left: 3%;
-        width: 80%;
+        width: 95%;
         margin-left: 0;
     }
 }
