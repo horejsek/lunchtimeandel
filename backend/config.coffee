@@ -34,9 +34,9 @@ module.exports = (app) ->
         app.use i18n.init
         app.use app.router
         app.use lessMiddleware
-            src: path.join __dirname, 'public'
+            src: path.join __dirname, '..', 'public'
             compress: true
-        app.use express.static path.join __dirname, 'public'
+        app.use express.static path.join __dirname, '..', 'public'
 
     app.configure 'development', ->
         app.use express.errorHandler()
