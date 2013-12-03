@@ -1,5 +1,8 @@
 
-module.exports = (app, models) ->
+models = require '../models'
+
+
+module.exports = (app) ->
     # Non exists page redirect to homepage.
     app.use (req, res, next) ->
         res.redirect '/'
@@ -15,7 +18,7 @@ module.exports = (app, models) ->
         host = req.header 'host'
         if host.match /^127\..*/i
             res.send 'Reloading...'
-            require('../lunchmenuloader')(models)()
+            require('../lunchmenuloader')()
         else
             res.redirect '/'
 

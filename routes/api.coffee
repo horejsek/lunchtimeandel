@@ -1,5 +1,8 @@
 
-module.exports = (app, models) ->
+models = require '../models'
+
+
+module.exports = (app) ->
     app.get '/api', (req, res) ->
         res.render 'api.jade',
             title: __('LunchtimeAndel') + ' API'

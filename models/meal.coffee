@@ -1,4 +1,7 @@
 
+mongoose = require 'mongoose'
+
+
 pastaImages = [
     'bavette'
     'bucatini'
@@ -42,31 +45,32 @@ pastaImages = [
     'tortiglioni'
 ]
 
-module.exports = (Schema) ->
-    Meal = new Schema
-        name: String
-        price: Number
 
-    Meal.path('name').set (v) ->
-        return v.replace('&nbsp;', ' ')
+Meal = new mongoose.Schema
+    name: String
+    price: Number
 
-    Meal.path('price').set (v) ->
-        return parseInt v
+Meal.path('name').set (v) ->
+    return v.replace('&nbsp;', ' ')
 
-    Meal.methods.getPrintablePrice = () ->
-        if @price then @price + ' Kč' else '-'
+Meal.path('price').set (v) ->
+    return parseInt v
 
-    Meal.methods.isExpensive = () ->
-        @price > 100
+Meal.methods.getPrintablePrice = () ->
+    if @price then @price + ' Kč' else '-'
 
-    Meal.methods.isMainCourse = () ->
-        @price > 50
+Meal.methods.isExpensive = () ->
+    @price > 100
 
-    Meal.methods.getImage = () ->
-        for pastaImage in pastaImages
-            re = new RegExp pastaImage.replace('_', '.*'), 'i'
-            if @name.search(re) > -1
-                return '/images/pasta/' + pastaImage + '.jpg'
-        return ''
+Meal.methods.isMainCourse = () ->
+    @price > 50
 
-    return Meal
+Meal.methods.getImage = () ->
+    for pastaImage in pastaImages
+        re = new RegExp pastaImage.replace('_', '.*'), 'i'
+        if @name.search(re) > -1
+            return '/images/pasta/' + pastaImage + '.jpg'
+    return ''
+
+
+module.exports = Meal

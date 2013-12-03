@@ -1,28 +1,30 @@
 
-module.exports = (models) ->
-    load = () ->
-        console.log 'Reloading data...'
-        models.Restaurant.collection.drop (err) ->
-            (new (require('./andelLoader')(models))()).loadData()
-            (new (require('./andelkaLoader')(models))()).loadData()
-            (new (require('./blazinecLoader')(models))()).loadData()
-            (new (require('./cyrilspubLoader')(models))()).loadData()
-            (new (require('./elBarrioLoader')(models))()).loadData()
-            (new (require('./formankaLoader')(models))()).loadData()
-            (new (require('./hlubinaLoader')(models))()).loadData()
-            (new (require('./husaAndelLoader')(models))()).loadData()
-            (new (require('./husaNaVerandachLoader')(models))()).loadData()
-            (new (require('./ilNostroLoader')(models))()).loadData()
-            (new (require('./jetSetLoader')(models))()).loadData()
-            (new (require('./kristianLoader')(models))()).loadData()
-            (new (require('./laCambusaLoader')(models))()).loadData()
-            (new (require('./lokalblokLoader')(models))()).loadData()
-            #(new (require('./peronLoader')(models))()).loadData()
-            (new (require('./plachtaLoader')(models))()).loadData()
-            (new (require('./pizzerieMediteraneLoader')(models))()).loadData()
-            (new (require('./sodexoLoader')(models))()).loadData()
-            (new (require('./tgiLoader')(models))()).loadData()
-            (new (require('./tradiceLoader')(models))()).loadData()
-            (new (require('./uBilehoLvaLoader')(models))()).loadData()
-            (new (require('./uZiznivehoJelenaLoader')(models))()).loadData()
-            (new (require('./zlatyKlasLoader')(models))()).loadData()
+models = require '../models'
+
+
+module.exports = () ->
+    console.log 'Reloading data...'
+    models.Restaurant.collection.drop (err) ->
+        (new (require './andelLoader')).loadData()
+        (new (require './andelkaLoader')).loadData()
+        (new (require './blazinecLoader')).loadData()
+        (new (require './cyrilspubLoader')).loadData()
+        (new (require './elBarrioLoader')).loadData()
+        (new (require './formankaLoader')).loadData()
+        (new (require './hlubinaLoader')).loadData()
+        (new (require './husaAndelLoader')).loadData()
+        (new (require './husaNaVerandachLoader')).loadData()
+        (new (require './ilNostroLoader')).loadData()
+        (new (require './jetSetLoader')).loadData()
+        (new (require './kristianLoader')).loadData()
+        (new (require './laCambusaLoader')).loadData()
+        (new (require './lokalblokLoader')).loadData()
+        #(new (require './peronLoader')).loadData()
+        (new (require './plachtaLoader')).loadData()
+        (new (require './pizzerieMediteraneLoader')).loadData()
+        (new (require './sodexoLoader')).loadData()
+        (new (require './tgiLoader')).loadData()
+        (new (require './tradiceLoader')).loadData()
+        (new (require './uBilehoLvaLoader')).loadData()
+        (new (require './uZiznivehoJelenaLoader')).loadData()
+        (new (require './zlatyKlasLoader')).loadData()
