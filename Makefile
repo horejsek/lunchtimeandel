@@ -10,6 +10,9 @@ FOREVER=/usr/local/bin/forever
 
 all:
 	@echo "make run"
+	@echo "make run-forever"
+	@echo "make test"
+	@echo "make compile"
 	@echo "make watch"
 	@echo "make localdev"
 
@@ -17,52 +20,56 @@ run: compile-coffeescript
 	# Make sure that nothing is running on port $(PORT).
 	$(eval pid := `lsof -i tcp:$(PORT) | grep LISTEN | cut -d" " -f2`)
 	if [ $(pid) ]; then kill $(pid); fi
-	supervisor lunchtime.js
+	cd backend; supervisor lunchtime.js
 
 run-forever: compile-coffeescript
-	- $(FOREVER) stop lunchtime.js
-	$(FOREVER) start lunchtime.js
+	- cd backend; $(FOREVER) stop lunchtime.js
+	cd backend; $(FOREVER) start lunchtime.js
+
+test:
+	mocha tests
 
 compile: compile-coffeescript compile-templates compile-javascript
 compile-coffeescript:
-	coffee -cb ./javascripts ./lunchmenuloader
+	coffee -cb ./backend ./frontend ./tests
 compile-templates:
 	java -jar $(SOY_COMPILER) \
 	    --shouldProvideRequireSoyNamespaces \
 	    --shouldGenerateGoogMsgDefs \
 	    --bidiGlobalDir 1 \
-	    --outputPathFormat javascripts/templates/template.js \
-	    --srcs javascripts/templates/template.soy
+	    --outputPathFormat frontend/templates/template.js \
+	    --srcs frontend/templates/template.soy
 	java -jar libs/XtbGenerator.jar \
 	    --lang cs \
-	    --translations_file javascripts/templates/messages.xtb \
-	    --xtb_output_file javascripts/templates/messages.xtb \
-	    --js javascripts/templates/template.js
+	    --translations_file frontend/templates/messages.xtb \
+	    --xtb_output_file frontend/templates/messages.xtb \
+	    --js frontend/templates/template.js
 compile-javascript:
 	python $(CLOSURE_LIBRARY)/closure/bin/calcdeps.py \
 	    --compiler_jar $(CLOSURE_COMPILER) \
 	    --output_mode compiled \
 	    --path $(CLOSURE_LIBRARY) \
 	    --path="libs/closure-templates/soyutils_usegoog.js" \
-	    --path="javascripts/templates/template.js" \
-	    --input="javascripts/scrolling.js" \
-	    --input="javascripts/restaurant.js" \
-	    --input="javascripts/choicehelp.js" \
-	    --input="javascripts/restaurants.js" \
-	    --input="javascripts/search.js" \
-	    --input="javascripts/api.js" \
-	    --compiler_flags="--translations_file=javascripts/templates/messages.xtb" \
-	    --compiler_flags="--externs=javascripts/externs/googlemapsv3.js" \
+	    --path="frontend/templates/template.js" \
+	    --input="frontend/scrolling.js" \
+	    --input="frontend/restaurant.js" \
+	    --input="frontend/choicehelp.js" \
+	    --input="frontend/restaurants.js" \
+	    --input="frontend/search.js" \
+	    --input="frontend/api.js" \
+	    --compiler_flags="--translations_file=frontend/templates/messages.xtb" \
+	    --compiler_flags="--externs=frontend/externs/googlemapsv3.js" \
 	    --compiler_flags="--warning_level=VERBOSE" \
 	    --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
 	    > public/app.min.js;
 
 watch:
-	coffee --watch -cb ./
+	coffee --watch -cb ./backend ./frontend ./tests &
+	sleep 1
+	mocha tests --watch
 
 install-dependencies:
 	apt-get install mongodb curl openjdk-7-jre
 	curl https://npmjs.org/install.sh | bash
 	npm install
-	npm install forever supervisor -g
-
+	npm install forever supervisor mocha -g
