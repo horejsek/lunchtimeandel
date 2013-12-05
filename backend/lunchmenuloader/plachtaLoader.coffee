@@ -20,7 +20,7 @@ class PlachtaLoader extends LunchmenuLoader
 
     parse: (restaurant, $) ->
         today = moment().format('D. M. YYYY')
-        $('#rbk h3').each (i, elem) ->
+        $('#rbk h3, #rbk p').each (i, elem) ->
             if $(this).text().search(today) == -1
                 return
             elm = $(this)
@@ -31,7 +31,7 @@ class PlachtaLoader extends LunchmenuLoader
                 for row in rows
                     row = row.trim().split('...')
                     continue if not row[0] or not row[1]
-                    restaurant.addMeal row[0], row[1]
+                    restaurant.addMeal row[0], row[1].match /\d+/
             return false
 
 
