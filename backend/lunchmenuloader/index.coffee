@@ -19,7 +19,7 @@ module.exports = () ->
         (new (require './kristianLoader')).loadData()
         (new (require './laCambusaLoader')).loadData()
         (new (require './lokalblokLoader')).loadData()
-        #(new (require './peronLoader')).loadData()
+        (new (require './peronLoader')).loadData()
         (new (require './plachtaLoader')).loadData()
         (new (require './pizzerieMediteraneLoader')).loadData()
         (new (require './sodexoLoader')).loadData()

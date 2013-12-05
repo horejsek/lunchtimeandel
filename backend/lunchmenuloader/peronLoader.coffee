@@ -1,4 +1,6 @@
 
+moment = require 'moment'
+
 LunchmenuLoader = require './lunchmenuLoader'
 
 
@@ -17,10 +19,15 @@ class PeronLoader extends LunchmenuLoader
                 lng: 14.405764
 
     parse: (restaurant, $) ->
+        today = moment().format('DD.MM. YYYY')
+        $('.teaserarticles .item').each (i, elem) ->
+            if $(this).text().search(today) == -1
+                return
+            $(this).find('table tr').each (i, elem) ->
+                name = $(this).find('td').first().text().trim()
+                price = $(this).find('td').last().text().trim()
+                if name != price and price
+                    restaurant.addMeal name, price
 
 
 module.exports = PeronLoader
-
-# http://www.uperonu.cz/jidelni-listek/tydenni-menu-1100-1500/75-steda.html
-# http://www.uperonu.cz/jidelni-listek/tydenni-menu-1100-1500/58-tvrtek-2110-2011.html
-# http://www.uperonu.cz/jidelni-listek/tydenni-menu-1100-1500/76-patek.html
