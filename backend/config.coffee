@@ -10,6 +10,7 @@ mongoose = require 'mongoose'
 
 i18n.configure
     locales: ['cs']
+    directory: __dirname + '/locales'
     register: global
     updateFiles: true
 i18n.setLocale 'cs'
