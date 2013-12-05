@@ -17,7 +17,7 @@ block content
     div#restaurants
         div#favorite-restaurants
         div#common-restaurants
-            script
+            script.
                 document.write("#{__i('Loading…')}");
             noscript
                 p.label.label-important #{__i('For properly function, please, allow JavaScript for this site.')}
@@ -30,7 +30,7 @@ block content
         div#choicehelp-text
 
 block end
-    script(type='text/javascript')
+    script(type='text/javascript').
         var mapOptions = {
             center: new google.maps.LatLng(50.07061,14.403334),
             minZoom: 15,
