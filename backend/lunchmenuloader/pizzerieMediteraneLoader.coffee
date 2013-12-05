@@ -8,7 +8,7 @@ class PizzerieMediteraneLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'Pizzerie Mediterane‎'
         @homepage = 'http://www.pizzeriemediterane.cz'
-        @downloadUrl = 'http://www.pizzeriemediterane.cz/denni_menu.php'
+        @downloadUrl = 'http://www.lunchtime.cz/plachta/pw/denni-menu/'
         @phoneNumber = '+420 257 320 579'
         @address =
             street: 'Radlická 3179/1e'
@@ -19,10 +19,8 @@ class PizzerieMediteraneLoader extends LunchmenuLoader
                 lng: 14.40159
 
     parse: (restaurant, $) ->
-        today = moment().format('D.M.YYYY')
-        if $('#container').text().search(today) == -1
-            return
-        $('table').find('tr').each (i, elem) ->
+        today = moment().format('YYYY-MM-DD')
+        $('#restDailyMenu'+today+'Ajax tr').each (i, elem) ->
             name = $(this).find('td').first().text().trim()
             price = $(this).find('td').last().text().trim()
             restaurant.addMeal name, price
