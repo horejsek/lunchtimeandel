@@ -15,8 +15,8 @@ class PeronLoader extends LunchmenuLoader
             city: 'Praha 5'
             zip: 15000
             map:
-                lat: 50.07072
-                lng: 14.404782
+                lat: 50.0707348
+                lng: 14.4031405
 
     parse: (restaurant, $) ->
         today = moment().format('YYYY-MM-DD')
