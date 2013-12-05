@@ -6,28 +6,24 @@ LunchmenuLoader = require './lunchmenuLoader'
 
 class PeronLoader extends LunchmenuLoader
     constructor: () ->
-        @name = 'U perónu'
-        @homepage = 'http://www.uperonu.cz/'
-        @downloadUrl = 'http://www.uperonu.cz/jidelni-listek/tydenni-menu-1100-1500.html'
-        @phoneNumber = '+420 721 441 440'
+        @name = 'Perón'
+        @homepage = 'http://www.peronsmichov.cz/'
+        @downloadUrl = 'http://www.lunchtime.cz/radegastovna-peron/pw/denni-menu/'
+        @phoneNumber = '+420 602 741 401'
         @address =
-            street: 'Nádražní 40'
+            street: 'Stroupežnického 20'
             city: 'Praha 5'
             zip: 15000
             map:
-                lat: 50.069773
-                lng: 14.405764
+                lat: 50.07072
+                lng: 14.404782
 
     parse: (restaurant, $) ->
-        today = moment().format('DD.MM. YYYY')
-        $('.teaserarticles .item').each (i, elem) ->
-            if $(this).text().search(today) == -1
-                return
-            $(this).find('table tr').each (i, elem) ->
-                name = $(this).find('td').first().text().trim()
-                price = $(this).find('td').last().text().trim()
-                if name != price and price
-                    restaurant.addMeal name, price
+        today = moment().format('YYYY-MM-DD')
+        $('#restDailyMenu'+today+'Ajax tr').each (i, elem) ->
+            name = $(this).find('td').first().text().trim()
+            price = $(this).find('td').last().text().trim()
+            restaurant.addMeal name, price
 
 
 module.exports = PeronLoader

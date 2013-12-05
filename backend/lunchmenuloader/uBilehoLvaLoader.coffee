@@ -34,7 +34,6 @@ class UBilehoLvaLoader extends LunchmenuLoader
     parsePdf: (restaurant, pdflink) ->
         that = @
         command = 'curl ' + pdflink + ' | java -jar ' + tikajar + ' --text | grep -E "^[0-9]{3,4}[^0-9].*" | cut -d" " -f2-'
-        console.log command
         exec command, (error, stdout, stderr) ->
             that.parseMenu restaurant, stdout
             # This function is called async, so there must be extra save.

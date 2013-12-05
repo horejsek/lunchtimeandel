@@ -26,5 +26,6 @@ module.exports = () ->
         (new (require './tgiLoader')).loadData()
         (new (require './tradiceLoader')).loadData()
         (new (require './uBilehoLvaLoader')).loadData()
+        (new (require './uPeronuLoader')).loadData()
         (new (require './uZiznivehoJelenaLoader')).loadData()
         (new (require './zlatyKlasLoader')).loadData()
