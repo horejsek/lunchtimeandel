@@ -30,7 +30,7 @@ module.exports = (app) ->
         app.set 'port', process.env.PORT or 3000
         app.set 'views', __dirname + '/views'
         app.set 'view engine', 'jade'
-        app.use express.logger 'dev'
+        app.use express.logger()
         app.use express.bodyParser()
         app.use i18n.init
         app.use app.router
