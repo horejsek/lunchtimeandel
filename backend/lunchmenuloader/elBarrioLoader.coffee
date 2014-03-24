@@ -17,13 +17,13 @@ class ElBarrioLoader extends LunchmenuLoader
                 lng: 14.404519
 
     parse: (restaurant, $) ->
-        $('.pm-item tr').each (i, elem) ->
+        $('.speisekarte tr').each (i, elem) ->
             row = $(this).text().trim()
             if not row
                 return
-            quantity = $(this).find('td.pmquantity').text().trim()
-            name = $(this).find('td.pmtitle').text().trim()
-            price = $(this).find('td.pmprice').text().trim()
+            quantity = $(this).find('td.volume').text().trim()
+            name = $(this).find('td.name').text().trim()
+            price = $(this).find('td.price').text().trim()
             restaurant.addMeal quantity + ' ' + name, price
 
 
