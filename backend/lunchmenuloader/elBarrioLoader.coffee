@@ -6,7 +6,7 @@ class ElBarrioLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'El Barrio de Ángel'
         @homepage = 'http://www.elbarrio.cz/'
-        @downloadUrl = 'http://www.elbarrio.cz/index.php?option=com_phocamenu&view=dailymenu'
+        @downloadUrl = 'http://www.elbarrio.cz/cs/menu'
         @phoneNumber = '+420 725 535 555'
         @address =
             street: 'Lidická 284/42'
