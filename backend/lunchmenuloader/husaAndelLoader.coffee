@@ -1,11 +1,13 @@
 
+moment = require 'moment'
+
 LunchmenuLoader = require './lunchmenuLoader'
 
 
 class HusaLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'Potrefená Husa (Anděl)'
-        @homepage = 'http://www.staropramen.cz/husa/restaurace-praha-andel/denni-menu'
+        @homepage = 'http://www.staropramen.cz/husa/restaurace-praha-andel'
         @downloadUrl = 'http://www.staropramen.cz/husa/restaurace-praha-andel/denni-menu'
         @phoneNumber = '+420 257 941 669'
         @address =
@@ -17,9 +19,10 @@ class HusaLoader extends LunchmenuLoader
                 lng: 14.404525
 
     parse: (restaurant, $) ->
-        $('#denniMenuCarousel li').first().find('li').each (i, elem) ->
-            name = $(this).find('.name').text().trim()
-            price = $(this).find('.price').text().trim()
+        today = moment().format('DD. MM. YYYY')
+        $('menu den[datum="'+today+'"] jidlo').each (i, elem) ->
+            name = $(this).text().trim()
+            price = $(this).attr('cena')
             restaurant.addMeal name, price
 
 
