@@ -37,6 +37,7 @@ Restaurant.methods.getRandomMeal = () ->
     meals[rand]
 
 Restaurant.methods.addMeal = (name, price) ->
+    return if not name
     models = require './'
     @meals.push new models.Meal
         name: name
