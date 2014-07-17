@@ -21,6 +21,7 @@ module.exports = () ->
         (new (require './peronLoader')).loadData()
         (new (require './plachtaLoader')).loadData()
         (new (require './pizzerieMediteraneLoader')).loadData()
+        (new (require './pravekLoader')).loadData()
         (new (require './sodexoLoader')).loadData()
         (new (require './tgiLoader')).loadData()
         (new (require './tradiceLoader')).loadData()
