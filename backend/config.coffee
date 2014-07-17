@@ -8,6 +8,10 @@ markdown = require 'node-markdown'
 moment = require 'moment'
 mongoose = require 'mongoose'
 
+slug = require 'slug'
+slug.charmap['('] = '-'
+slug.charmap[')'] = '-'
+
 i18n.configure
     locales: ['cs']
     directory: __dirname + '/locales'
