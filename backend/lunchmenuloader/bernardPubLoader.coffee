@@ -2,11 +2,11 @@
 LunchmenuLoader = require './lunchmenuLoader'
 
 
-class AndelkaLoader extends LunchmenuLoader
+class BernardPubLoader extends LunchmenuLoader
     constructor: () ->
-        @name = 'Andělka'
-        @homepage = 'http://www.andelka.cz'
-        @downloadUrl = 'http://www.andelka.cz/denni-menu/'
+        @name = 'Bernard Pub'
+        @homepage = 'http://bernardpub.cz/andel/'
+        @downloadUrl = 'http://bernardpub.cz/andel/'
         @phoneNumber = '+420 251 560 242'
         @address =
             street: 'Radlická 112/22'
@@ -17,11 +17,11 @@ class AndelkaLoader extends LunchmenuLoader
                 lng: 14.401639
 
     parse: (restaurant, $) ->
-        $('table').first().find('tbody tr').each (i, elem) ->
-            name = $(this).find('td').first().text().trim()
-            price = $(this).find('td').last().text().trim()
+        $('#jidelnilistek').first().find('.polozka').each (i, elem) ->
+            name = $(this).find('strong').first().text().trim()
+            price = $(this).find('em').first().text().trim()
             if name and price
                 restaurant.addMeal name, price
 
 
-module.exports = AndelkaLoader
+module.exports = BernardPubLoader
