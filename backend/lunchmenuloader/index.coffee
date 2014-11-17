@@ -6,7 +6,7 @@ module.exports = () ->
     console.log 'Reloading data...'
     models.Restaurant.collection.drop (err) ->
         (new (require './andelLoader')).loadData()
-        (new (require './andelkaLoader')).loadData()
+        (new (require './bernardPubLoader')).loadData()
         (new (require './blazinecLoader')).loadData()
         (new (require './cyrilspubLoader')).loadData()
         (new (require './elBarrioLoader')).loadData()
@@ -22,6 +22,7 @@ module.exports = () ->
         (new (require './plachtaLoader')).loadData()
         (new (require './pizzerieMediteraneLoader')).loadData()
         (new (require './pravekLoader')).loadData()
+        (new (require './smichovskyRadnicniSklipekLoader')).loadData()
         (new (require './sodexoLoader')).loadData()
         (new (require './tgiLoader')).loadData()
         (new (require './tradiceLoader')).loadData()
