@@ -1,6 +1,4 @@
 
-moment = require 'moment'
-
 LunchmenuLoader = require './lunchmenuLoader'
 
 
@@ -8,7 +6,7 @@ class SmichovskyRadnicniSklipekLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'Smíchovský radničnní sklípek'
         @homepage = 'http://www.smichovskysklipek.cz/'
-        @downloadUrl = 'http://www.lunchtime.cz/smichovsky_sklipek/pw/denni-menu/'
+        @downloadUrl = 'https://www.zomato.com/widgets/daily_menu?entity_id=16507625'
         @phoneNumber = '+420 257 000 319'
         @address =
             street: 'Preslova 4'
@@ -19,21 +17,7 @@ class SmichovskyRadnicniSklipekLoader extends LunchmenuLoader
                 lng: 14.407036
 
     parse: (restaurant, $) ->
-        today = moment().format('D.M.YYYY')
-        $('article.facility-daily-menu section.daily-menu-for-day').each (i, elem) ->
-            if $(this).text().search(today) == -1
-                return
-            
-            soup = $(this).find('section.daily-menu header').first()
-            name = soup.find('h3').text().trim()
-            price = soup.find('.price').text().trim()
-            restaurant.addMeal name, price
-            
-            $(this).find('section.daily-menu ul li').each (i, elem) ->
-                name = $(this).find('.name').text().trim()
-                price = $(this).find('.price').text().trim()
-                restaurant.addMeal name, price
-            return false
+        @lunchmenuParse_ restaurant, $
 
 
 module.exports = SmichovskyRadnicniSklipekLoader
