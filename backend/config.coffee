@@ -42,6 +42,9 @@ module.exports = (app) ->
             src: path.join __dirname, '..', 'public'
             compress: true
         app.use express.static path.join __dirname, '..', 'public'
+        app.use (err, req, res, next) ->
+            console.error err.stack
+            next err
 
     app.configure 'development', ->
         app.use express.errorHandler()
