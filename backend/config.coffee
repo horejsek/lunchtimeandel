@@ -19,7 +19,7 @@ i18n.configure
     updateFiles: true
 i18n.setLocale 'cs'
 
-moment.lang 'cs',
+moment.locale 'cs',
     months: ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
 
 mongoose.connect 'mongodb://localhost/lunchtimeandeldb'
@@ -38,9 +38,7 @@ module.exports = (app) ->
         app.use express.bodyParser()
         app.use i18n.init
         app.use app.router
-        app.use lessMiddleware
-            src: path.join __dirname, '..', 'public'
-            compress: true
+        app.use lessMiddleware path.join __dirname, '..', 'public'
         app.use express.static path.join __dirname, '..', 'public'
         app.use (err, req, res, next) ->
             console.error err.stack
