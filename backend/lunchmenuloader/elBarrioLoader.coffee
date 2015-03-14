@@ -6,7 +6,7 @@ class ElBarrioLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'El Barrio de Ángel'
         @homepage = 'http://www.elbarrio.cz/'
-        @downloadUrl = 'http://www.elbarrio.cz/cs/menu'
+        @downloadUrl = 'http://www.elbarrio.cz/cs/restaurant/menu/poledni-menu'
         @phoneNumber = '+420 725 535 555'
         @address =
             street: 'Lidická 284/42'
@@ -17,14 +17,13 @@ class ElBarrioLoader extends LunchmenuLoader
                 lng: 14.404519
 
     parse: (restaurant, $) ->
-        $('.speisekarte tr').each (i, elem) ->
+        $('.menu-kategorie tr').each (i, elem) ->
             row = $(this).text().trim()
             if not row
                 return
-            quantity = $(this).find('td.volume').text().trim()
-            name = $(this).find('td.name').text().trim()
-            price = $(this).find('td.price').text().trim()
-            restaurant.addMeal quantity + ' ' + name, price
+            name = $(this).find('td').eq(1).text().trim()
+            price = $(this).find('td').eq(3).text().trim()
+            restaurant.addMeal name, price
 
 
 module.exports = ElBarrioLoader
