@@ -23,7 +23,6 @@ module.exports = () ->
         (new (require './pizzerieMediteraneLoader')).loadData()
         (new (require './pravekLoader')).loadData()
         (new (require './smichovskyRadnicniSklipekLoader')).loadData()
-        (new (require './sodexoLoader')).loadData()
         (new (require './tgiLoader')).loadData()
         (new (require './tradiceLoader')).loadData()
         (new (require './uBilehoLvaLoader')).loadData()
