@@ -6,16 +6,15 @@ class FormankaLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'Smíchovská Formanka'
         @homepage = 'http://www.smichovskaformanka.cz/'
-        @downloadUrl = 'http://www.smichovskaformanka.cz/poledni_menu.htm'
+        @downloadUrl = 'http://www.smichovskaformanka.cz/1-denni-menu'
         @phoneNumber = '+420 251 560 099'
         @address =
             street: 'Ostrovského 411/24'
             city: 'Praha 5'
             zip: 15000
             map:
-                lat: 50.068787
-                lng: 14.400989
-        @charset = 'CP1250'
+                lat: 50.068636
+                lng: 14.400936
 
     parse: (restaurant, $) ->
         $('table tr').each (i, elem) ->
