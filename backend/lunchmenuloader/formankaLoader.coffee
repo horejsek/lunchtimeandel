@@ -17,9 +17,11 @@ class FormankaLoader extends LunchmenuLoader
                 lng: 14.400936
 
     parse: (restaurant, $) ->
-        $('table tr').each (i, elem) ->
+        $('#content table tr').each (i, elem) ->
             row = $(this).text().trim()
             if not row or $(this).find('td').length < 2
+                if row.search('dnes') == -1
+                    return false
                 return
             name = $(this).find('td').eq(0).text().trim()
             if $(this).find('td').length == 3

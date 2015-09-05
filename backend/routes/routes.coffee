@@ -16,7 +16,7 @@ module.exports = (app) ->
     # /reloaddata is working only in dev.
     app.get '/reloaddata', (req, res) ->
         host = req.header 'host'
-        if host.match /^(127\..*|dev)/i
+        if host.match /^(127\..*|192\..*|dev)/i
             res.send 'Reloading...'
             require('../lunchmenuloader')()
         else
