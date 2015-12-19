@@ -9,7 +9,7 @@ class ProstorLoader extends LunchmenuLoader
         @name = 'Prostor'
         @homepage = 'http://www.prostor.je'
         @downloadUrl = 'http://www.prostor.je'
-        @phoneNumber = '420 257 219 938'
+        @phoneNumber = '+420 257 219 938'
         @address =
             street: 'Lidická 25'
             city: 'Praha 5'
@@ -20,7 +20,7 @@ class ProstorLoader extends LunchmenuLoader
 
     parse: (restaurant, $) ->
         $('#daily-menu li').each (i, elem) ->
-            row = $(this).text().trim().match /^(.*?)(\d+)/
+            row = $(this).text().trim().match /^(.+?)(\d+)/
             if row and row.length == 3
                 restaurant.addMeal row[1], row[2]
 

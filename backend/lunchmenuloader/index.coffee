@@ -29,3 +29,4 @@ module.exports = () ->
         (new (require './uBilehoLvaLoader')).loadData()
         (new (require './uZiznivehoJelenaLoader')).loadData()
         (new (require './zlatyKlasLoader')).loadData()
+        (new (require './ztracenkaLoader')).loadData()
