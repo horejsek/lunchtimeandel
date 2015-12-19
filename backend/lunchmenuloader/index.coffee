@@ -22,6 +22,7 @@ module.exports = () ->
         (new (require './plachtaLoader')).loadData()
         (new (require './pizzerieMediteraneLoader')).loadData()
         (new (require './pravekLoader')).loadData()
+        (new (require './prostorLoader')).loadData()
         (new (require './smichovskyRadnicniSklipekLoader')).loadData()
         (new (require './tgiLoader')).loadData()
         (new (require './tradiceLoader')).loadData()
