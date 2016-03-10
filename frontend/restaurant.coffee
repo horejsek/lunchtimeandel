@@ -272,6 +272,8 @@ class lta.Restaurant
     @private
     ###
     setMapMarkColor: () ->
+        return if not @mapMarker
+
         if @marked
             @mapMarker.setIcon @getMarkerIconUrl 'blue'
         else
