@@ -12,6 +12,7 @@ module.exports = () ->
         (new (require './elBarrioLoader')).loadData()
         (new (require './formankaLoader')).loadData()
         (new (require './hlubinaLoader')).loadData()
+        (new (require './homeOfficeLoader')).loadData()
         (new (require './husaAndelLoader')).loadData()
         (new (require './husaNaVerandachLoader')).loadData()
         (new (require './ilNostroLoader')).loadData()
