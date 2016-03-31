@@ -17,27 +17,27 @@ class HomeOfficeLoader extends LunchmenuLoader
                 lng: 14.4011792
 
     parse: (restaurant, $) ->
-        days = ['Ponděl�', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle']
-        d = new Date()
-        n = days[(d.getDay() - 1)] + ' ' + d.getDate() + '/' + (d.getMonth() + 1)
-        l = 'Smíchov'
-        l_end = 'Karlín'
-        current = false
-        location = false
-        $('div.wpb_text_column.wpb_content_element div table tr').each (i, elem) ->
+        days = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle']
+        date = new Date()
+        day_string = days[(date.getDay() - 1)] + ' ' + date.getDate() + '/' + (date.getMonth() + 1)
+        location = 'Smíchov'
+        location_after = 'Karlín'
+        current_day = false
+        location_found = false
+        $('table tr').each (i, elem) ->
             name = $(this).find('td').text().trim()
 
-            if name is n
-               current = true
+            if name is day_string
+               current_day = true
 
-            if name is l && current == true 
-                location = true
+            if name is location && current_day == true
+                location_found = true
 
-            if name is l_end
-                current = false
-                location = false
+            if name is location_after
+                current_day = false
+                location_found = false
 
-            if current == true && location == true && name != l
+            if current_day == true && location_found == true && name != location
       	        restaurant.addMeal name, '-'
 
 
