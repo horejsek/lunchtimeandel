@@ -21,6 +21,7 @@ i18n.setLocale 'cs'
 
 moment.locale 'cs',
     months: ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince']
+    weekdays: ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota']
 
 mongoose.connect 'mongodb://localhost/lunchtimeandeldb'
 

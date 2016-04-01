@@ -1,4 +1,6 @@
 
+moment = require 'moment'
+
 LunchmenuLoader = require './lunchmenuLoader'
 
 
@@ -17,27 +19,25 @@ class HomeOfficeLoader extends LunchmenuLoader
                 lng: 14.4011792
 
     parse: (restaurant, $) ->
-        days = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle']
-        date = new Date()
-        day_string = days[(date.getDay() - 1)] + ' ' + date.getDate() + '/' + (date.getMonth() + 1)
+        today = moment().format('dddd D/M')
         location = 'Smíchov'
-        location_after = 'Karlín'
-        current_day = false
-        location_found = false
+        locationAfter = 'Karlín'
+        dayFound = false
+        locationFound = false
         $('table tr').each (i, elem) ->
             name = $(this).find('td').text().trim()
 
-            if name is day_string
-               current_day = true
+            if name.toLowerCase() is today
+               dayFound = true
 
-            if name is location && current_day == true
-                location_found = true
+            if name is location && dayFound == true
+                locationFound = true
 
-            if name is location_after
-                current_day = false
-                location_found = false
+            if name is locationAfter
+                dayFound = false
+                locationFound = false
 
-            if current_day == true && location_found == true && name != location
+            if dayFound == true && locationFound == true && name != location
       	        restaurant.addMeal name, '-'
 
 
