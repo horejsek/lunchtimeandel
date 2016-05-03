@@ -20,8 +20,8 @@ class HomeOfficeLoader extends LunchmenuLoader
 
     parse: (restaurant, $) ->
         today = moment().format('dddd D/M')
-        location = 'Smíchov'
-        locationAfter = 'Karlín'
+        location = 'Radlická'
+        locationAfter = ''
         dayFound = false
         locationFound = false
         $('table tr').each (i, elem) ->
@@ -38,7 +38,7 @@ class HomeOfficeLoader extends LunchmenuLoader
                 locationFound = false
 
             if dayFound == true && locationFound == true && name != location
-      	        restaurant.addMeal name, '-'
+                restaurant.addMeal name, '-'
 
 
 module.exports = HomeOfficeLoader
