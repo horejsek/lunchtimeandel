@@ -294,4 +294,4 @@ class lta.Restaurant
     @private
     ###
     getMarkerIconUrl: (color) ->
-        'https://labs.google.com/ridefinder/images/mm_20_' + color + '.png'
+        'https://www.lunchtimeandel.cz/images/gmap/mm_20_' + color + '.png'
