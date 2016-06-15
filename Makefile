@@ -14,7 +14,7 @@ all:
 	@echo "make test"
 	@echo "make compile"
 	@echo "make watch"
-	@echo "make localdev"
+	@echo "make install-dependencies"
 
 run: compile-coffeescript
 	# Make sure that nothing is running on port $(PORT).
