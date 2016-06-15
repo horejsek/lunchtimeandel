@@ -10,7 +10,7 @@ Just create new issue at GitHub or send me e-mail to horejsekmichal [at] gmail.c
 
 Firstly you have to install some dependencies. Just run:
 
-    make localdev
+    make install-dependencies
 
 Then you can already start node.js server with this command:
 
