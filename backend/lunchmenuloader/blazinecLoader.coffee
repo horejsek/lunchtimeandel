@@ -6,7 +6,7 @@ class BlazinecLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'Blázinec'
         @homepage = 'http://www.blazinecandel.cz/'
-        @downloadUrl = 'http://www.blazinecandel.cz/denni-menu/'
+        @downloadUrl = 'https://www.zomato.com/cs/widgets/daily_menu?entity_id=16506661'
         @phoneNumber = '+420 257 316 655'
         @address =
             street: 'Nádražní 59/112'
@@ -17,10 +17,7 @@ class BlazinecLoader extends LunchmenuLoader
                 lng: 14.405109
 
     parse: (restaurant, $) ->
-        $('.text').find('table').first().find('tr').each (i, elm) ->
-            name = $(this).find('td').first().text().trim()
-            price = $(this).find('td').last().text().trim()
-            restaurant.addMeal name, price
+        @lunchmenuParse_ restaurant, $
 
 
 module.exports =  BlazinecLoader

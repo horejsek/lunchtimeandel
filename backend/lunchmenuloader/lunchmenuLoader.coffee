@@ -26,10 +26,15 @@ class LunchmenuLoader
 
     loadData_: () ->
         that = @
-        foo =
+        options =
             uri: @downloadUrl
             encoding: 'binary'
-        request foo, (err, response, body) ->
+            # make the request look like it's from common user agent
+            headers:
+                'User-Agent': '  Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)'
+                'Accept-Language': 'cs,en;q=0.8,en-US;q=0.6,sk;q=0.4'
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        request options, (err, response, body) ->
             try
                 body = that.convertToUtf8 body
                 $ = cheerio.load body
@@ -59,14 +64,14 @@ class LunchmenuLoader
         
     lunchmenuParse_: (restaurant, $) ->
         today = moment().format(', DD ')
-        $('.tmi-groups .tmi-group').each (i, elem) ->
+        $('.date').each (i, elem) ->
             if $(this).text().search(today) == -1
                 return
 
-            $(this).find('.tmi-daily').each (i, elem) ->
-                name = $(this).find('.tmi-name').text().trim()
-                desc = $(this).find('.tmi-desc').text().trim()
-                price = $(this).find('.tmi-price').text().trim()
+            $(this).nextUntil('.date, .divider', '.item').each (i, elem) ->
+                name = $(this).find('.item-name').text().trim()
+                desc = $(this).find('.item-description').text().trim()
+                price = $(this).find('.item-price').text().trim()
                 if name and price
                     restaurant.addMeal name + ': ' + desc, price
             return false

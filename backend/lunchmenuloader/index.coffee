@@ -16,7 +16,6 @@ module.exports = () ->
         (new (require './husaAndelLoader')).loadData()
         (new (require './husaNaVerandachLoader')).loadData()
         (new (require './ilNostroLoader')).loadData()
-        (new (require './jetSetLoader')).loadData()
         (new (require './kristianLoader')).loadData()
         (new (require './lokalblokLoader')).loadData()
         (new (require './peronLoader')).loadData()

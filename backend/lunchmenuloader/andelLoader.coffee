@@ -6,7 +6,7 @@ class AndelLoader extends LunchmenuLoader
     constructor: () ->
         @name = 'Anděl'
         @homepage = 'http://www.restauraceandel.cz'
-        @downloadUrl = 'http://www.restauraceandel.cz/cz/jidelni-listek/dnesni-nabidka/'
+        @downloadUrl = 'https://www.zomato.com/cs/widgets/daily_menu?entity_id=16507310'
         @phoneNumber = '+420 257 323 234'
         @address =
             street: 'Nádražní 114'
@@ -17,11 +17,7 @@ class AndelLoader extends LunchmenuLoader
                 lng: 14.404854
 
     parse: (restaurant, $) ->
-        $('table.Foodmenu').first().find('tr').each (i, elem) ->
-            name = $(this).find('.cAmount').text().trim() + ' ' + $(this).find('.cFood').text().trim()
-            price = $(this).find('.cPrice').text().trim()
-            if name and price
-                restaurant.addMeal name, price
+        @lunchmenuParse_ restaurant, $
 
 
 module.exports = AndelLoader
